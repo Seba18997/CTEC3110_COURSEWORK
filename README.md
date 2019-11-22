@@ -1,2 +1,0 @@
-# CTEC3110_COURSEWORK
-M2M Connect; SMS => PHP Processing
