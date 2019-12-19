@@ -1,0 +1,12 @@
+{% extends 'layout.html.twig' %}
+{% block title %}{{ page_title }}{% endblock %}
+{% block banner %}
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4">{{ page_heading_1 }}</h1>
+            <p class="lead">Page last updated on <script type="text/javascript">document.write(document.lastModified)</script>
+                <br />
+                Maintained by <a href="mailto:X">email@email.com</a></p>
+        </div>
+    </div>
+{% endblock %}

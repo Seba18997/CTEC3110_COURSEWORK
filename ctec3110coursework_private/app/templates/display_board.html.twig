@@ -1,0 +1,31 @@
+{% extends 'banner.html.twig' %}
+{% block content %}
+  <h2>{{ page_heading_2 }}</h2>
+
+  <p>{{ page_text }}</p>
+  <p>State of X: <b>1 / 2</b></p>
+  <p>State of Y: <b>3 / 4</b></p>
+
+  <ul class="list-group list-group-horizontal-lg">
+    <li class="list-group-item">State of X: </li>
+    <li class="list-group-item">Not defined</li>
+  </ul>
+
+  <ul class="list-group list-group-horizontal-lg">
+    <li class="list-group-item">State of Y: </li>
+    <li class="list-group-item">Not defined</li>
+  </ul>
+
+  <ul class="list-group list-group-horizontal-lg">
+    <li class="list-group-item">State of A: </li>
+   <li class="list-group-item">Not defined</li>
+  </ul>
+
+  <ul class="list-group list-group-horizontal-lg">
+    <li class="list-group-item">State of B: </li>
+    <li class="list-group-item">Not defined</li>
+  </ul>
+
+  <p class="curr_page"><a href="{{ landing_page }}">Homepage</a></p>
+
+{% endblock %}
