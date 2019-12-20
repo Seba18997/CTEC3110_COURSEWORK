@@ -4,6 +4,8 @@ use M2MAPP\MessagesModel;
 use M2MAPP\SoapWrapper;
 use M2MAPP\Validator;
 
+include( '/p3t/phpappfolder/includes/ctec3110coursework_private/app/src/SoapWrapper.php' );
+
 $container['view'] = function ($container) {
   $view = new \Slim\Views\Twig(
     $container['settings']['view']['template_path'],

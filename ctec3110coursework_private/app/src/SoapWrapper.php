@@ -45,8 +45,15 @@ class SoapWrapper
         {
             try
             {
-                $soap_call_result = $soap_client->peekMessages($username, $password, 10, "");
+                $soap_call_result = $soap_client->peekMessages($username, $password, 1, "");
                 //var_dump($soap_call_result);
+
+                $filteredArray = (array_filter($soap_call_result, function($k) {
+                    return $k == 13;
+                }, ARRAY_FILTER_USE_KEY));
+
+                echo json_encode($filteredArray);
+
             }
             catch (\SoapFault $exception)
             {
