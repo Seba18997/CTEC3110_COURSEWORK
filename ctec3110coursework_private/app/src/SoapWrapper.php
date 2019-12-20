@@ -57,7 +57,7 @@ class SoapWrapper
                 {
                     $soap_call_result = $soap_client->peekMessages($username, $password, 100, "");
                     $filteredArray = (array_filter($soap_call_result, function($k) {
-                        return $k == 13;
+                        return $k == 0;
                     }, ARRAY_FILTER_USE_KEY));
                     //echo json_encode($filteredArray);
                     $str = json_encode($filteredArray);
