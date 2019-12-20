@@ -41,28 +41,39 @@ class SoapWrapper
         $username = USERNAME;
         $password = PASSWORD;
 
-        if ($soap_client)
-        {
-            try
+            function get_string_between($string, $start, $end)
             {
-                $soap_call_result = $soap_client->peekMessages($username, $password, 1, "");
-                //var_dump($soap_call_result);
-
-                $filteredArray = (array_filter($soap_call_result, function($k) {
-                    return $k == 13;
-                }, ARRAY_FILTER_USE_KEY));
-
-                echo json_encode($filteredArray);
-
+                $string = ' ' . $string;
+                $ini = strpos($string, $start);
+                if ($ini == 0) return '';
+                $ini += strlen($start);
+                $len = strpos($string, $end, $ini) - $ini;
+                return substr($string, $ini, $len);
             }
-            catch (\SoapFault $exception)
-            {
-                echo 'Oops - something went wrong connecting to the data supplier.  Please try again later';
-            }
-         }
 
-        return $soap_call_result;
-    }
+             if ($soap_client)
+             {
+                try
+                {
+                    $soap_call_result = $soap_client->peekMessages($username, $password, 100, "");
+                    $filteredArray = (array_filter($soap_call_result, function($k) {
+                        return $k == 13;
+                    }, ARRAY_FILTER_USE_KEY));
+                    echo json_encode($filteredArray);
+                    $str = json_encode($filteredArray);
+
+                    $parsed = get_string_between($str, '<\/messageref>', '<\/message>');
+                    echo $parsed;
+
+                }
+                catch (\SoapFault $exception)
+                {
+                    echo 'Oops - something went wrong connecting to the data supplier.  Please try again later';
+                }
+             }
+
+            return $soap_call_result;
+        }
 
 
 }
