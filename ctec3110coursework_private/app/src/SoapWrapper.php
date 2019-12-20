@@ -57,13 +57,25 @@ class SoapWrapper
                 {
                     $soap_call_result = $soap_client->peekMessages($username, $password, 100, "");
                     $filteredArray = (array_filter($soap_call_result, function($k) {
-                        return $k == 0;
+                        return $k == 37;
                     }, ARRAY_FILTER_USE_KEY));
                     //echo json_encode($filteredArray);
                     $str = json_encode($filteredArray);
 
-                    $parsed = get_string_between($str, '<\/messageref>', '<\/message>');
-                    echo $parsed;
+                    //SMS message format: switch1:onswitch2:onswitch3:offswitch4:onfan:forward
+                    // heater:3keypad:4id:19-3110-AZ
+                    //
+                    $parsed = get_string_between($str, 'switch1:', 'switch2');
+                    $parsed1 = get_string_between($str, 'switch2:', 'switch3');
+                    $parsed2 = get_string_between($str, 'switch3:', 'switch4');
+                    $parsed3 = get_string_between($str, 'switch4:', 'fan');
+                    $parsed4 = get_string_between($str, 'fan:', 'heater');
+                    $parsed5 = get_string_between($str, 'heater:', 'keypad');
+                    $parsed6 = get_string_between($str, 'keypad:', 'id');
+                    $parsed7 = get_string_between($str, 'id:', 'Z');
+                    echo "Switch1: $parsed Switch2: $parsed1 Switch3: $parsed2
+                    Switch4: $parsed3 Fan: $parsed4 Heater: $parsed5 Keypad: $parsed6
+                    ID: $parsed7";
 
                 }
                 catch (\SoapFault $exception)
