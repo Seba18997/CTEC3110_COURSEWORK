@@ -59,7 +59,7 @@ class SoapWrapper
                     $filteredArray = (array_filter($soap_call_result, function($k) {
                         return $k == 13;
                     }, ARRAY_FILTER_USE_KEY));
-                    echo json_encode($filteredArray);
+                    //echo json_encode($filteredArray);
                     $str = json_encode($filteredArray);
 
                     $parsed = get_string_between($str, '<\/messageref>', '<\/message>');
