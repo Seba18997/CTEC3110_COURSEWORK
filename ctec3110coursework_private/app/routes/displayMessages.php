@@ -32,18 +32,21 @@ function getMessages($app)
 
     $message_connect = $messages_model->createSoapClient();
 
-    $messages_result = $messages_model->getSoapData($message_connect);
+    $messages_result = $messages_model->getMessagesFromSoap($message_connect, 1);
 
-    if ($messages_result === false)
-    {
-        echo 'not available';
-
-    } else {
-
-        var_dump($messages_result);
-
-    }
+    var_dump($messages_result);
 
     return $messages_result;
 
+}
+
+function showMessages($app) {
+
+    $messages_model_class = $app->getContainer()->get('DisplayMessages');
+
+    $message_data = $messages_model_class->getMessageData(getMessages($app));
+
+    var_dump($message_data);
+
+    
 }
