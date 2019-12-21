@@ -32,7 +32,7 @@ function getMessages($app)
 
     $message_connect = $messages_model->createSoapClient();
 
-    $messages_result = $messages_model->getMessagesFromSoap($message_connect, 1);
+    $messages_result = $messages_model->getMessagesFromSoap($message_connect, 100);
 
     var_dump($messages_result);
 
