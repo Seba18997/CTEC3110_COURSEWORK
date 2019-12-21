@@ -10,12 +10,12 @@ try
 {
 	$soap_client_handle = new SoapClient($wsdl);
 	$soap_call_result = $soap_client_handle->peekMessages($username, $password, 1, "");
-	var_dump($soap_call_result[0]);
-	$debugx = var_export($soap_call_result, true);
-	//$messages = new SimpleXMLElement($debugx);
-	echo substr(htmlspecialchars($debugx), 19, -4);
+	$xml = htmlspecialchars(reset($soap_call_result), ENT_NOQUOTES);
+	echo $xml;
+	$final = simplexml_load_string($xml);
+	echo $final[0]->sourcemsisdn; 
 
-	   
+	
 
 }
 catch (SoapFault $exception)
