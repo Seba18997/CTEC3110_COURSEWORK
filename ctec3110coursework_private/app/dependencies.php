@@ -2,7 +2,7 @@
 
 use M2MAPP\MessagesModel;
 use M2MAPP\SoapWrapper;
-use M2MAPP\Validator;
+use M2MAPP\Helper;
 
 $container['view'] = function ($container) {
   $view = new \Slim\Views\Twig(
@@ -20,9 +20,9 @@ $container['view'] = function ($container) {
   return $view;
 };
 
-$container['Validator'] = function ($container) {
-  $validator = new Validator();
-  return $validator;
+$container['Helper'] = function ($container) {
+  $helper = new Helper();
+  return $helper;
 };
 
 $container['DisplayMessages'] = function ($container) {

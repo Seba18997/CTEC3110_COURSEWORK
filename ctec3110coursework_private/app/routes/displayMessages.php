@@ -22,7 +22,7 @@ $app->post(
                 'result' => $m_result,
 
             ]);
-    });
+    })->setName('homepage');
 
 
 function getMessages($app)
@@ -32,21 +32,19 @@ function getMessages($app)
 
     $message_connect = $messages_model->createSoapClient();
 
-    $messages_result = $messages_model->getMessagesFromSoap($message_connect, 100);
-
-    var_dump($messages_result);
+    $messages_result = $messages_model->getMessagesFromSoap($message_connect, 25);
 
     return $messages_result;
 
 }
 
-function showMessages($app) {
+function showMessage($app) {
 
-    $messages_model_class = $app->getContainer()->get('DisplayMessages');
+    $message_data_handle= $app->getContainer()->get('Helper');
 
-    $message_data = $messages_model_class->getMessageData(getMessages($app));
+    $the_message = $message_data_handle->mapDataFromString(getMessages($app)[0], 'message');
 
-    var_dump($message_data);
-
-    
+    return $the_message;
 }
+
+echo showMessage($app);
