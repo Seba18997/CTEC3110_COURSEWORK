@@ -1,6 +1,6 @@
 <?php
 
-namespace M2MAPP;
+namespace M2MAPP {
 
 class Helper
 {
@@ -25,4 +25,4 @@ class Helper
 
     }
 
-}
+}}

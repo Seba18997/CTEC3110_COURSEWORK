@@ -8,7 +8,9 @@ $app->post(
     function(Request $request, Response $response) use ($app)
     {
 
-        $m_result = getMessages($app);
+            $messages_data = getMessages($app,1);
+
+        $random_token = generateToken($app, 8);
 
         return $this->view->render($response,
             'display_messages.html.twig',
@@ -19,32 +21,59 @@ $app->post(
                 'page_title' => APP_NAME,
                 'page_heading_1' => APP_NAME,
                 'page_heading_2' => 'Messages',
-                'result' => $m_result,
+                'messages_data' => $messages_data,
+                'token' => $random_token,
 
             ]);
-    })->setName('homepage');
+    })->setName('displaymessages');
 
 
-function getMessages($app)
+function getMessages($app, $counter)
 {
+
+    $messages_final_result = [];
 
     $messages_model = $app->getContainer()->get('SoapWrapper');
 
     $message_connect = $messages_model->createSoapClient();
 
-    $messages_result = $messages_model->getMessagesFromSoap($message_connect, 25);
+    $messages_result = $messages_model->getMessagesFromSoap($message_connect, $counter);
 
-    return $messages_result;
+    $message_data_handle = $app->getContainer()->get('Helper');
+
+    for ($i=0;$i<$counter;$i++){
+
+        $messages_final_result['source'] = $message_data_handle->mapDataFromString($messages_result[$i], 'sourcemsisdn');
+        $messages_final_result['dest'] = $message_data_handle->mapDataFromString($messages_result[$i], 'destinationmsisdn');
+        $messages_final_result['date'] = $message_data_handle->mapDataFromString($messages_result[$i], 'receivedtime');
+        $messages_final_result['type'] = $message_data_handle->mapDataFromString($messages_result[$i], 'bearer');
+        $messages_final_result['message'] = $message_data_handle->mapDataFromString($messages_result[$i], 'message');
+
+       // todo: message content detection
+       // $messages_final_result['message'] = decodeTheMessage($app, $messages_final_result['message']);
+    }
+
+    return $messages_final_result;
 
 }
 
-function showMessage($app) {
+function generateToken($app, $length){
 
-    $message_data_handle= $app->getContainer()->get('Helper');
+    $token_handle = $app->getContainer()->get('DisplayMessages');
 
-    $the_message = $message_data_handle->mapDataFromString(getMessages($app)[0], 'message');
+    $final_token = $token_handle->generateToken($length);
 
-    return $the_message;
+    return $final_token;
+
 }
 
-echo showMessage($app);
+function decodeTheMessage($app, $message){
+
+    $decode_handle = $app->getContainer()->get('DisplayMessages');
+
+    $decoded_message = $decode_handle->decodeMessage($message);
+
+    return $decoded_message;
+
+}
+var_dump(getMessages($app, 1));
