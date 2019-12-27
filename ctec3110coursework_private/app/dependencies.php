@@ -33,14 +33,16 @@ $container['DisplayMessages'] = function ($container) {
 };
 
 $container['SoapWrapper'] = function ($container) {
-    $wrapper = new SoapWrapper();
-    return $wrapper;
+    $swrapper = new SoapWrapper();
+    return $swrapper;
 };
+
 $container['DatabaseWrapper'] = function ($container) {
-    $wrapper = new DatabaseWrapper();
-    return $wrapper;
+    $dwrapper = new DatabaseWrapper();
+    return $dwrapper;
 };
+
 $container['SQLQueries'] = function ($container) {
-    $wrapper = new SQLQueries();
-    return $wrapper;
+    $queries = new SQLQueries();
+    return $queries;
 };
