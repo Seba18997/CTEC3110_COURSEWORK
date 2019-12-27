@@ -1,6 +1,6 @@
 <?php
 
-namespace M2MAPP{
+namespace M2MAPP;
 
     class MessagesModel
     {
@@ -53,4 +53,4 @@ namespace M2MAPP{
         }
 
 
-}}
+}

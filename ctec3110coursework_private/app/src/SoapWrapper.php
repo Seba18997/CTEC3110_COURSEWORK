@@ -1,7 +1,6 @@
 <?php
 
-
-namespace M2MAPP {
+namespace M2MAPP;
 
     class SoapWrapper
     {
@@ -62,4 +61,3 @@ namespace M2MAPP {
 
 
     }
-}

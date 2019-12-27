@@ -1,6 +1,8 @@
 <?php
 
 use M2MAPP\MessagesModel;
+use M2MAPP\DatabaseWrapper;
+use M2MAPP\SQLQueries;
 use M2MAPP\SoapWrapper;
 use M2MAPP\Helper;
 
@@ -32,5 +34,13 @@ $container['DisplayMessages'] = function ($container) {
 
 $container['SoapWrapper'] = function ($container) {
     $wrapper = new SoapWrapper();
+    return $wrapper;
+};
+$container['DatabaseWrapper'] = function ($container) {
+    $wrapper = new DatabaseWrapper();
+    return $wrapper;
+};
+$container['SQLQueries'] = function ($container) {
+    $wrapper = new SQLQueries();
     return $wrapper;
 };
