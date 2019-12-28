@@ -1,10 +1,10 @@
-# CTEC3110_COURSEWORK
+# CTEC3110_COURSEWORK 
 M2M Connect; SMS => PHP Processing
 
 The application must, as a minimum:
 - Use a PHP SOAP client to download SMS messages from the M2M Connect server. **(done)**
 - Parse all downloaded messages. **(partially done)**
-- Validate all content.
+- Validate all content. **(partially done)**
 - Store the downloaded message (content and metadata) in the database.
 - Display the message content and metadata on the web-browser **(partially done)**
 - Message metadata:
