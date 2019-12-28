@@ -25,8 +25,6 @@ class Helper
 
     }
 
-<<<<<<< Updated upstream
-=======
     public function generateToken($length) {
 
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -42,5 +40,4 @@ class Helper
         return $randomToken;
     }
 
->>>>>>> Stashed changes
 }

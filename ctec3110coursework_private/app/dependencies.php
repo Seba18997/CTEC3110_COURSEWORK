@@ -1,6 +1,8 @@
 <?php
 
 use M2MAPP\MessagesModel;
+use M2MAPP\DatabaseWrapper;
+use M2MAPP\SQLQueries;
 use M2MAPP\SoapWrapper;
 use M2MAPP\Helper;
 use M2MAPP\Validator;
@@ -33,10 +35,6 @@ $container['DisplayMessages'] = function ($container) {
 };
 
 $container['SoapWrapper'] = function ($container) {
-<<<<<<< Updated upstream
-    $wrapper = new SoapWrapper();
-    return $wrapper;
-=======
     $swrapper = new SoapWrapper();
     return $swrapper;
 };
@@ -59,5 +57,4 @@ $container['Validator'] = function ($container) {
 $container['DownloadMessagesToDatabase'] = function ($container) {
     $downloader = new DownloadMessagesToDatabase();
     return $downloader;
->>>>>>> Stashed changes
 };

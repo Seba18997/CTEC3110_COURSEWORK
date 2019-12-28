@@ -8,15 +8,11 @@ $app->post(
     function(Request $request, Response $response) use ($app)
     {
 
-<<<<<<< Updated upstream
-        $m_result = getMessages($app);
-=======
         $counter = MESSAGE_COUNTER;
 
         $messages_data = retrieveMessages($app);
 
         $random_token = generateToken($app, 8);
->>>>>>> Stashed changes
 
         return $this->view->render($response,
             'display_messages.html.twig',
@@ -27,24 +23,13 @@ $app->post(
                 'page_title' => APP_NAME,
                 'page_heading_1' => APP_NAME,
                 'page_heading_2' => 'Messages',
-                'result' => $m_result,
+                'messages_data' => $messages_data,
+                'token' => $random_token,
 
             ]);
-    })->setName('homepage');
+    })->setName('displaymessages');
 
 
-<<<<<<< Updated upstream
-function getMessages($app)
-{
-
-    $messages_model = $app->getContainer()->get('SoapWrapper');
-
-    $message_connect = $messages_model->createSoapClient();
-
-    $messages_result = $messages_model->getMessagesFromSoap($message_connect, 25);
-
-    return $messages_result;
-=======
 function retrieveMessages($app)
 {
 
@@ -61,27 +46,19 @@ function retrieveMessages($app)
     $messages_model->setDatabaseWrapper($database_wrapper);
 
     $final_messages = $messages_model->getMessages();
->>>>>>> Stashed changes
 
     return $final_messages;
 }
 
-function showMessage($app) {
+function generateToken($app, $length){
 
-<<<<<<< Updated upstream
-    $message_data_handle= $app->getContainer()->get('Helper');
-=======
     $token_handle = $app->getContainer()->get('Helper');
->>>>>>> Stashed changes
 
-    $the_message = $message_data_handle->mapDataFromString(getMessages($app)[0], 'message');
+    $final_token = $token_handle->generateToken($length);
 
-    return $the_message;
+    return $final_token;
+
 }
-<<<<<<< Updated upstream
-
-echo showMessage($app);
-=======
 /*
 function decodeTheMessage($app, $message){
 
@@ -93,4 +70,3 @@ function decodeTheMessage($app, $message){
 
 }
 */
->>>>>>> Stashed changes

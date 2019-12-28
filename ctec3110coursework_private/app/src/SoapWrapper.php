@@ -1,7 +1,6 @@
 <?php
 
-
-namespace M2MAPP {
+namespace M2MAPP;
 
 class SoapWrapper
 {
@@ -61,9 +60,4 @@ class SoapWrapper
     }
 
 
-<<<<<<< Updated upstream
-    }
 }
-=======
-}
->>>>>>> Stashed changes
