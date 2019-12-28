@@ -3,6 +3,8 @@
 use M2MAPP\MessagesModel;
 use M2MAPP\SoapWrapper;
 use M2MAPP\Helper;
+use M2MAPP\Validator;
+use M2MAPP\DownloadMessagesToDatabase;
 
 $container['view'] = function ($container) {
   $view = new \Slim\Views\Twig(
@@ -31,6 +33,31 @@ $container['DisplayMessages'] = function ($container) {
 };
 
 $container['SoapWrapper'] = function ($container) {
+<<<<<<< Updated upstream
     $wrapper = new SoapWrapper();
     return $wrapper;
+=======
+    $swrapper = new SoapWrapper();
+    return $swrapper;
+};
+
+$container['DatabaseWrapper'] = function ($container) {
+    $dwrapper = new DatabaseWrapper();
+    return $dwrapper;
+};
+
+$container['SQLQueries'] = function ($container) {
+    $queries = new SQLQueries();
+    return $queries;
+};
+
+$container['Validator'] = function ($container) {
+    $validator = new Validator();
+    return $validator;
+};
+
+$container['DownloadMessagesToDatabase'] = function ($container) {
+    $downloader = new DownloadMessagesToDatabase();
+    return $downloader;
+>>>>>>> Stashed changes
 };

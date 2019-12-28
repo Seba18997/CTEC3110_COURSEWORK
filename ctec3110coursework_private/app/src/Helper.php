@@ -25,4 +25,22 @@ class Helper
 
     }
 
+<<<<<<< Updated upstream
+=======
+    public function generateToken($length) {
+
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+        $charactersLength = strlen($characters);
+
+        $randomToken = '';
+
+        for ($i = 0; $i < $length; $i++) {
+            $randomToken .= $characters[rand(0, $charactersLength - 1)];
+        }
+
+        return $randomToken;
+    }
+
+>>>>>>> Stashed changes
 }

@@ -28,6 +28,12 @@
           <td>SMS</td>
           <td>"switch":{"1":true,"2":false,"3":true,"4":false},"fan":true,"heater":33,"keypad":3,"id":"18-3110-AS"</td>
         </tr>
+<<<<<<< Updated upstream
+=======
+        {% for message_data in messages_data %}
+            <tr><th scope="row">2</th><td>{{ message_data.source }}</td><td>{{ message_data.destination }}</td><td>{{ message_data.date }}</td><td>{{ message_data.type }}</td><td>{{ message_data.message }}</td></tr>
+        {% endfor %}
+>>>>>>> Stashed changes
         </tbody>
       </table>
   </div>
