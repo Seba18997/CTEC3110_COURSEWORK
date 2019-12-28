@@ -2,13 +2,13 @@
 M2M Connect; SMS => PHP Processing
 
 The application must, as a minimum:
-- Use a PHP SOAP client to download SMS messages from the M2M Connect server.
-- Parse all downloaded messages.
+- Use a PHP SOAP client to download SMS messages from the M2M Connect server. **(done)**
+- Parse all downloaded messages. **(partially done)**
 - Validate all content.
 - Store the downloaded message (content and metadata) in the database.
-- Display the message content and metadata on the web-browser
+- Display the message content and metadata on the web-browser **(partially done)**
 - Message metadata:
-- - eg source SIM number, name, email address
+- - eg source SIM number, name, email address 
 - Message content:
 - - ie state of switches on the board, temperature, key-pad value, etc
 
