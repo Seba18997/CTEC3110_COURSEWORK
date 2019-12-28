@@ -1,5 +1,3 @@
-
-```sql
 CREATE DATABASE `coursework`;
 
 CREATE USER 'p3tuser' IDENTIFIED BY 'password';
@@ -42,5 +40,5 @@ CREATE TABLE `users` (
   `password` varchar(256) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-```
+
 
