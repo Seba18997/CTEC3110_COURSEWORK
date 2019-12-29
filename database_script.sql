@@ -16,9 +16,9 @@ SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 DROP TABLE IF EXISTS `messages`;
 CREATE TABLE `messages` (
   `id` int(4) NOT NULL AUTO_INCREMENT,
-  `source` int(16) NOT NULL,
-  `destination` int(16) NOT NULL,
-  `date` varchar(16) NOT NULL,
+  `source` bigint(16) NOT NULL,
+  `destination` bigint(16) NOT NULL,
+  `date` varchar(32) NOT NULL,
   `type` varchar(8) NOT NULL,
   `message` varchar(256) NOT NULL,
   PRIMARY KEY (`id`)
@@ -41,4 +41,7 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+/* test value: */
+
+INSERT INTO `messages` (`id`, `source`, `destination`, `date`, `type`, `message`) VALUES (1, 447817814149, 447817814149, '17/12/2019 11:18:10', 'SMS', 'test_message');
 

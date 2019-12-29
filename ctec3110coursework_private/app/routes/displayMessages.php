@@ -8,9 +8,7 @@ $app->post(
     function(Request $request, Response $response) use ($app)
     {
 
-        $counter = MESSAGE_COUNTER;
-
-        $messages_data = retrieveMessages($app);
+        $messages_data = retrieveMessages($app)['retrieved_messages'];
 
         $random_token = generateToken($app, 8);
 

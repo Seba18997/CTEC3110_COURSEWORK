@@ -19,7 +19,7 @@
           <th scope="row">1</th><td>447817814149</td><td>447817814149</td><td>17/12/2019 11:18:10</td><td>SMS</td><td>"switch":{"1":true,"2":false,"3":true,"4":false},"fan":true,"heater":33,"keypad":3,"id":"18-3110-AS"</td>
         </tr>
         {% for message_data in messages_data %}
-            <tr><th scope="row">2</th><td>{{ message_data.source }}</td><td>{{ message_data.destination }}</td><td>{{ message_data.date }}</td><td>{{ message_data.type }}</td><td>{{ message_data.message }}</td></tr>
+            <tr><th scope="row">{{ message_data.id }}</th><td>{{ message_data.source }}</td><td>{{ message_data.destination }}</td><td>{{ message_data.date }}</td><td>{{ message_data.type }}</td><td>{{ message_data.message }}</td></tr>
         {% endfor %}
         </tbody>
       </table>
