@@ -45,6 +45,7 @@ class MessagesModel
             $x = 0;
             while ($row = $this->database_wrapper->safeFetchArray())
             {
+                $finalmessages[$x]['id'] = $row['id'];
                 $finalmessages[$x]['source'] = $row['source'];
                 $finalmessages[$x]['destination'] = $row['destination'];
                 $finalmessages[$x]['date'] = $row['date'];
