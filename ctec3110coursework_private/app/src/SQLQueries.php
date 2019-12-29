@@ -8,11 +8,11 @@ class SQLQueries
 
     public function __destruct() { }
 
-    public function getMessages($order = 'ASC')
+    public function getMessages()
     {
-        $query_string  = "SELECT id, source, destination, date, type, messages";
+        $query_string  = "SELECT id, source, destination, date, type, message ";
         $query_string .= "FROM messages ";
-        $query_string .= "ORDER BY id .$order.;";
+        $query_string .= "ORDER BY id;";
         return $query_string;
     }
 
