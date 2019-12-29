@@ -40,8 +40,8 @@ class DatabaseWrapper
 
         $database_settings = $this->database_connection_settings;
         $host_name = $database_settings['rdbms'] . ':host=' . $database_settings['host'];
-        $port_number = ';port=' . '3306';
-        $user_database = ';dbname=' . $database_settings['db_name'];
+        $port_number = '3306';
+        $user_database = $database_settings['db_name'];
         $host_details = $host_name . $port_number . $user_database;
         $user_name = $database_settings['user_name'];
         $user_password = $database_settings['user_password'];
@@ -112,3 +112,4 @@ class DatabaseWrapper
         return $last_inserted_id;
     }
 }
+var_dump(make)
