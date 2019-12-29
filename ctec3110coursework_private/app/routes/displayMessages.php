@@ -8,9 +8,11 @@ $app->post(
     function(Request $request, Response $response) use ($app)
     {
 
+        $token_length = TOKEN_LENGTH;
+
         $messages_data = retrieveMessages($app)['retrieved_messages'];
 
-        $random_token = generateToken($app, 8);
+        $random_token = generateToken($app, $token_length);
 
         return $this->view->render($response,
             'display_messages.html.twig',
@@ -57,14 +59,4 @@ function generateToken($app, $length){
     return $final_token;
 
 }
-/*
-function decodeTheMessage($app, $message){
 
-    $decode_handle = $app->getContainer()->get('DisplayMessages');
-
-    $decoded_message = $decode_handle->decodeMessage($message);
-
-    return $decoded_message;
-
-}
-*/
