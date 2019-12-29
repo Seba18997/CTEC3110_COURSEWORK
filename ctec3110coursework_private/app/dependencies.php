@@ -7,6 +7,7 @@ use M2MAPP\SoapWrapper;
 use M2MAPP\Helper;
 use M2MAPP\Validator;
 use M2MAPP\DownloadMessagesToDatabase;
+use M2MAPP\Decoder;
 
 $container['view'] = function ($container) {
   $view = new \Slim\Views\Twig(
@@ -57,4 +58,9 @@ $container['Validator'] = function ($container) {
 $container['DownloadMessagesToDatabase'] = function ($container) {
     $downloader = new DownloadMessagesToDatabase();
     return $downloader;
+};
+
+$container['Decoder'] = function ($container) {
+    $decoder = new Decoder();
+    return $decoder;
 };
