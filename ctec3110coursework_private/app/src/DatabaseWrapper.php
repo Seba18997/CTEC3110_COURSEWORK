@@ -51,6 +51,8 @@ class DatabaseWrapper
             $pdo_handle = new \PDO($host_details, $user_name, $user_password, $pdo_attributes);
             $this->db_handle = $pdo_handle;
         } catch (\PDOException $exception_object) {
+            echo $host_details;
+            var_dump($host_details);
             trigger_error('error connecting to database');
             $pdo_error = 'error connecting to database';
         }
