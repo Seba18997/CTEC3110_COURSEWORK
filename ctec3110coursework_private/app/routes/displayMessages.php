@@ -44,6 +44,7 @@ function retrieveMessages($app)
     $messages_model->setSqlQueries($sql_queries);
     $messages_model->setDatabaseConnectionSettings($database_connection_settings);
     $messages_model->setDatabaseWrapper($database_wrapper);
+    $messages_model->storeData();
 
     $final_messages = $messages_model->getMessages();
 
@@ -59,6 +60,8 @@ function generateToken($app, $length){
     return $final_token;
 
 }
+
+
 /*
 function decodeTheMessage($app, $message){
 

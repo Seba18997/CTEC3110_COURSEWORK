@@ -7,8 +7,11 @@ class MessagesModel
     private $database_wrapper;
     private $database_connection_settings;
     private $sql_queries;
-
-    public function __construct(){}
+    public $db_wrapper;
+    public function __construct()
+    {
+        $this->db_wrapper = null;
+    }
 
     public function __destruct(){}
 
@@ -63,6 +66,15 @@ class MessagesModel
         return $messages_to_show;
     }
 
+    public function storeDatainDB()
+    {
+        $this->db_wrapper->makeDatabaseConnection();
+    }
+    public function storeData()
+    {
+        $storage_result = $this->storeDatainDB();
+        $this->storage_result = $storage_result;
+    }
 /*
     public function decodeMessage($message_content){
 
