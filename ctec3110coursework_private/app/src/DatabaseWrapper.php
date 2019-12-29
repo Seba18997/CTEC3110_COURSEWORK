@@ -112,4 +112,3 @@ class DatabaseWrapper
         return $last_inserted_id;
     }
 }
-var_dump(make)
