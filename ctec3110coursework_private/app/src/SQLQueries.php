@@ -53,4 +53,16 @@ class SQLQueries
         return $query_string;
     }
 
+
+    public function checkIfMessageExists() {
+        $query_string  = "SELECT id ";
+        $query_string .= "FROM messages ";
+        $query_string .= "WHERE source = :source ";
+        $query_string .= "AND WHERE destination = :destination ";
+        $query_string .= "AND WHERE date = :date ";
+        $query_string .= "AND WHERE type = :type ";
+        $query_string .= "AND WHERE message = :message ";
+        $query_string .= "LIMIT 1;";
+        return $query_string;
+    }
 }
