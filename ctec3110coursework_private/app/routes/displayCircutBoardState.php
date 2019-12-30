@@ -36,7 +36,9 @@ $app->post(
                 'keypad' => $keypad
 
             ]);
+
     })->setName('displaycircuitboard');
+
 
 function retrieveSwitchStates($app)
 {

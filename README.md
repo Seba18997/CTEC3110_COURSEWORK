@@ -10,7 +10,7 @@ The application must, as a minimum:
 - Message metadata:
 - - eg source SIM number, name, email address **(partially done)**
 - Message content:
-- - ie state of switches on the board, temperature, key-pad value, etc
+- - ie state of switches on the board, temperature, key-pad value, etc **(partially done)**
 
 A complete implementation will include the following methodologies and technologies that: have been discussed this academic year: 
 - Separation of Concerns Architecture & Single Point of Access

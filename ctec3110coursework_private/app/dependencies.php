@@ -1,15 +1,5 @@
 <?php
 
-use M2MAPP\MessagesModel;
-use M2MAPP\DatabaseWrapper;
-use M2MAPP\SQLQueries;
-use M2MAPP\SoapWrapper;
-use M2MAPP\Helper;
-use M2MAPP\Validator;
-use M2MAPP\DownloadMessagesToDatabase;
-use M2MAPP\Decoder;
-use M2MAPP\SwitchModel;
-
 $container['view'] = function ($container) {
   $view = new \Slim\Views\Twig(
     $container['settings']['view']['template_path'],
@@ -27,46 +17,46 @@ $container['view'] = function ($container) {
 };
 
 $container['Helper'] = function ($container) {
-  $helper = new Helper();
+  $helper = new M2MAPP\Helper();
   return $helper;
 };
 
 $container['DisplayMessages'] = function ($container) {
-    $model = new MessagesModel();
+    $model = new M2MAPP\MessagesModel();
     return $model;
 };
 
 $container['SoapWrapper'] = function ($container) {
-    $swrapper = new SoapWrapper();
+    $swrapper = new M2MAPP\SoapWrapper();
     return $swrapper;
 };
 
 $container['DatabaseWrapper'] = function ($container) {
-    $dwrapper = new DatabaseWrapper();
+    $dwrapper = new M2MAPP\DatabaseWrapper();
     return $dwrapper;
 };
 
 $container['SQLQueries'] = function ($container) {
-    $queries = new SQLQueries();
+    $queries = new M2MAPP\SQLQueries();
     return $queries;
 };
 
 $container['Validator'] = function ($container) {
-    $validator = new Validator();
+    $validator = new M2MAPP\Validator();
     return $validator;
 };
 
 $container['DownloadMessagesToDatabase'] = function ($container) {
-    $downloader = new DownloadMessagesToDatabase();
+    $downloader = new M2MAPP\DownloadMessagesToDatabase();
     return $downloader;
 };
 
 $container['Decoder'] = function ($container) {
-    $decoder = new Decoder();
+    $decoder = new M2MAPP\Decoder();
     return $decoder;
 };
 
 $container['SwitchModel'] = function ($container) {
-    $smodel = new SwitchModel();
+    $smodel = new M2MAPP\SwitchModel();
     return $smodel;
 };

@@ -27,6 +27,7 @@ $app->post(
                 'token' => $random_token,
 
             ]);
+
     })->setName('displaymessages');
 
 
