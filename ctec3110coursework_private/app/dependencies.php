@@ -8,6 +8,7 @@ use M2MAPP\Helper;
 use M2MAPP\Validator;
 use M2MAPP\DownloadMessagesToDatabase;
 use M2MAPP\Decoder;
+use M2MAPP\SwitchModel;
 
 $container['view'] = function ($container) {
   $view = new \Slim\Views\Twig(
@@ -63,4 +64,9 @@ $container['DownloadMessagesToDatabase'] = function ($container) {
 $container['Decoder'] = function ($container) {
     $decoder = new Decoder();
     return $decoder;
+};
+
+$container['SwitchModel'] = function ($container) {
+    $smodel = new SwitchModel();
+    return $smodel;
 };

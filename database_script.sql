@@ -44,6 +44,7 @@ CREATE TABLE `users` (
 
 DROP TABLE IF EXISTS `switch`;
 CREATE TABLE `switch` (
+  `id` int(4) NOT NULL DEFAULT 1,
   `switch1` int(4) NOT NULL,
   `switch2` int(4) NOT NULL,
   `switch3` int(4) NOT NULL,
@@ -53,8 +54,4 @@ CREATE TABLE `switch` (
   `keypad` varchar(64) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
-/* test value: */
-
-INSERT INTO `messages` (`id`, `source`, `destination`, `date`, `type`, `message`) VALUES (1, 447817814149, 447817814149, '17/12/2019 11:18:10', 'SMS', 'test_message');
 

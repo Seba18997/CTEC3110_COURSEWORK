@@ -18,9 +18,15 @@ class SQLQueries
 
     public function getSwitchStates()
     {
-        $query_string  = "";
-        $query_string .= "";
-        $query_string .= ";";
+        $query_string  = "SELECT id, switch1, switch2, switch3, switch4, fan, heater, keypad ";
+        $query_string .= "FROM switch ";
+        $query_string .= "WHERE id=1;";
+        return $query_string;
+    }
+
+    public function changeSwitchStates(){
+        $query_string  = "INSERT INTO `switch` (`id`, `switch1`, `switch2`, `switch3`, `switch4`, `fan`, `heater`, `keypad`) VALUES
+        (1,	:switch2,	:switch3,	:switch3,	:switch4,	:fan,	:heater,	:keypad);";
         return $query_string;
     }
 
