@@ -11,8 +11,7 @@ $app->get('/', function(Request $request, Response $response)
             'css_path' => CSS_PATH,
             'landing_page' => LANDING_PAGE,
             'method' => 'post',
-            'action' => 'displaycircutboardstate',
-            'action2' => 'displaymessages',
+            'action' => 'login',
             'page_title' => APP_NAME,
             'page_heading_1' => APP_NAME,
         ]);

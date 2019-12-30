@@ -1,0 +1,11 @@
+{% extends 'banner.html.twig' %}
+{% block content %}
+    <h2>{{ page_heading_2 }}</h2>
+    <form action="{{ action }}" method={{ method }}>
+        <button type="submit" class="btn btn-primary" value="Display current state of the circuit board">Display current state of the circuit board</button>
+    </form>
+    <br/>
+    <form action="{{ action2 }}" method={{ method }}>
+        <button type="submit" class="btn btn-primary" value="Show Messages">Show Messages</button>
+    </form>
+{% endblock %}

@@ -10,10 +10,10 @@ $app->post(
 
         $switch_state_data = retrieveSwitchStates($app)['retrieved_switch_states'];
 
-        $switch1 = $switch_state_data['switch1'];
-        $switch2 = $switch_state_data['switch2'];
-        $switch3 = $switch_state_data['switch3'];
-        $switch4 = $switch_state_data['switch4'];
+        $switch1 = switchState($switch_state_data['switch1']);
+        $switch2 = switchState($switch_state_data['switch2']);
+        $switch3 = switchState($switch_state_data['switch3']);
+        $switch4 = switchState($switch_state_data['switch4']);
         $fan = $switch_state_data['fan'];
         $heater = $switch_state_data['heater'];
         $keypad = $switch_state_data['keypad'];
@@ -60,3 +60,13 @@ function retrieveSwitchStates($app)
     return $final_states;
 }
 
+function switchState($state){
+    $output = NULL;
+    if ($state == 0){
+        $output = 'Turned ON';
+    }
+    else if ($state = 1) {
+        $output = 'Turned OFF';
+    }
+    return $output;
+}
