@@ -65,3 +65,8 @@ $container['processOutput'] = function ($container) {
     $process = new M2MAPP\ProcessOutput();
     return $process;
 };
+
+$container['doctrineSqlQueries'] = function ($container) {
+    $doctrine_sql_queries = new \M2MAPP\DoctrineSqlQueries();
+    return $doctrine_sql_queries;
+};

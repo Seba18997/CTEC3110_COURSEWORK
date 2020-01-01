@@ -54,7 +54,16 @@ $settings = [
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
                 PDO::ATTR_EMULATE_PREPARES   => true,
             ],
-        ]
+        ],
+        'doctrine_settings' => [
+        'driver' => 'pdo_mysql',
+        'host' => 'localhost',
+        'dbname' => 'coursework',
+        'port' => '3306',
+        'user' => 'p3tuser',
+        'password' => 'password',
+        'charset' => 'utf8mb4'
+]
     ],
 ];
 
