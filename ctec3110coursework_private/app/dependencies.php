@@ -76,3 +76,8 @@ $container['libSodiumWrapper'] = function ($container)
     $wrapper = new \M2MAPP\LibSodiumWrapper();
     return $wrapper;
 };
+
+$container['bcryptWrapper'] = function ($container) {
+    $wrapper = new \M2MAPP\BcryptWrapper();
+    return $wrapper;
+};

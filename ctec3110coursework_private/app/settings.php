@@ -27,6 +27,9 @@ define ('USERNAME', $username);
 $password = "passXDword123";
 define ('PASSWORD', $password);
 
+define ('BCRYPT_ALGO', PASSWORD_DEFAULT);
+define ('BCRYPT_COST', 12);
+
 $settings = [
     "settings" => [
         'displayErrorDetails' => true,

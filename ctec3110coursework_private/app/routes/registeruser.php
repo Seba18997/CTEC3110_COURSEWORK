@@ -12,6 +12,9 @@ $app->post(
         //var_dump($tainted_parameters);
         $cleaned_parameters = cleanupParameters($app, $tainted_parameters);
         $encrypted = encrypt($app, $cleaned_parameters);
+        $hashed_password = hash_password($app, $cleaned_parameters['password']);
+
+
         $html_output =  $this->view->render($response,
             'register_user_result.html.twig',
             [
@@ -97,4 +100,11 @@ function encrypt($app, $cleaned_parameters)
     $encrypted['encrypted_email_and_nonce'] = $libsodium_wrapper->encrypt($cleaned_parameters['sanitised_email']);
 
     return $encrypted;
+}
+
+function hash_password($app, $password_to_hash): string
+{
+    $bcrypt_wrapper = $app->getContainer()->get('bcryptWrapper');
+    $hashed_password = $bcrypt_wrapper->createHashedPassword($password_to_hash);
+    return $hashed_password;
 }
