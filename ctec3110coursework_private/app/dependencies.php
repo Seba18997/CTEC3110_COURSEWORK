@@ -70,3 +70,9 @@ $container['doctrineSqlQueries'] = function ($container) {
     $doctrine_sql_queries = new \M2MAPP\DoctrineSqlQueries();
     return $doctrine_sql_queries;
 };
+
+$container['libSodiumWrapper'] = function ($container)
+{
+    $wrapper = new \M2MAPP\LibSodiumWrapper();
+    return $wrapper;
+};

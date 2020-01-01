@@ -11,6 +11,7 @@ $app->post(
         $tainted_parameters = $request->getParsedBody();
         //var_dump($tainted_parameters);
         $cleaned_parameters = cleanupParameters($app, $tainted_parameters);
+        $encrypted = encrypt($app, $cleaned_parameters);
         $html_output =  $this->view->render($response,
             'register_user_result.html.twig',
             [
@@ -85,4 +86,15 @@ function cleanupParameters($app, $tainted_parameters)
     $cleaned_parameters['sanitised_username'] = $validator->sanitiseString($tainted_username);
     $cleaned_parameters['sanitised_email'] = $validator->sanitiseEmail($tainted_email);
     return $cleaned_parameters;
+}
+
+function encrypt($app, $cleaned_parameters)
+{
+    $libsodium_wrapper = $app->getContainer()->get('libSodiumWrapper');
+
+    $encrypted = [];
+    $encrypted['encrypted_username_and_nonce'] = $libsodium_wrapper->encrypt($cleaned_parameters['sanitised_username']);
+    $encrypted['encrypted_email_and_nonce'] = $libsodium_wrapper->encrypt($cleaned_parameters['sanitised_email']);
+
+    return $encrypted;
 }
