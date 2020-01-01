@@ -60,3 +60,8 @@ $container['SwitchModel'] = function ($container) {
     $smodel = new M2MAPP\SwitchModel();
     return $smodel;
 };
+
+$container['ProcessOutput'] = function ($container) {
+    $process = new M2MAPP\ProcessOutput();
+    return $process;
+};

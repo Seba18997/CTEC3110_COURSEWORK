@@ -12,6 +12,7 @@ $app->get('/', function(Request $request, Response $response)
             'landing_page' => LANDING_PAGE,
             'method' => 'post',
             'action' => 'login',
+            'action2' => 'register',
             'page_title' => APP_NAME,
             'page_heading_1' => APP_NAME,
         ]);
