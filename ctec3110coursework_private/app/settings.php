@@ -43,6 +43,7 @@ $settings = [
                 'cache' => false,
                 'auto_reload' => true,
             ]],
+        ],
         'pdo_settings' => [
             'rdbms' => 'mysql',
             'host' => 'localhost',
@@ -59,15 +60,14 @@ $settings = [
             ],
         ],
         'doctrine_settings' => [
-        'driver' => 'pdo_mysql',
-        'host' => 'localhost',
-        'dbname' => 'coursework',
-        'port' => '3306',
-        'user' => 'p3tuser',
-        'password' => 'password',
-        'charset' => 'utf8mb4'
-]
-    ],
-];
+            'driver' => 'pdo_mysql',
+            'host' => 'localhost',
+            'dbname' => 'coursework',
+            'port' => '3306',
+            'user' => 'p3tuser',
+            'password' => 'password',
+            'charset' => 'utf8mb4'
+        ],
 
+];
 return $settings;

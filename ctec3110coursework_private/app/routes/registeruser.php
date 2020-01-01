@@ -2,7 +2,7 @@
 
 use Slim\Http\Request;
 use Slim\Http\Response;
-
+use Doctrine\DBAL\DriverManager;
 
 $app->post(
     '/registeruser',
@@ -14,6 +14,9 @@ $app->post(
         $encrypted = encrypt($app, $cleaned_parameters);
         $hashed_password = hash_password($app, $cleaned_parameters['password']);
         $encoded = encode($app, $encrypted);
+        $decrypted = decrypt($app, $encoded);
+        $storage_result = storeUserDetails($app, $cleaned_parameters, $hashed_password);
+        $libsodium_version = SODIUM_LIBRARY_VERSION;
 
 
         $html_output =  $this->view->render($response,
@@ -118,4 +121,23 @@ function encode($app, $encrypted_data)
     $encoded['encoded_username'] = $base64_wrapper->encode_base64($encrypted_data['encrypted_username_and_nonce']['nonce_and_encrypted_string']);
     $encoded['encoded_email'] = $base64_wrapper->encode_base64($encrypted_data['encrypted_email_and_nonce']['nonce_and_encrypted_string']);
     return $encoded;
+}
+
+function decrypt($app, $encoded): array
+{
+    $decrypted_values = [];
+    $base64_wrapper = $app->getContainer()->get('base64Wrapper');
+    $libsodium_wrapper = $app->getContainer()->get('libSodiumWrapper');
+
+    $decrypted_values['username'] = $libsodium_wrapper->decrypt(
+        $base64_wrapper,
+        $encoded['encoded_username']
+    );
+
+    $decrypted_values['email'] = $libsodium_wrapper->decrypt(
+        $base64_wrapper,
+        $encoded['encoded_email']
+    );
+
+    return $decrypted_values;
 }
