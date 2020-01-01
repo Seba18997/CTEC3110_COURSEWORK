@@ -61,7 +61,7 @@ $container['SwitchModel'] = function ($container) {
     return $smodel;
 };
 
-$container['ProcessOutput'] = function ($container) {
+$container['processOutput'] = function ($container) {
     $process = new M2MAPP\ProcessOutput();
     return $process;
 };

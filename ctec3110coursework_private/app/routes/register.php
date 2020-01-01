@@ -11,7 +11,7 @@ $app->post(
         $sid = session_id();
 
         $html_output = $this->view->render($response,
-            'register.html .twig',
+            'register.html.twig',
             [
                 'css_path' => CSS_PATH,
                 'landing_page' => LANDING_PAGE,
