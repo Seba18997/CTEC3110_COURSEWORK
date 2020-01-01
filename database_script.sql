@@ -54,8 +54,8 @@ CREATE TABLE `switch` (
   `keypad` varchar(64) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE `users` (
+DROP TABLE IF EXISTS `user_data`;
+CREATE TABLE `user_data` (
   `auto_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `user_name` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
