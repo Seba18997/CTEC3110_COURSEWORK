@@ -81,3 +81,8 @@ $container['bcryptWrapper'] = function ($container) {
     $wrapper = new \M2MAPP\BcryptWrapper();
     return $wrapper;
 };
+
+$container['base64Wrapper'] = function ($container) {
+    $wrapper = new \M2MAPP\Base64Wrapper();
+    return $wrapper;
+};

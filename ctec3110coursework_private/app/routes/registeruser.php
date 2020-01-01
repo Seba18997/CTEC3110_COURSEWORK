@@ -13,6 +13,7 @@ $app->post(
         $cleaned_parameters = cleanupParameters($app, $tainted_parameters);
         $encrypted = encrypt($app, $cleaned_parameters);
         $hashed_password = hash_password($app, $cleaned_parameters['password']);
+        $encoded = encode($app, $encrypted);
 
 
         $html_output =  $this->view->render($response,
@@ -107,4 +108,14 @@ function hash_password($app, $password_to_hash): string
     $bcrypt_wrapper = $app->getContainer()->get('bcryptWrapper');
     $hashed_password = $bcrypt_wrapper->createHashedPassword($password_to_hash);
     return $hashed_password;
+}
+
+function encode($app, $encrypted_data)
+{
+    $base64_wrapper = $app->getContainer()->get('base64Wrapper');
+
+    $encoded = [];
+    $encoded['encoded_username'] = $base64_wrapper->encode_base64($encrypted_data['encrypted_username_and_nonce']['nonce_and_encrypted_string']);
+    $encoded['encoded_email'] = $base64_wrapper->encode_base64($encrypted_data['encrypted_email_and_nonce']['nonce_and_encrypted_string']);
+    return $encoded;
 }
