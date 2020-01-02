@@ -86,3 +86,13 @@ $container['base64Wrapper'] = function ($container) {
     $wrapper = new \M2MAPP\Base64Wrapper();
     return $wrapper;
 };
+
+$container['SessionWrapper'] = function ($container) {
+    $snwrapper = new \M2MAPP\SessionWrapper();
+    return $snwrapper;
+};
+
+$container['SessionModel'] = function ($container) {
+    $snmodel= new \M2MAPP\SessionModel();
+    return $snmodel;
+};
