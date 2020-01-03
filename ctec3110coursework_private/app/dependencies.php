@@ -96,3 +96,8 @@ $container['SessionModel'] = function ($container) {
     $snmodel= new \M2MAPP\SessionModel();
     return $snmodel;
 };
+
+$container['Authentication'] = function ($container) {
+    $auth = new \M2MAPP\Authentication();
+    return $auth;
+};
