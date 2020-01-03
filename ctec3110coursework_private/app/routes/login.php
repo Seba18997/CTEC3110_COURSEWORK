@@ -9,12 +9,14 @@ $app->post(
     {
         $tainted_parameters  = $request->getParsedBody();
         $username = $tainted_parameters['user_name'];
+        $password = $tainted_parameters['password'];
         //var_dump($username);
 
         $db_usernamePassword = paramsFromDB($app, $username);
-        //var_dump($div_par);
-        $outcome = compare($app, $db_usernamePassword['password'], $tainted_parameters['user_name']);
-        echo $outcome;
+
+        echo "Password are the same (true/ false)";
+        $outcome = compare($app, $db_usernamePassword['password'], $password);
+        var_dump($outcome);
 
 
 
