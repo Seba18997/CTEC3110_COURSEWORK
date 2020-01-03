@@ -17,8 +17,8 @@ $container['view'] = function ($container) {
 };
 
 $container['Helper'] = function ($container) {
-  $helper = new M2MAPP\Helper();
-  return $helper;
+    $helper = new M2MAPP\Helper();
+    return $helper;
 };
 
 $container['DisplayMessages'] = function ($container) {
