@@ -44,12 +44,12 @@ class Authentication
 
         $this->database_wrapper->safeQuery($query_string);
 
-       if ($row = $this->database_wrapper->safeFetchArray()) {
-                $params['username'] = $row['user_name'];
-                $params['password'] = $row['password'];
-       } else {
-                $final = 'Something is wrong';
-              }
+        if ($row = $this->database_wrapper->safeFetchArray()) {
+            $params['username'] = $row['user_name'];
+            $params['password'] = $row['password'];
+        } else {
+            $params = 1;
+        }
 
         $final = $params;
 

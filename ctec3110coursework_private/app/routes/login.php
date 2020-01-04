@@ -26,8 +26,7 @@ $app->post(
                 'css_path' => CSS_PATH,
                 'landing_page' => LANDING_PAGE,
                 'method' => 'post',
-                'action' => 'displaycircutboardstate',
-                'action2' => 'displaymessages',
+                'action' => 'afterlogin',
                 'page_title' => 'Login Form',
                 'page_heading_1' => 'Login To View Content',
             ]);

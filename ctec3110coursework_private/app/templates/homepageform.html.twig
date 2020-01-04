@@ -2,25 +2,15 @@
 {% block content %}
     <h2>{{ page_heading_2 }}</h2>
     <div id="page-content-div">
-
-        <form action="{{ action }}" method="post">
-            <fieldset>
-                <legend>LOGIN</legend>
-                <br>
-                <label for="user_name">Enter your username:</label>
-                <input id="user_name" name="user_name" type="text" value="{{ initial_input_box_value }}" size="30" maxlength="50">
-                <br><br>
-                <label for="password">Enter your password:</label>
-                <input id="password" name="password" type="password" value="{{ initial_input_box_value }}" size="30" maxlength="50">
-                <br><br>
-                <button type="submit" class="btn btn-primary" value="Submit">Login to view content</button>
-            </fieldset>
+        <b>Have an account?</b>
+        <form action="{{ action }}" method={{ method }}>
+            <button type="submit" class="btn btn-primary" value="Sign in">Sign in here</button>
         </form>
+        <br/>
 
     </div>
 
-    <br/><br/>
-    <b>Don't have an account?</b>
+        <b>Don't have an account?</b>
 
     <br/>
     <form action="{{ action2 }}" method={{ method }}>
