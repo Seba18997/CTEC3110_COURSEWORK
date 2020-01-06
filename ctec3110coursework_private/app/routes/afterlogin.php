@@ -3,7 +3,13 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
+
 $app->post(
+/**
+ * @param Request $request
+ * @param Response $response
+ * @return mixed
+ */
     '/afterlogin',
     function(Request $request, Response $response) use ($app)
     {
@@ -45,6 +51,8 @@ $app->post(
 
     })->setName('afterlogin');
 
+
+
 function cleanupUsername($app, $tainted_username)
 {
 
@@ -56,6 +64,7 @@ function cleanupUsername($app, $tainted_username)
 
     return $cleaned_username;
 }
+
 
 function paramsFromDB($app, $username)
 {
