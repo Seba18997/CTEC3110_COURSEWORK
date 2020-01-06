@@ -117,6 +117,15 @@ function encode($app, $encrypted_data)
     return $encoded;
 }
 
+
+/**
+ * function decodes base64, then decrypts cipher code
+ *
+ * @param $libsocdium wrapper
+ * @param $base64_wrapper
+ * @param $encoded
+ * @return array
+ */
 function decrypt($app, $encoded): array
 {
     $decrypted_values = [];
