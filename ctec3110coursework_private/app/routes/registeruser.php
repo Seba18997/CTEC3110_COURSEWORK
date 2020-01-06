@@ -100,6 +100,15 @@ function encrypt($app, $cleaned_parameters)
     return $encrypted;
 }
 
+
+/**
+ * Bcrypt library used
+ *
+ * @param $app
+ * @param $password_to_hash
+ * @return string
+ */
+
 function hash_password($app, $password_to_hash): string
 {
     $bcrypt_wrapper = $app->getContainer()->get('bcryptWrapper');
