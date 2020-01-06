@@ -107,6 +107,12 @@ function hash_password($app, $password_to_hash): string
     return $hashed_password;
 }
 
+
+/**
+ * @param $base64_wrapper
+ * @param $encrypted_data
+ * @return array
+ */
 function encode($app, $encrypted_data)
 {
     $base64_wrapper = $app->getContainer()->get('base64Wrapper');
@@ -119,7 +125,7 @@ function encode($app, $encrypted_data)
 
 
 /**
- * function decodes base64, then decrypts cipher code
+ * function decodes base64, then decrypts the cipher code
  *
  * @param $libsocdium wrapper
  * @param $base64_wrapper
