@@ -70,7 +70,12 @@ class SQLQueries
         $query_string .= "AND WHERE date = :date ";
         $query_string .= "AND WHERE type = :type ";
         $query_string .= "AND WHERE message = :message ";
-        $query_string .= "LIMIT 1;";
+        $query_string .= ";";
         return $query_string;
     }
+
+
 }
+
+
+

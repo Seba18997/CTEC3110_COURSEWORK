@@ -5,126 +5,131 @@ namespace M2MAPP;
 class DownloadMessagesToDatabase
 {
 
-    private $database_handle;
-    private $soap_handle;
+    private $database_wrapper;
+    private $make_query;
     private $downloaded_messages_data;
-    private $database_connection_messages;
     private $message_counter;
 
     public function __construct()
     {
-        $this->database_handle = null;
-        $this->soap_handle = null;
-        $this->downloaded_messages_data = array();
-        $this->database_connection_messages = array();
-        $this->message_counter = MESSAGES_COUNTER;
+            $this->database_wrapper = null;
+            $this->make_query = null;
+            $this->downloaded_messages_data = array();
+            $this->message_counter = MESSAGES_COUNTER;
     }
 
     public function __destruct(){
-
     }
 
-    public function set_database_handle($database_handle_object)
+    public function makeConnection()
     {
-        $this->database_handle = $database_handle_object;
+            $connection = (new DatabaseWrapper)->makeDatabaseConnection();
+            return $connection;
     }
 
-    public function get_messages_from_soap()
+    public function makeQuery($make_query)
     {
-        $this->soap_handle = SoapWrapper::getMessagesFromSoap($this->createSoapClient(), $this->message_counter);
+        $this->make_query = $make_query;
     }
 
-    public function get_downloaded_messages_result()
+    public function doMakeQuery($query, $params='')
     {
-        return $this->downloaded_messages_data;
+        $make_query = (new DatabaseWrapper)->safeQuery($query, $params);
+        return $make_query;
+    }
+
+    public function setSoapClient()
+    {
+            $soap_client = NULL;
+            $soap_client = (new SoapWrapper)->createSoapClient();
+            return $soap_client;
+    }
+
+    public function retrieveMessages()
+    {
+            $messages = NULL;
+            $messages = (new SoapWrapper)->getMessagesFromSoap($this->setSoapClient(), $this->message_counter);
+            return $messages;
+    }
+
+    public function getMessagesResult()
+    {
+            return $this->downloaded_messages_data;
     }
 
     public function storeDownloadedMessages()
     {
-        if ($this->downloaded_messages_data['message-available'])
-        {
             $this->prepareMessagesToStore();
-
-            if (!$this->checkIfMessageIsStored())
-            {
-                $this->storeNewMessage();
-            }
-
-        }
+            $this->addMessageIfNotExist();
     }
 
     private function prepareMessagesToStore()
     {
-        $database_connection_error = $this->database_connection_messages['database-connection-error'];
-
-        if (!$database_connection_error)
-        {
             $messages_final_result = [];
 
-            $messages_result = $this->get_messages_from_soap();
+            $message_result = $this->retrieveMessages();
 
             for ($i=0;$i<$this->message_counter;$i++) {
-                $messages_final_result['source'][$i] = Helper::mapDataFromString($messages_result[$i], 'sourcemsisdn');
-                $messages_final_result['destination'][$i] = Helper::mapDataFromString($messages_result[$i], 'destinationmsisdn');
-                $messages_final_result['date'][$i] = Helper::mapDataFromString($messages_result[$i], 'receivedtime');
-                $messages_final_result['type'][$i] = Helper::mapDataFromString($messages_result[$i], 'bearer');
-                $messages_final_result['message'][$i] = Helper::mapDataFromString($messages_result[$i], 'message');
+                $messages_final_result['source'][$i] = (new Validator)->validateDownloadedMessage((new Helper)->mapDataFromString($message_result[$i], 'sourcemsisdn'));
+                $messages_final_result['destination'][$i] = (new Validator)->validateDownloadedMessage((new Helper)->mapDataFromString($message_result[$i], 'destinationmsisdn'));
+                $messages_final_result['date'][$i] = (new Validator)->validateDownloadedMessage((new Helper)->mapDataFromString($message_result[$i], 'receivedtime'));
+                $messages_final_result['type'][$i] = (new Validator)->validateDownloadedMessage((new Helper)->mapDataFromString($message_result[$i], 'bearer'));
+                $messages_final_result['message'][$i] = (new Validator)->validateDownloadedMessage((new Helper)->mapDataFromString($message_result[$i], 'message'));
             }
+
             $this->downloaded_messages_data = $messages_final_result;
-        }
     }
 
-    private function checkIfMessageIsStored()
+    public function addMessageIfNotExist()
     {
+            $messages_exists = NULL;
 
-        for ($i=0;$i<$this->message_counter;$i++) {
-            $source = $this->downloaded_messages_data['source'][$i];
-            $dest = $this->downloaded_messages_data['destination'][$i];
-            $date = $this->downloaded_messages_data['date'][$i];
-            $type = $this->downloaded_messages_data['type'][$i];
-            $message = $this->downloaded_messages_data['message'][$i];
-        }
+            $this->makeConnection();
 
-        $sql_query_string = SQLQueries::checkIfMessageExists();
+            $sql_query_get_all_messages = (new SQLQueries)->getMessages();
 
-        $arr_sql_query_parameters =
-            array(':source' => $source, ':destination' => $dest, ':date' => $date, ':type' => $type, ':message' => $message);
+            $query_handle = $this->doMakeQuery($sql_query_get_all_messages);
 
-        $this->database_handle->safe_query($sql_query_string, $arr_sql_query_parameters);
+            $number_of_rows = $query_handle->countRows();
 
-        $number_of_rows = $this->database_handle->count_rows();
+            $size_of_array = (new Helper)->getSizeofArray($this->downloaded_messages_data);
 
-        $message_exists = false;
-        if ($number_of_rows > 0)
-        {
-            $message_exists = true;
-        }
-        return $message_exists;
-    }
+            //$sql_query_check_if_message_exists = (new SQLQueries)->checkIfMessageExists();
 
-    private function storeNewMessage()
-    {
-        for ($i=0;$i<$this->message_counter;$i++) {
-            $source = $this->downloaded_messages_data['source'][$i];
-            $dest = $this->downloaded_messages_data['destination'][$i];
-            $date = $this->downloaded_messages_data['date'][$i];
-            $type = $this->downloaded_messages_data['type'][$i];
-            $message = $this->downloaded_messages_data['message'][$i];
-        }
+            $sql_query_insert_messages = (new SQLQueries)->storeMessage();
 
-        $sql_query_string = SQLQueries::storeMessage();
+            if ($number_of_rows < $size_of_array)
+            {
+                $messages_exists = false;
 
-        $arr_sql_query_parameters =
-            array('source' => $source, ':destination' => $dest, ':date' => $date, ':type' => $type, ':message' => $message);
+                $i = 0;
 
-        $arr_database_execution_messages = $this->database_handle->safe_query($sql_query_string, $arr_sql_query_parameters);
-        $new_message_stored = false;
+                while ($i == $size_of_array)
+                {
+                    $source = $this->downloaded_messages_data['source'][$i];
+                    $dest = $this->downloaded_messages_data['destination'][$i];
+                    $date = $this->downloaded_messages_data['date'][$i];
+                    $type = $this->downloaded_messages_data['type'][$i];
+                    $message = $this->downloaded_messages_data['message'][$i];
 
-        if ($arr_database_execution_messages['execute-OK'])
-        {
-            $new_message_stored = true;
-        }
-        $this->downloaded_messages_data['message-stored'] = $new_message_stored;
+                    $query_parameters =
+                        array(':source' => $source, ':destination' => $dest, ':date' => $date, ':type' => $type, ':message' => $message);
+
+                    $this->doMakeQuery($sql_query_insert_messages, $query_parameters);
+
+                    echo 'added ' .$i. ' record' ;
+                }
+            }
+            else if ($number_of_rows == $size_of_array)
+            {
+                $messages_exists = true;
+            }
+            else
+            {
+                    echo 'something went wrong' ;
+            }
+
+            return $messages_exists;
     }
 
 }

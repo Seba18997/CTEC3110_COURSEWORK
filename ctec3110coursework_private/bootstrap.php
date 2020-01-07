@@ -16,4 +16,4 @@ require __DIR__ . '/app/routes.php';
 
 $app->run();
 
-session_regenerate_id(true);
+@session_regenerate_id(true);

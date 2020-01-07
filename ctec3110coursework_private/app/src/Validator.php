@@ -17,7 +17,7 @@ class Validator
     {
         $validated_message_content = '';
 
-        $validated_message_content = filter_var($message_content, FILTER_SANITIZE_STRING);
+        $validated_message_content = filter_var($message_content, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
 
         return $validated_message_content;
     }

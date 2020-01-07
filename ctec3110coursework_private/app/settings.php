@@ -17,7 +17,7 @@ define('LANDING_PAGE', $_SERVER['SCRIPT_NAME']);
 $token_length = 4;
 define('TOKEN_LENGTH', $token_length);
 
-$messages_counter = 50;
+$messages_counter = 12;
 define('MESSAGES_COUNTER', $messages_counter);
 
 $wsdl = 'https://m2mconnect.ee.co.uk/orange-soap/services/MessageServiceByCountry?wsdl';

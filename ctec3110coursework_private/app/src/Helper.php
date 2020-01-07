@@ -56,4 +56,16 @@ class Helper
 
     }
 
+    public function getSizeofArray($array){
+
+        $array = [];
+
+        $end_of_array = end($array);
+
+        $last_key = key($end_of_array);
+
+        return $last_key;
+
+    }
+
 }
