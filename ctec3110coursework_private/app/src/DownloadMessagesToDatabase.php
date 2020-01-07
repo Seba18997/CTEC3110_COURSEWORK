@@ -122,11 +122,11 @@ class DownloadMessagesToDatabase
             }
             else if ($number_of_rows == $size_of_array)
             {
-                $messages_exists = true;
+                 $messages_exists = true;
             }
             else
             {
-                    echo 'something went wrong' ;
+                 echo 'something went wrong' ;
             }
 
             return $messages_exists;

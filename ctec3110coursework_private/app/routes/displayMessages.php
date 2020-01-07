@@ -62,4 +62,3 @@ function generateToken($app, $length){
     return $final_token;
 
 }
-

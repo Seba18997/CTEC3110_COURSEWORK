@@ -9,6 +9,18 @@ class Decoder
 
     public function __destruct() { }
 
+    public function makeConnection()
+    {
+        $connection = (new DatabaseWrapper)->makeDatabaseConnection();
+        return $connection;
+    }
+
+    public function doMakeQuery($query, $params='')
+    {
+        $make_query = (new DatabaseWrapper)->safeQuery($query, $params);
+        return $make_query;
+    }
+
     public function decodeMessage($message_content){
 
         $str = $message_content;
@@ -37,7 +49,27 @@ class Decoder
 
     }
 
+    public function updateSwitchStates($final_state=[]){
 
+        $this->makeConnection();
+        $query = (new SQLQueries)->updateSwitchState();
+
+        $final_state = [];
+
+        $final_state['switch1'] = $switch1db;
+        $final_state['switch2'] = $switch2db;
+        $final_state['switch3'] = $switch3db;
+        $final_state['switch4'] = $switch4db;
+        $final_state['fan'] = $fandb;
+        $final_state['heater'] = $heaterdb;
+        $final_state['keypad'] = $keypaddb;
+
+        $query_parameters =
+            array(':switch1' => $switch1db, ':switch2' => $switch2db, ':switch3' => $switch3db, ':switch4' => $switch4db, ':fan' => $fandb, ':heater' => $heaterdb, ':keypad' => $keypaddb);
+
+        return $this->doMakeQuery($query, $query_parameters);
+
+    }
 
 
 }

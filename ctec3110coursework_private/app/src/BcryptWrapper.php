@@ -1,10 +1,4 @@
 <?php
-/**
- * Wrapper class for the PHP BCrypt library.  Takes the pain out of using the library.
- *
- * @author CF Ingrams <cfi@dmu.ac.uk>
- * @copyright De Montfort University
- */
 
 namespace M2MAPP;
 

@@ -1,14 +1,4 @@
 <?php
-/**
- * Wrapper class for the Base 64 encoding/decoding library
- *
- * Methods available are:
- *
- * Encode/Decode the given string with base 64 encoding
- *
- * @author CF Ingrams <cfi@dmu.ac.uk>
- * @copyright De Montfort University
- */
 
 namespace M2MAPP;
 
