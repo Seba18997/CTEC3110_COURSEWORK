@@ -51,6 +51,13 @@ $app->post(
         return $html_output;
     });
 
+/**
+ * @param $app
+ * @param array $cleaned_parameters
+ * @param string $hashed_password
+ * @return string
+ */
+
 function storeUserDetails($app, array $cleaned_parameters, string $hashed_password): string
 {
     $storage_result = [];
@@ -83,9 +90,15 @@ function cleanupParameters($app, $tainted_parameters)
     $tainted_username = $tainted_parameters['username'];
     $tainted_email = $tainted_parameters['email'];
 
-    $cleaned_parameters['password'] = $tainted_parameters['password'];
-    $cleaned_parameters['sanitised_username'] = $validator->sanitiseString($tainted_username);
-    $cleaned_parameters['sanitised_email'] = $validator->sanitiseEmail($tainted_email);
+    $cleaned_parameters['password']
+        = $tainted_parameters['password'];
+
+    $cleaned_parameters['sanitised_username']
+        = $validator->sanitiseString($tainted_username);
+
+    $cleaned_parameters['sanitised_email']
+        = $validator->sanitiseEmail($tainted_email);
+
     return $cleaned_parameters;
 }
 
@@ -94,8 +107,11 @@ function encrypt($app, $cleaned_parameters)
     $libsodium_wrapper = $app->getContainer()->get('libSodiumWrapper');
 
     $encrypted = [];
-    $encrypted['encrypted_username_and_nonce'] = $libsodium_wrapper->encrypt($cleaned_parameters['sanitised_username']);
-    $encrypted['encrypted_email_and_nonce'] = $libsodium_wrapper->encrypt($cleaned_parameters['sanitised_email']);
+    $encrypted['encrypted_username_and_nonce']
+        = $libsodium_wrapper->encrypt($cleaned_parameters['sanitised_username']);
+
+    $encrypted['encrypted_email_and_nonce']
+        = $libsodium_wrapper->encrypt($cleaned_parameters['sanitised_email']);
 
     return $encrypted;
 }
@@ -127,8 +143,12 @@ function encode($app, $encrypted_data)
     $base64_wrapper = $app->getContainer()->get('base64Wrapper');
 
     $encoded = [];
-    $encoded['encoded_username'] = $base64_wrapper->encode_base64($encrypted_data['encrypted_username_and_nonce']['nonce_and_encrypted_string']);
-    $encoded['encoded_email'] = $base64_wrapper->encode_base64($encrypted_data['encrypted_email_and_nonce']['nonce_and_encrypted_string']);
+    $encoded['encoded_username'] = $base64_wrapper->encode_base64
+    ($encrypted_data['encrypted_username_and_nonce']['nonce_and_encrypted_string']);
+
+    $encoded['encoded_email'] = $base64_wrapper->encode_base64
+    ($encrypted_data['encrypted_email_and_nonce']['nonce_and_encrypted_string']);
+
     return $encoded;
 }
 

@@ -101,6 +101,9 @@ class DatabaseWrapper
         return $arr_row;
     }
 
+    /**
+     * @return mixed
+     */
     public function lastInsertedID()
     {
         $sql_query = 'SELECT LAST_INSERT_ID()';

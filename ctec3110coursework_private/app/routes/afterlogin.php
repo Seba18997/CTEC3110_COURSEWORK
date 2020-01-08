@@ -48,7 +48,7 @@ $app->post(
                     'page_heading_1' => 'User logged in',
                 ]);}
 
-    })->setName('afterlogin');
+    } )->setName('afterlogin');
 
 
 /**

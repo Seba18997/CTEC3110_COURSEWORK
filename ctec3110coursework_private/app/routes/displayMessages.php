@@ -4,6 +4,13 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
 $app->post(
+
+/**
+ * @param Request $request
+ * @param Response $response
+ * @return mixed
+ */
+
     '/displaymessages',
     function(Request $request, Response $response) use ($app)
     {
@@ -31,7 +38,11 @@ $app->post(
     })->setName('displaymessages');
 
 
-
+/**
+ * @param $app
+ * @param $database_wrapper
+ * @return mixed
+ */
 
 function retrieveMessages($app)
 {
@@ -52,6 +63,12 @@ function retrieveMessages($app)
 
     return $final_messages;
 }
+
+/**
+ * @param $app
+ * @param $length
+ * @return mixed
+ */
 
 function generateToken($app, $length){
 

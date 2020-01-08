@@ -21,6 +21,11 @@ class Decoder
         return $make_query;
     }
 
+    /**
+     * @param $message_content
+     * @return mixed
+     */
+    
     public function decodeMessage($message_content){
 
         $str = $message_content;
@@ -48,6 +53,11 @@ class Decoder
         return $final_message;
 
     }
+
+    /**
+     * @param array $final_state
+     * @return mixed
+     */
 
     public function updateSwitchStates($final_state=[]){
 
