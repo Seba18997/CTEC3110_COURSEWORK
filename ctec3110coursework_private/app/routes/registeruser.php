@@ -70,12 +70,9 @@ function storeUserDetails($app, array $cleaned_parameters, string $hashed_passwo
 
     $storage_result = $doctrine_queries::queryStoreUserData($queryBuilder, $cleaned_parameters, $hashed_password);
 
-    if ($storage_result['outcome'] == 1)
-    {
+    if ($storage_result['outcome'] == 1) {
         $store_result = 'User data was successfully stored using the SQL query: ' . $storage_result['sql_query'];
-    }
-    else
-    {
+    } else {
         $store_result = 'There appears to have been a problem when saving your details.  Please try again later.';
 
     }

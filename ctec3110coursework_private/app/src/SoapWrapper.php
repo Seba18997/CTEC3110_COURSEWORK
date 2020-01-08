@@ -44,14 +44,10 @@ class SoapWrapper
         $username = USERNAME;
         $password = PASSWORD;
 
-        if ($soap_client)
-        {
-            try
-            {
+        if ($soap_client) {
+            try {
                 $soap_call_result = $soap_client->peekMessages($username, $password, $messages_counter, "");
-            }
-            catch (\SoapFault $exception)
-            {
+            } catch (\SoapFault $exception) {
                 echo 'Oops - something went wrong connecting to the data supplier.  Please try again later';
             }
         }

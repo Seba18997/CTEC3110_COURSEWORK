@@ -26,8 +26,7 @@ class Validator
     {
         $sanitised_string = false;
 
-        if (!empty($string_to_sanitise))
-        {
+        if (!empty($string_to_sanitise)) {
             $sanitised_string = filter_var($string_to_sanitise, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
         }
         return $sanitised_string;
@@ -37,8 +36,7 @@ class Validator
     {
         $cleaned_string = false;
 
-        if (!empty($email_to_sanitise))
-        {
+        if (!empty($email_to_sanitise)) {
             $sanitised_email = filter_var($email_to_sanitise, FILTER_SANITIZE_EMAIL);
             $cleaned_string = filter_var($sanitised_email, FILTER_VALIDATE_EMAIL);
         }

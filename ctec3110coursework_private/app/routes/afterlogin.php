@@ -109,8 +109,7 @@ function compare($app, $db_pass, $typed_pass)
     } $compare = $app->getContainer()->get('bcryptWrapper');
     $outcome = $compare->authenticatePassword($typed_pass, $db_pass);
 
-    if($outcome == true)
-    {
+    if($outcome == true) {
         $outcome = 2;
         return $outcome;
 
