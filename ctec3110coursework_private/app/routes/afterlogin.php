@@ -52,6 +52,11 @@ $app->post(
     })->setName('afterlogin');
 
 
+/**
+ * @param $app
+ * @param $tainted_username
+ * @return mixed
+ */
 
 function cleanupUsername($app, $tainted_username)
 {
@@ -65,6 +70,12 @@ function cleanupUsername($app, $tainted_username)
     return $cleaned_username;
 }
 
+
+/**
+ * @param $app
+ * @param $username
+ * @return mixed
+ */
 
 function paramsFromDB($app, $username)
 {
@@ -84,6 +95,13 @@ function paramsFromDB($app, $username)
 
     return $final_states;
 }
+
+/**
+ * @param $app
+ * @param $db_pass
+ * @param $typed_pass
+ * @return int
+ */
 
 function compare($app, $db_pass, $typed_pass)
 {
