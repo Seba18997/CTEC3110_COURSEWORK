@@ -45,6 +45,11 @@ $app->post(
     })->setName('displaycircuitboard');
 
 
+/**
+ * @param $app
+ * @return mixed
+ */
+
 function retrieveSwitchStates($app)
 {
 
@@ -65,12 +70,16 @@ function retrieveSwitchStates($app)
     return $final_states;
 }
 
+/**
+ * @param $state
+ * @return null|string
+ */
+
 function switchState($state){
     $output = NULL;
     if ($state == 0){
         $output = 'Turned ON';
-    }
-    else if ($state = 1) {
+    } else if ($state = 1) {
         $output = 'Turned OFF';
     }
     return $output;

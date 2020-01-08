@@ -23,8 +23,7 @@ $app->post(
         $outcome = compare($app, $db_usernamePassword['password'], $password);
 
 
-        if($outcome == 1 )
-        {
+        if($outcome == 1 ) {
             return $this->view->render($response,
                 'invalid_login.html.twig',
                 [
@@ -105,12 +104,9 @@ function paramsFromDB($app, $username)
 
 function compare($app, $db_pass, $typed_pass)
 {
-    if($db_pass == 1)
-    {
+    if($db_pass == 1) {
         $outcome = 1;
-    }
-
-    $compare = $app->getContainer()->get('bcryptWrapper');
+    } $compare = $app->getContainer()->get('bcryptWrapper');
     $outcome = $compare->authenticatePassword($typed_pass, $db_pass);
 
     if($outcome == true)
@@ -118,7 +114,7 @@ function compare($app, $db_pass, $typed_pass)
         $outcome = 2;
         return $outcome;
 
-    }else{
+    } else {
 
         $outcome = 1;
         return $outcome;
