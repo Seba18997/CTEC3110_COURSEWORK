@@ -48,7 +48,8 @@ class DownloadMessagesToDatabase
     public function retrieveMessages()
     {
             $messages = NULL;
-            $messages = (new SoapWrapper)->getMessagesFromSoap($this->setSoapClient(), $this->message_counter);
+            $messages = (new SoapWrapper)->getMessagesFromSoap($this->setSoapClient(),
+                $this->message_counter);
             return $messages;
     }
 
@@ -70,11 +71,25 @@ class DownloadMessagesToDatabase
             $message_result = $this->retrieveMessages();
 
             for ($i=0;$i<$this->message_counter;$i++) {
-                $messages_final_result['source'][$i] = (new Validator)->validateDownloadedMessage((new Helper)->mapDataFromString($message_result[$i], 'sourcemsisdn'));
-                $messages_final_result['destination'][$i] = (new Validator)->validateDownloadedMessage((new Helper)->mapDataFromString($message_result[$i], 'destinationmsisdn'));
-                $messages_final_result['date'][$i] = (new Validator)->validateDownloadedMessage((new Helper)->mapDataFromString($message_result[$i], 'receivedtime'));
-                $messages_final_result['type'][$i] = (new Validator)->validateDownloadedMessage((new Helper)->mapDataFromString($message_result[$i], 'bearer'));
-                $messages_final_result['message'][$i] = (new Validator)->validateDownloadedMessage((new Helper)->mapDataFromString($message_result[$i], 'message'));
+                $messages_final_result['source'][$i] =
+                    (new Validator)->validateDownloadedMessage(
+                        (new Helper)->mapDataFromString($message_result[$i], 'sourcemsisdn'));
+
+                $messages_final_result['destination'][$i] =
+                    (new Validator)->validateDownloadedMessage(
+                        (new Helper)->mapDataFromString($message_result[$i], 'destinationmsisdn'));
+
+                $messages_final_result['date'][$i] =
+                    (new Validator)->validateDownloadedMessage(
+                        (new Helper)->mapDataFromString($message_result[$i], 'receivedtime'));
+
+                $messages_final_result['type'][$i] =
+                    (new Validator)->validateDownloadedMessage(
+                        (new Helper)->mapDataFromString($message_result[$i], 'bearer'));
+
+                $messages_final_result['message'][$i] =
+                    (new Validator)->validateDownloadedMessage(
+                        (new Helper)->mapDataFromString($message_result[$i], 'message'));
             }
 
             $this->downloaded_messages_data = $messages_final_result;

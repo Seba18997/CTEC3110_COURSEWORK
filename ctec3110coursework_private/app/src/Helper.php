@@ -8,6 +8,10 @@ class Helper
 
     public function __destruct() { }
 
+    /**
+     * @param $data
+     * @return \SimpleXMLElement
+     */
     public function convertSoapArrayToString($data){
 
         $final = simplexml_load_string($data);
@@ -15,6 +19,11 @@ class Helper
         return $final;
     }
 
+    /**
+     * @param $givenstring
+     * @param string $tag
+     * @return \SimpleXMLElement
+     */
     public function mapDataFromString($givenstring, $tag=''){
 
         $input = $this->convertSoapArrayToString($givenstring);
@@ -25,6 +34,10 @@ class Helper
 
     }
 
+    /**
+     * @param $length
+     * @return string
+     */
     public function generateToken($length) {
 
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -39,6 +52,13 @@ class Helper
 
         return $randomToken;
     }
+
+    /**
+     * @param $string
+     * @param $start
+     * @param $end
+     * @return bool|string
+     */
 
     public function get_string_between($string, $start, $end){
 
@@ -56,6 +76,10 @@ class Helper
 
     }
 
+    /**
+     * @param $array
+     * @return int|null|string
+     */
     public function getSizeofArray($array){
 
         $array = [];

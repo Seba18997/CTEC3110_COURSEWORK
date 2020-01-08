@@ -39,8 +39,11 @@ class SessionModel
     private function storeData()
     {
         $store_result = false;
-        $store_result_username = $this->session_wrapper_file->setSessionVar('user_name', $this->username);
-        $store_result_password = $this->session_wrapper_file->setSessionVar('password', $this->password);
+        $store_result_username
+            = $this->session_wrapper_file->setSessionVar('user_name', $this->username);
+
+        $store_result_password
+            = $this->session_wrapper_file->setSessionVar('password', $this->password);
 
         if ($store_result_username !== false && $store_result_password !== false)	{
             $store_result = true;

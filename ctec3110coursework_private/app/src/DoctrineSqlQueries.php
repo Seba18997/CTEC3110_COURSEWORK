@@ -10,6 +10,13 @@ class DoctrineSqlQueries
 
     public function __destruct(){}
 
+    /**
+     * @param $queryBuilder
+     * @param array $cleaned_parameters
+     * @param string $hashed_password
+     * @return array
+     */
+
     public static function queryStoreUserData($queryBuilder, array $cleaned_parameters, string $hashed_password)
     {
         $store_result = [];

@@ -25,7 +25,7 @@ class Decoder
      * @param $message_content
      * @return mixed
      */
-    
+
     public function decodeMessage($message_content){
 
         $str = $message_content;
