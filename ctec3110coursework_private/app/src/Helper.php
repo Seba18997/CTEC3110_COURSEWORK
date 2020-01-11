@@ -60,7 +60,7 @@ class Helper
      * @return bool|string
      */
 
-    public function get_string_between($string, $start, $end){
+    public function getTheValue($string, $start, $end){
 
         $string = ' ' . $string;
 
