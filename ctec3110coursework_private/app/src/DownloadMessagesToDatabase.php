@@ -4,16 +4,16 @@ namespace M2MAPP;
 
 class DownloadMessagesToDatabase
 {
-
-    private $database_wrapper;
-    private $make_query;
     private $downloaded_messages_data;
     private $message_counter;
+    private $database_wrapper;
+    private $database_connection_settings;
+    private $sql_queries;
 
     public function __construct()
     {
-            $this->database_wrapper = null;
-            $this->make_query = null;
+            $this->database_wrapper = NULL;
+            $this->sql_queries = NULL;
             $this->downloaded_messages_data = array();
             $this->message_counter = MESSAGES_COUNTER;
     }
@@ -21,21 +21,19 @@ class DownloadMessagesToDatabase
     public function __destruct(){
     }
 
-    public function makeConnection()
+    public function setDatabaseWrapper($database_wrapper)
     {
-            $connection = (new DatabaseWrapper)->makeDatabaseConnection();
-            return $connection;
+        $this->database_wrapper = $database_wrapper;
     }
 
-    public function makeQuery($make_query)
+    public function setDatabaseConnectionSettings($database_connection_settings)
     {
-        $this->make_query = $make_query;
+        $this->database_connection_settings = $database_connection_settings;
     }
 
-    public function doMakeQuery($query, $params='')
+    public function setSqlQueries($sql_queries)
     {
-        $make_query = (new DatabaseWrapper)->safeQuery($query, $params);
-        return $make_query;
+        $this->sql_queries = $sql_queries;
     }
 
     public function setSoapClient()
@@ -48,8 +46,7 @@ class DownloadMessagesToDatabase
     public function retrieveMessages()
     {
             $messages = NULL;
-            $messages = (new SoapWrapper)->getMessagesFromSoap($this->setSoapClient(),
-                $this->message_counter);
+            $messages = (new SoapWrapper)->getMessagesFromSoap($this->setSoapClient(), $this->message_counter);
             return $messages;
     }
 
@@ -58,10 +55,10 @@ class DownloadMessagesToDatabase
             return $this->downloaded_messages_data;
     }
 
-    public function storeDownloadedMessages()
+    public function storePreparedMessages()
     {
             $this->prepareMessagesToStore();
-            $this->addMessageIfNotExist();
+            $this->addPreparedMessages();
     }
 
     private function prepareMessagesToStore()
@@ -88,30 +85,27 @@ class DownloadMessagesToDatabase
                         (new Helper)->mapDataFromString($message_result[$i], 'bearer'));
 
                 $messages_final_result['message'][$i] =
-                    (new Validator)->validateDownloadedMessage(
-                        (new Helper)->mapDataFromString($message_result[$i], 'message'));
+                        (new Validator)->sanitiseString(
+                            (new Helper)->mapDataFromString($message_result[$i], 'message'));
             }
-
             $this->downloaded_messages_data = $messages_final_result;
     }
 
-    public function addMessageIfNotExist()
+    private function addPreparedMessages()
     {
             $messages_exists = NULL;
 
-            $this->makeConnection();
+            $sql_query_get_all_messages = $this->sql_queries->getMessages();
 
-            $sql_query_get_all_messages = (new SQLQueries)->getMessages();
+            $this->database_wrapper->setDatabaseConnectionSettings($this->database_connection_settings);
 
-            $query_handle = $this->doMakeQuery($sql_query_get_all_messages);
+            $this->database_wrapper->makeDatabaseConnection();
 
-            $number_of_rows = $query_handle->countRows();
+            $this->database_wrapper->safeQuery($sql_query_get_all_messages);
 
-            $size_of_array = (new Helper)->getSizeofArray($this->downloaded_messages_data);
+            $number_of_rows = $this->database_wrapper->countRows();
 
-            //$sql_query_check_if_message_exists = (new SQLQueries)->checkIfMessageExists();
-
-            $sql_query_insert_messages = (new SQLQueries)->storeMessage();
+            @$size_of_array = (new Helper)->getSizeofArray($this->downloaded_messages_data);
 
             if ($number_of_rows < $size_of_array)
             {
@@ -130,9 +124,9 @@ class DownloadMessagesToDatabase
                     $query_parameters =
                         array(':source' => $source, ':destination' => $dest, ':date' => $date, ':type' => $type, ':message' => $message);
 
-                    $this->doMakeQuery($sql_query_insert_messages, $query_parameters);
+                    $sql_query_store_messages = $this->sql_queries->storeMessage();
 
-                    echo 'added ' .$i. ' record' ;
+                    $this->database_wrapper->safeQuery($sql_query_store_messages, $query_parameters);
                 }
             }
             else if ($number_of_rows == $size_of_array)

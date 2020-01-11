@@ -19,6 +19,8 @@ $app->post(
 
         $messages_data = retrieveMessages($app)['retrieved_messages'];
 
+        $download_data = downloadMessages($app);
+
         $random_token = generateToken($app, $token_length);
 
         return $this->view->render($response,
@@ -31,12 +33,27 @@ $app->post(
                 'page_heading_1' => APP_NAME,
                 'page_heading_2' => 'Messages',
                 'messages_data' => $messages_data,
+                'download_data' => $download_data,
                 'token' => $random_token,
 
             ]);
 
     })->setName('displaymessages');
 
+
+
+
+function setDBWrapper($app){
+    return $app->getContainer()->get('DatabaseWrapper');
+}
+
+function setQueries($app){
+    return $app->getContainer()->get('SQLQueries');
+}
+
+function setSettingsFile($app){
+    return $app->getContainer()->get('settings');
+}
 
 /**
  * @param $app
@@ -47,17 +64,11 @@ $app->post(
 function retrieveMessages($app)
 {
 
-    $database_wrapper = $app->getContainer()->get('DatabaseWrapper');
-    $sql_queries = $app->getContainer()->get('SQLQueries');
     $messages_model = $app->getContainer()->get('DisplayMessages');
 
-    $settings = $app->getContainer()->get('settings');
-
-    $database_connection_settings = $settings['pdo_settings'];
-
-    $messages_model->setSqlQueries($sql_queries);
-    $messages_model->setDatabaseConnectionSettings($database_connection_settings);
-    $messages_model->setDatabaseWrapper($database_wrapper);
+    $messages_model->setSqlQueries(setQueries($app));
+    $messages_model->setDatabaseConnectionSettings(setSettingsFile($app)['pdo_settings']);
+    $messages_model->setDatabaseWrapper(setDBWrapper($app));
 
     $final_messages = $messages_model->getMessages();
 
@@ -79,3 +90,18 @@ function generateToken($app, $length){
     return $final_token;
 
 }
+
+function downloadMessages($app)
+{
+    $downloaded_messages_model = $app->getContainer()->get('DownloadMessagesToDatabase');
+
+    $downloaded_messages_model->setSqlQueries(setQueries($app));
+    $downloaded_messages_model->setDatabaseConnectionSettings(setSettingsFile($app)['pdo_settings']);
+    $downloaded_messages_model->setDatabaseWrapper(setDBWrapper($app));
+
+    $final_download_messages = $downloaded_messages_model->storePreparedMessages();
+
+    return $final_download_messages;
+}
+
+
