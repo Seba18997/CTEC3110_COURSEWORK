@@ -34,6 +34,7 @@ class MessagesModel
     public function getMessages()
     {
         $messages_to_show = [];
+
         $query_string = $this->sql_queries->getMessages();
 
         $this->database_wrapper->setDatabaseConnectionSettings($this->database_connection_settings);

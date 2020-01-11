@@ -43,14 +43,13 @@ $settings = [
                 'cache' => false,
                 'auto_reload' => true,
             ]],
-
         'pdo_settings' => [
             'rdbms' => 'mysql',
             'host' => 'localhost',
-            'db_name' => 'coursework',
+            'dbname' => 'coursework',
             'port' => '3306',
-            'user_name' => 'p3tuser',
-            'user_password' => 'password',
+            'username' => 'p3tuser',
+            'userpassword' => 'password',
             'charset' => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'options' => [
@@ -58,7 +57,6 @@ $settings = [
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
                 PDO::ATTR_EMULATE_PREPARES   => true,
             ]],
-        ],
         'doctrine_settings' => [
             'driver' => 'pdo_mysql',
             'host' => 'localhost',
@@ -67,7 +65,7 @@ $settings = [
             'user' => 'p3tuser',
             'password' => 'password',
             'charset' => 'utf8mb4'
-        ],
+        ]],
 
 ];
 return $settings;
