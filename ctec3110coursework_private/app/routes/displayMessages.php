@@ -32,8 +32,9 @@ $app->post(
                 'page_title' => APP_NAME,
                 'page_heading_1' => APP_NAME,
                 'page_heading_2' => 'Messages',
+                'method' => 'post',
                 'messages_data' => $messages_data,
-                'download_data' => $download_data,
+                'action' => $download_data,
                 'token' => $random_token,
 
             ]);
@@ -99,9 +100,10 @@ function downloadMessages($app)
     $downloaded_messages_model->setDatabaseConnectionSettings(setSettingsFile($app)['pdo_settings']);
     $downloaded_messages_model->setDatabaseWrapper(setDBWrapper($app));
 
-    $final_download_messages = $downloaded_messages_model->storePreparedMessages();
+    $final_download_messages['prepare'] = $downloaded_messages_model->prepareMessagesToStore();
+    $final_download_messages['add'] = $downloaded_messages_model->addPreparedMessages();
 
     return $final_download_messages;
 }
 
-
+var_dump(downloadMessages($app));

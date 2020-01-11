@@ -61,7 +61,7 @@ class DownloadMessagesToDatabase
             $this->addPreparedMessages();
     }
 
-    private function prepareMessagesToStore()
+    public function prepareMessagesToStore()
     {
             $messages_final_result = [];
 
@@ -89,9 +89,10 @@ class DownloadMessagesToDatabase
                             (new Helper)->mapDataFromString($message_result[$i], 'message'));
             }
             $this->downloaded_messages_data = $messages_final_result;
+            return true;
     }
 
-    private function addPreparedMessages()
+    public function addPreparedMessages()
     {
             $messages_exists = NULL;
 
@@ -105,29 +106,28 @@ class DownloadMessagesToDatabase
 
             $number_of_rows = $this->database_wrapper->countRows();
 
-            @$size_of_array = (new Helper)->getSizeofArray($this->downloaded_messages_data);
+            $size_of_array = MESSAGES_COUNTER;
 
             if ($number_of_rows < $size_of_array)
             {
                 $messages_exists = false;
 
-                $i = 0;
+                  for($i=0; $i<$size_of_array; $i++)
+                  {
+                        $source = $this->downloaded_messages_data['source'][$i];
+                        $dest = $this->downloaded_messages_data['destination'][$i];
+                        $date = $this->downloaded_messages_data['date'][$i];
+                        $type = $this->downloaded_messages_data['type'][$i];
+                        $message = $this->downloaded_messages_data['message'][$i];
 
-                while ($i == $size_of_array)
-                {
-                    $source = $this->downloaded_messages_data['source'][$i];
-                    $dest = $this->downloaded_messages_data['destination'][$i];
-                    $date = $this->downloaded_messages_data['date'][$i];
-                    $type = $this->downloaded_messages_data['type'][$i];
-                    $message = $this->downloaded_messages_data['message'][$i];
+                        $query_parameters =
+                            array(':source' => $source, ':destination' => $dest, ':date' => $date, ':type' => $type, ':message' => $message);
 
-                    $query_parameters =
-                        array(':source' => $source, ':destination' => $dest, ':date' => $date, ':type' => $type, ':message' => $message);
+                        $sql_query_store_messages = $this->sql_queries->storeMessage();
 
-                    $sql_query_store_messages = $this->sql_queries->storeMessage();
+                        $this->database_wrapper->safeQuery($sql_query_store_messages, $query_parameters);
 
-                    $this->database_wrapper->safeQuery($sql_query_store_messages, $query_parameters);
-                }
+                   }
             }
             else if ($number_of_rows == $size_of_array)
             {

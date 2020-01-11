@@ -80,13 +80,20 @@ class Helper
      * @param $array
      * @return int|null|string
      */
-    public function getSizeofArray($array){
+    public function getSizeofArray($array=[]){
 
-        $array = [];
+        if(empty($array)){
 
-        $end_of_array = end($array);
+            $last_key = 'Array is empty';
 
-        $last_key = key($end_of_array);
+
+        } else {
+
+            $end_of_array = end($array);
+
+            $last_key = key($end_of_array);
+
+        }
 
         return $last_key;
 
