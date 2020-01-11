@@ -41,26 +41,37 @@ class MessagesModel
 
         $this->database_wrapper->makeDatabaseConnection();
 
-        $this->database_wrapper->safeQuery($query_string);
+        $result = $this->database_wrapper->safeQuery($query_string);
 
         $number_of_data_sets = $this->database_wrapper->countRows();
 
-        if ($number_of_data_sets > 0) {
+        if ($number_of_data_sets >= 0) {
+
             $x = 0;
-            while ($row = $this->database_wrapper->safeFetchArray()) {
+            $counter = 0;
+            
+            while ($counter <= $number_of_data_sets ) {
+
+                $row = $this->database_wrapper->safeFetchArray();
+
                 $finalmessages[$x]['id'] = $row['id'];
                 $finalmessages[$x]['source'] = $row['source'];
                 $finalmessages[$x]['destination'] = $row['destination'];
                 $finalmessages[$x]['date'] = $row['date'];
                 $finalmessages[$x]['type'] = $row['type'];
                 $finalmessages[$x]['message'] = $row['message'];
+
+                $x++;
+                $counter++;
             }
         } else {
             $messages_to_show[0] = 'No messages found or there are 0 messages in the database.';
         }
 
         $messages_to_show['number_of_messages_data_sets'] = $number_of_data_sets;
+        var_dump($number_of_data_sets);
         $messages_to_show['retrieved_messages'] = $finalmessages;
+        var_dump($number_of_data_sets);
 
         return $messages_to_show;
     }
