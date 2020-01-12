@@ -28,7 +28,7 @@ class SoapWrapper
         }
         catch (\SoapFault $exception)
         {
-            $soap_client_handle = 'Ooops - something went wrong connecting to the data supplier.  Please try again later';
+            $soap_client_handle = 'createSoapClient : Ooops - something went wrong connecting to the data supplier.  Please try again later <br/>';
         }
         return $soap_client_handle;
     }
@@ -48,7 +48,7 @@ class SoapWrapper
             try {
                 $soap_call_result = $soap_client->peekMessages($username, $password, $messages_counter, "");
             } catch (\SoapFault $exception) {
-                echo 'Oops - something went wrong connecting to the data supplier.  Please try again later';
+                echo 'getMessagesFromSoap : Oops - something went wrong connecting to the data supplier.  Please try again later <br/>\'';
             }
         }
 

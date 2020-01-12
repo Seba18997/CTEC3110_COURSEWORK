@@ -36,6 +36,11 @@ class DownloadMessagesToDatabase
         $this->sql_queries = $sql_queries;
     }
 
+    public function setMsgCounter($message_counter)
+    {
+        $this->message_counter = $message_counter;
+    }
+
     public function setSoapClient()
     {
             $soap_client = NULL;
@@ -46,7 +51,7 @@ class DownloadMessagesToDatabase
     public function retrieveMessages()
     {
             $messages = NULL;
-            $messages = (new SoapWrapper)->getMessagesFromSoap($this->setSoapClient(), $this->message_counter);
+            $messages = (new SoapWrapper)->getMessagesFromSoap($this->setSoapClient(), MESSAGES_COUNTER);
             return $messages;
     }
 
@@ -57,15 +62,8 @@ class DownloadMessagesToDatabase
 
     public function setMessagesCounter()
     {
-        $counter = count(array_filter($this->retrieveMessages(), function($x) { return !empty($x); }));
-        $this->message_counter = $counter;
+        $counter = (new Helper)->countRowsInArray($this->retrieveMessages());
         return $counter;
-    }
-
-    public function storePreparedMessages()
-    {
-            $this->prepareMessagesToStore();
-            $this->addPreparedMessages();
     }
 
     public function prepareMessagesToStore()
@@ -113,11 +111,11 @@ class DownloadMessagesToDatabase
 
             $number_of_rows = $this->database_wrapper->countRows();
 
-            if ($number_of_rows < $this->message_counter)
+            if ($number_of_rows < $this->setMessagesCounter())
             {
                 $messages_exists = false;
 
-                  for($i=0; $i<$this->message_counter; $i++)
+                  for($i=0; $i<$this->setMessagesCounter(); $i++)
                   {
                         $source = $this->downloaded_messages_data['source'][$i];
                         $dest = $this->downloaded_messages_data['destination'][$i];
@@ -139,14 +137,17 @@ class DownloadMessagesToDatabase
 
                    }
             }
-            else if ($number_of_rows == $this->message_counter)
+            else if ($number_of_rows === $this->setMessagesCounter())
             {
                  $messages_exists = true;
             }
+            else if ($number_of_rows > $this->setMessagesCounter())
+            {
+                $messages_exists = 'Probably cloned messages in DB <br/>';
+            }
             else
             {
-                 echo ' problem with addPreparedMessages' ;
-                 $messages_exists = 'error';
+                 $messages_exists = 'Problem with addPreparedMessages <br/>' ;
             }
 
             return $messages_exists;

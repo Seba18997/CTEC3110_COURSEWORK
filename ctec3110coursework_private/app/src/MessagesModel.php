@@ -59,7 +59,7 @@ class MessagesModel
                 $finalmessages[$x]['destination'] = $row['destination'];
                 $finalmessages[$x]['date'] = $row['date'];
                 $finalmessages[$x]['type'] = $row['type'];
-                $finalmessages[$x]['message'] = $row['message'];
+                $finalmessages[$x]['message'] = html_entity_decode($row['message']);
 
                 $x++;
                 $counter++;

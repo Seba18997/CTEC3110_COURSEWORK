@@ -35,25 +35,6 @@ class Helper
     }
 
     /**
-     * @param $length
-     * @return string
-     */
-    public function generateToken($length) {
-
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
-        $charactersLength = strlen($characters);
-
-        $randomToken = '';
-
-        for ($i = 0; $i < $length; $i++) {
-            $randomToken .= $characters[rand(0, $charactersLength - 1)];
-        }
-
-        return $randomToken;
-    }
-
-    /**
      * @param $string
      * @param $start
      * @param $end
@@ -76,5 +57,10 @@ class Helper
 
     }
 
+
+    public function countRowsInArray($array=[]){
+        @$count = count(array_filter($array, function($x) { return !empty($x); }));
+        return $count;
+    }
 
 }
