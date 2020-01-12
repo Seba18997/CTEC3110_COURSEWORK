@@ -69,9 +69,7 @@ class MessagesModel
         }
 
         $messages_to_show['number_of_messages_data_sets'] = $number_of_data_sets;
-        var_dump($number_of_data_sets);
         $messages_to_show['retrieved_messages'] = $finalmessages;
-        var_dump($number_of_data_sets);
 
         return $messages_to_show;
     }

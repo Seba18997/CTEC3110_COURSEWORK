@@ -56,25 +56,6 @@ function setSettingsFile($app){
     return $app->getContainer()->get('settings');
 }
 
-/**
- * @param $app
- * @param $database_wrapper
- * @return mixed
- */
-
-function retrieveMessages($app)
-{
-
-    $messages_model = $app->getContainer()->get('DisplayMessages');
-
-    $messages_model->setSqlQueries(setQueries($app));
-    $messages_model->setDatabaseConnectionSettings(setSettingsFile($app)['pdo_settings']);
-    $messages_model->setDatabaseWrapper(setDBWrapper($app));
-
-    $final_messages = $messages_model->getMessagesFromDB();
-
-    return $final_messages;
-}
 
 /**
  * @param $app
@@ -102,8 +83,31 @@ function downloadMessages($app)
 
     $final_download_messages['prepare'] = $downloaded_messages_model->prepareMessagesToStore();
     $final_download_messages['add'] = $downloaded_messages_model->addPreparedMessages();
+    $final_download_messages['counter'] = $downloaded_messages_model->setMessagesCounter();
 
     return $final_download_messages;
+}
+
+
+/**
+ * @param $app
+ * @param $database_wrapper
+ * @return mixed
+ */
+
+
+function retrieveMessages($app)
+{
+
+    $messages_model = $app->getContainer()->get('DisplayMessages');
+
+    $messages_model->setSqlQueries(setQueries($app));
+    $messages_model->setDatabaseConnectionSettings(setSettingsFile($app)['pdo_settings']);
+    $messages_model->setDatabaseWrapper(setDBWrapper($app));
+
+    $final_messages = $messages_model->getMessagesFromDB();
+
+    return $final_messages;
 }
 
 var_dump(downloadMessages($app));

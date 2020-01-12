@@ -20,6 +20,7 @@ class SQLQueries
     {
         $query_string  = "SELECT id, source, destination, date, type, message ";
         $query_string .= "FROM messages ";
+        $query_string .= "WHERE date != '' ";
         $query_string .= "ORDER BY id;";
         return $query_string;
     }

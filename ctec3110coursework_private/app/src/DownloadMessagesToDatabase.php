@@ -15,7 +15,7 @@ class DownloadMessagesToDatabase
             $this->database_wrapper = NULL;
             $this->sql_queries = NULL;
             $this->downloaded_messages_data = array();
-            $this->message_counter = MESSAGES_COUNTER;
+            $this->message_counter = NULL;
     }
 
     public function __destruct(){
@@ -53,6 +53,13 @@ class DownloadMessagesToDatabase
     public function getMessagesResult()
     {
             return $this->downloaded_messages_data;
+    }
+
+    public function setMessagesCounter()
+    {
+        $counter = count(array_filter($this->retrieveMessages(), function($x) { return !empty($x); }));
+        $this->message_counter = $counter;
+        return $counter;
     }
 
     public function storePreparedMessages()
@@ -127,7 +134,8 @@ class DownloadMessagesToDatabase
 
                         $sql_query_store_messages = $this->sql_queries->storeMessage();
 
-                      $this->database_wrapper->safeQuery($sql_query_store_messages, $query_parameters);
+                        $this->database_wrapper->safeQuery($sql_query_store_messages, $query_parameters);
+
 
                    }
             }
@@ -137,7 +145,8 @@ class DownloadMessagesToDatabase
             }
             else
             {
-                 echo 'something went wrong' ;
+                 echo ' problem with addPreparedMessages' ;
+                 $messages_exists = 'error';
             }
 
             return $messages_exists;

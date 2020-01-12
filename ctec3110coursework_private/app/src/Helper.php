@@ -76,27 +76,5 @@ class Helper
 
     }
 
-    /**
-     * @param $array
-     * @return int|null|string
-     */
-    public function getSizeofArray($array=[]){
-
-        if(empty($array)){
-
-            $last_key = 'Array is empty';
-
-
-        } else {
-
-            $end_of_array = end($array);
-
-            $last_key = key($end_of_array);
-
-        }
-
-        return $last_key;
-
-    }
 
 }
