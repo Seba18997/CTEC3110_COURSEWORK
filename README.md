@@ -3,12 +3,12 @@ M2M Connect; SMS => PHP Processing
 
 The application must, as a minimum:
 - Use a PHP SOAP client to download SMS messages from the M2M Connect server. **(done)**
-- Parse all downloaded messages. **(partially done)**
-- Validate all content. **(partially done)**
-- Store the downloaded message (content and metadata) in the database. 
-- Display the message content and metadata on the web-browser **(partially done)**
+- Parse all downloaded messages.  **(done)**
+- Validate all content.  **(done)**
+- Store the downloaded message (content and metadata) in the database.  **(done)**
+- Display the message content and metadata on the web-browser **(done)**
 - Message metadata:
-- - eg source SIM number, name, email address **(partially done)**
+- - eg source SIM number, name, email address  **(done)**
 - Message content:
 - - ie state of switches on the board, temperature, key-pad value, etc **(partially done)**
 
@@ -35,7 +35,7 @@ logo on your web-pages when validated.
 Possible extensions to the implementation could include:
 
 - implementation of registration and login/logout features, incorporating correct session
-management.
+management. **(partially done)**
 - displaying numerical data in chart form.
 - an interface to send SMS messages back to the “circuit board” containing updated
 settings for the board.
