@@ -22,6 +22,11 @@ $app->post(
 
         $outcome = compare($app, $db_usernamePassword['password'], $password);
 
+        var_dump($password);
+        var_dump($cleaned_username);
+        $result = setSession($app, $password, $cleaned_username);
+        var_dump($result);
+
 
         if($outcome == 1 ) {
             return $this->view->render($response,
@@ -121,3 +126,17 @@ function compare($app, $db_pass, $typed_pass)
     }
 }
 
+function Session($app, $password, $username)
+{
+    $session_wrapper = $app->getContainer()->get('SessionWrapper');
+    $session_model = $app->getContainer()->get('SessionModel');
+
+    $store_result = '';
+    $session_model->setSessionUsername($username);
+    $session_model->setSessionPassword($password);
+    $session_model->setSessionWrapperFile($session_wrapper);
+    $session_model->storeData();
+
+    $store_result = $session_model->getStorageResult();
+    return $store_result;
+}

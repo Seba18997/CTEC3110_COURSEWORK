@@ -21,6 +21,11 @@ class SessionModel
 
     public function __destruct() { }
 
+    public function getStorageResult()
+    {
+        return $this->storage_result;
+    }
+
     public function setSessionUsername($username)
     {
         $this->username = $username;
