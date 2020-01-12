@@ -14,12 +14,18 @@ define('CSS_PATH', $css_path);
 define('APP_NAME', 'M2MAPP');
 define('LANDING_PAGE', $_SERVER['SCRIPT_NAME']);
 
+$messages_counter = 30;
+define('MESSAGES_COUNTER', $messages_counter);
+
 $wsdl = 'https://m2mconnect.ee.co.uk/orange-soap/services/MessageServiceByCountry?wsdl';
 define ('WSDL', $wsdl);
 $username = "19_Sebastian";
 define ('USERNAME', $username);
 $password = "passXDword123";
 define ('PASSWORD', $password);
+
+define ('BCRYPT_ALGO', PASSWORD_DEFAULT);
+define ('BCRYPT_COST', 12);
 
 $settings = [
     "settings" => [
@@ -37,19 +43,26 @@ $settings = [
         'pdo_settings' => [
             'rdbms' => 'mysql',
             'host' => 'localhost',
-            'db_name' => 'coursework',
+            'dbname' => 'coursework',
             'port' => '3306',
-            'user_name' => 'p3tuser',
-            'user_password' => 'password',
+            'username' => 'p3tuser',
+            'userpassword' => 'password',
             'charset' => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'options' => [
                 PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
                 PDO::ATTR_EMULATE_PREPARES   => true,
-            ],
-        ]
-    ],
-];
+            ]],
+        'doctrine_settings' => [
+            'driver' => 'pdo_mysql',
+            'host' => 'localhost',
+            'dbname' => 'coursework',
+            'port' => '3306',
+            'user' => 'p3tuser',
+            'password' => 'password',
+            'charset' => 'utf8mb4'
+        ]],
 
+];
 return $settings;

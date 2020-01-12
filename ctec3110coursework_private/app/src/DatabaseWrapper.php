@@ -1,6 +1,5 @@
 <?php
 
-
 namespace M2MAPP;
 
 class DatabaseWrapper
@@ -30,7 +29,6 @@ class DatabaseWrapper
 
     /**
      * '\' character in front of the PDO class name signifies that it is a globally available class
-     * and is not part of the Sessins namespavce
      *
      * @return string
      */
@@ -42,10 +40,10 @@ class DatabaseWrapper
         $database_settings = $this->database_connection_settings;
         $host_name = $database_settings['rdbms'] . ':host=' . $database_settings['host'];
         $port_number = ';port=' . '3306';
-        $user_database = ';dbname=' . $database_settings['db_name'];
+        $user_database = ';dbname=' . $database_settings['dbname'];
         $host_details = $host_name . $port_number . $user_database;
-        $user_name = $database_settings['user_name'];
-        $user_password = $database_settings['user_password'];
+        $user_name = $database_settings['username'];
+        $user_password = $database_settings['userpassword'];
         $pdo_attributes = $database_settings['options'];
 
         try {
@@ -61,9 +59,6 @@ class DatabaseWrapper
     /**
      * @param $query_string
      * @param null $params
-     *
-     * For transparency, each parameter value is bound separately to its placeholder
-     * This is not always strictly necessary.
      *
      * @return mixed
      */
@@ -106,6 +101,9 @@ class DatabaseWrapper
         return $arr_row;
     }
 
+    /**
+     * @return mixed
+     */
     public function lastInsertedID()
     {
         $sql_query = 'SELECT LAST_INSERT_ID()';

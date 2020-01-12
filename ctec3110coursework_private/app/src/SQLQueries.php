@@ -8,73 +8,57 @@ class SQLQueries
 
     public function __destruct() { }
 
-    /*
-
-    public function getAllCompanySymbols()
+    public function getUsernamePassword($username)
     {
-        $query_string  = "SELECT stock_company_symbol, stock_company_name ";
-        $query_string .= "FROM company_name ";
-        $query_string .= "ORDER BY stock_company_name";
+        $query_string  = "SELECT user_name, password ";
+        $query_string .= "FROM user_data ";
+        $query_string .= "WHERE user_name='$username';";
         return $query_string;
     }
 
-    public function getCompanyStockData()
+    public function getMessages()
     {
-        $query_string  = "SELECT stock_last_value, stock_date, stock_time, stock_company_name ";
-        $query_string .= "FROM company_name, stock_data ";
-        $query_string .= "WHERE company_name.stock_company_symbol = :stock_company_symbol ";
-        $query_string .= "AND company_name.stock_company_name_id = stock_data.fk_company_stock_id ";
-        $query_string .= "ORDER BY stock_date";
-        return $query_string;
-    }
-    public function checkCompanySymbol()
-    {
-        $query_string  = "SELECT stock_company_symbol, stock_company_name_id ";
-        $query_string .= "FROM sq_company_name ";
-        $query_string .= "WHERE stock_company_symbol = :stock_company_symbol ";
-        $query_string .= "LIMIT 1";
+        $query_string  = "SELECT id, source, destination, date, type, message ";
+        $query_string .= "FROM messages ";
+        $query_string .= "WHERE date != '' ";
+        $query_string .= "ORDER BY id DESC;";
         return $query_string;
     }
 
-    public function storeCompanyName()
+    public function getSwitchStates()
     {
-        $query_string  = "INSERT INTO sq_company_name ";
-        $query_string .= "SET ";
-        $query_string .= "stock_company_symbol = :stock_company_symbol, ";
-        $query_string .= "stock_company_name = :stock_company_name;";
+        $query_string = "SELECT id, switch1, switch2, switch3, switch4, fan, heater, keypad ";
+        $query_string .= "FROM switch ";
+        $query_string .= "WHERE id=1;";
         return $query_string;
     }
 
-    public function getCompanyDetails()
+    public function storeMessage()
     {
-        $query_string  = "SELECT stock_company_name_id, stock_company_symbol, stock_company_name ";
-        $query_string .= "FROM sq_company_name;";
+        $query_string  = 'INSERT INTO messages ( id, source, destination, date, type, message ) VALUES ( NULL, :source, :destination, :date, :type, :message );';
         return $query_string;
     }
 
-    public function checkCompanyExists()
-    {
-        $query_string  = "SELECT stock_company_name_id ";
-        $query_string .= "FROM sq_company_name, sq_stock_data ";
-        $query_string .= "WHERE sq_company_name.stock_company_symbol = :stock_company_symbol ";
-        $query_string .= "AND sq_company_name.stock_company_name_id = sq_stock_data.fk_company_stock_id ";
-        $query_string .= "AND stock_date = :stock_date ";
-        $query_string .= "AND stock_time = :stock_time ";
-        $query_string .= "LIMIT 1";
-        return $query_string;
-    }
-
-    public function storeCompanyStockData()
-    {
-        $query_string  = "INSERT INTO sq_stock_data ";
-        $query_string .= "SET ";
-        $query_string .= "stock_date = :stock_date, ";
-        $query_string .= "stock_time = :stock_time, ";
-        $query_string .= "stock_last_value = :stock_last_value, ";
-        $query_string .= "fk_company_stock_id = :fk_company_stock_id;";
+    public function checkIfMessageExists() {
+        $query_string  = "SELECT id ";
+        $query_string .= "FROM messages ";
+        $query_string .= "WHERE source = :source ";
+        $query_string .= "AND WHERE destination = :destination ";
+        $query_string .= "AND WHERE date = :date ";
+        $query_string .= "AND WHERE type = :type ";
+        $query_string .= "AND WHERE message = :message ";
+        $query_string .= ";";
         return $query_string;
     }
 
 
-    */
+    public function updateSwitchState()
+    {
+        $query_string = 'UPDATE switch SET switch1 = ":switch1", switch2 = ":switch2", switch3 = ":switch3", switch4 = ":switch4", fan = ":fan", heater = ":heater", keypad = ":keypad" ;';
+        $query_string .= "WHERE id=1;";
+        return $query_string;
+    }
 }
+
+
+

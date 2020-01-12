@@ -1,29 +1,29 @@
 {% extends 'banner.html.twig' %}
 {% block content %}
-  <h2>{{ page_heading_2 }}</h2>
+    <h2>{{ page_heading_2 }} <b>({{ counter }})</b></h2>
+    <br/>
+    <div class="table-responsive-sm">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Source</th>
+                <th scope="col">Destination</th>
+                <th scope="col">Date</th>
+                <th scope="col">Type</th>
+                <th scope="col">Message content</th>
+            </tr>
+            </thead>
 
-  <p>Messages go here </p>
+             <tbody>
+             {% for message_data in messages_data %}
+                 <tr><th scope="row">{{ message_data.id }}</th><td>{{ message_data.source }}</td><td>{{ message_data.destination }}</td><td>{{ message_data.date }}</td><td>{{ message_data.type }}</td><td>{{ message_data.message }}</td></tr>
+             {% endfor %}
+             </tbody>
+        </table>
+    </div>
 
-  <p>TOKEN: <b>{{ token }}</b></p>
-
-
-  <div class="table-responsive-sm">
-    <table class="table">
-        <thead>
-        <tr>
-          <th scope="col">#</th><th scope="col">Source</th><th scope="col">Destination</th><th scope="col">Date</th><th scope="col">Type</th><th scope="col">Message</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <th scope="row">1</th><td>447817814149</td><td>447817814149</td><td>17/12/2019 11:18:10</td><td>SMS</td><td>"switch":{"1":true,"2":false,"3":true,"4":false},"fan":true,"heater":33,"keypad":3,"id":"18-3110-AS"</td>
-        </tr>
-        {% for message_data in messages_data %}
-            <tr><th scope="row">2</th><td>{{ message_data.source }}</td><td>{{ message_data.dest }}</td><td>{{ message_data.date }}</td><td>{{ message_data.type }}</td><td>{{ message_data.message }}</td></tr>
-        {% endfor %}
-        </tbody>
-      </table>
-  </div>
+   <br/>
 
   <p><a href="{{ landing_page }}">Homepage</a></p>
 

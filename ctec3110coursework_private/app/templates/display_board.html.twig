@@ -2,30 +2,19 @@
 {% block content %}
   <h2>{{ page_heading_2 }}</h2>
 
-  <p>{{ page_text }}</p>
-  <p>State of X: <b>1 / 2</b></p>
-  <p>State of Y: <b>3 / 4</b></p>
+  <table class="table">
+    <tbody>
+      <tr><td>State of Switch 1: </td><td>{{ switch1 }}</td></tr>
+      <tr><td>State of Switch 2: </td><td>{{ switch2 }}</td></tr>
+      <tr><td>State of Switch 3: </td><td>{{ switch3 }}</td></tr>
+      <tr><td>State of Switch 4: </td><td>{{ switch4 }}</td></tr>
+      <tr><td>State of Fan: </td><td>{{ fan }}</td></tr>
+      <tr><td>State of Heater: </td><td>{{ heater }}</td></tr>
+      <tr><td>State of Keypad: </td><td>{{ keypad }}</td></tr>
+    </tbody>
+  </table>
 
-  <ul class="list-group list-group-horizontal-lg">
-    <li class="list-group-item">State of X: </li>
-    <li class="list-group-item">Not defined</li>
-  </ul>
-
-  <ul class="list-group list-group-horizontal-lg">
-    <li class="list-group-item">State of Y: </li>
-    <li class="list-group-item">Not defined</li>
-  </ul>
-
-  <ul class="list-group list-group-horizontal-lg">
-    <li class="list-group-item">State of A: </li>
-   <li class="list-group-item">Not defined</li>
-  </ul>
-
-  <ul class="list-group list-group-horizontal-lg">
-    <li class="list-group-item">State of B: </li>
-    <li class="list-group-item">Not defined</li>
-  </ul>
-
+<br/>
   <p class="curr_page"><a href="{{ landing_page }}">Homepage</a></p>
 
 {% endblock %}
