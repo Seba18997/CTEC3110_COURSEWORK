@@ -143,11 +143,11 @@ class DownloadMessagesToDatabase
             }
             else if ($number_of_rows > $this->setMessagesCounter())
             {
-                $messages_exists = 'Probably cloned messages in DB <br/>';
+                $messages_exists = 'Probably cloned messages in DB';
             }
             else
             {
-                 $messages_exists = 'Problem with addPreparedMessages <br/>' ;
+                 $messages_exists = 'Problem with addPreparedMessages' ;
             }
 
             return $messages_exists;

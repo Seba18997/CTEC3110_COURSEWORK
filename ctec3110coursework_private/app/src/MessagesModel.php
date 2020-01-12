@@ -47,10 +47,9 @@ class MessagesModel
 
         if ($number_of_data_sets >= 0) {
 
-            $x = 0;
-            $counter = 0;
+            $x = $number_of_data_sets - ((new DownloadMessagesToDatabase)->setMessagesCounter());
             
-            while ($counter <= $number_of_data_sets ) {
+            while ($x <= $number_of_data_sets ) {
 
                 $row = $this->database_wrapper->safeFetchArray();
 
@@ -62,7 +61,6 @@ class MessagesModel
                 $finalmessages[$x]['message'] = html_entity_decode($row['message']);
 
                 $x++;
-                $counter++;
             }
         } else {
             $messages_to_show[0] = 'No messages found or there are 0 messages in the database.';
