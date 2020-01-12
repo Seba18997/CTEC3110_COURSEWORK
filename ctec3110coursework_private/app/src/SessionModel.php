@@ -41,7 +41,7 @@ class SessionModel
         $this->session_wrapper_file = $session_wrapper;
     }
 
-    private function storeData()
+    public function storeData()
     {
         $store_result = false;
         $store_result_username

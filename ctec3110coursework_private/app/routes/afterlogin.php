@@ -24,7 +24,7 @@ $app->post(
 
         var_dump($password);
         var_dump($cleaned_username);
-        $result = setSession($app, $password, $cleaned_username);
+        $result = Session($app, $password, $cleaned_username);
         var_dump($result);
 
 
