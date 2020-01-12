@@ -85,7 +85,7 @@ class DownloadMessagesToDatabase
                         (new Helper)->mapDataFromString($message_result[$i], 'bearer'));
 
                 $messages_final_result['message'][$i] =
-                        (new Validator)->sanitiseString(
+                        (new Validator)->validateDownloadedMessage(
                             (new Helper)->mapDataFromString($message_result[$i], 'message'));
             }
             $this->downloaded_messages_data = $messages_final_result;
@@ -106,13 +106,11 @@ class DownloadMessagesToDatabase
 
             $number_of_rows = $this->database_wrapper->countRows();
 
-            $size_of_array = MESSAGES_COUNTER;
-
-            if ($number_of_rows < $size_of_array)
+            if ($number_of_rows < $this->message_counter)
             {
                 $messages_exists = false;
 
-                  for($i=0; $i<$size_of_array; $i++)
+                  for($i=0; $i<$this->message_counter; $i++)
                   {
                         $source = $this->downloaded_messages_data['source'][$i];
                         $dest = $this->downloaded_messages_data['destination'][$i];
@@ -121,15 +119,19 @@ class DownloadMessagesToDatabase
                         $message = $this->downloaded_messages_data['message'][$i];
 
                         $query_parameters =
-                            array(':source' => $source, ':destination' => $dest, ':date' => $date, ':type' => $type, ':message' => $message);
+                            array(':source' => $source,
+                                  ':destination' => $dest,
+                                  ':date' => $date,
+                                  ':type' => $type,
+                                  ':message' => $message);
 
                         $sql_query_store_messages = $this->sql_queries->storeMessage();
 
-                        $this->database_wrapper->safeQuery($sql_query_store_messages, $query_parameters);
+                      $this->database_wrapper->safeQuery($sql_query_store_messages, $query_parameters);
 
                    }
             }
-            else if ($number_of_rows == $size_of_array)
+            else if ($number_of_rows == $this->message_counter)
             {
                  $messages_exists = true;
             }

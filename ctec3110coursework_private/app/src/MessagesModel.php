@@ -31,7 +31,7 @@ class MessagesModel
      * @return array
      */
 
-    public function getMessages()
+    public function getMessagesFromDB()
     {
         $messages_to_show = [];
 
@@ -41,7 +41,7 @@ class MessagesModel
 
         $this->database_wrapper->makeDatabaseConnection();
 
-        $result = $this->database_wrapper->safeQuery($query_string);
+        $this->database_wrapper->safeQuery($query_string);
 
         $number_of_data_sets = $this->database_wrapper->countRows();
 

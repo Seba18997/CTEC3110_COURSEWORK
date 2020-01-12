@@ -71,7 +71,7 @@ function retrieveMessages($app)
     $messages_model->setDatabaseConnectionSettings(setSettingsFile($app)['pdo_settings']);
     $messages_model->setDatabaseWrapper(setDBWrapper($app));
 
-    $final_messages = $messages_model->getMessages();
+    $final_messages = $messages_model->getMessagesFromDB();
 
     return $final_messages;
 }

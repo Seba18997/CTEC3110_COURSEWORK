@@ -34,7 +34,7 @@ class SQLQueries
 
     public function storeMessage()
     {
-        $query_string  = 'INSERT INTO messages ( id, source, destination, date, type, message ) VALUES ( NULL, ":source", ":destination", ":date", ":type", ":message" );';
+        $query_string  = 'INSERT INTO messages ( id, source, destination, date, type, message ) VALUES ( NULL, :source, :destination, :date, :type, :message );';
         return $query_string;
     }
 

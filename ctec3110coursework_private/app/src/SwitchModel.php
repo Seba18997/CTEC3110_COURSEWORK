@@ -31,7 +31,7 @@ class SwitchModel
 
     public function getSwitchState()
     {
-        $messages_to_show = [];
+        $switch_states = [];
         $query_string = $this->sql_queries->getSwitchStates();
 
         $this->database_wrapper->setDatabaseConnectionSettings($this->database_connection_settings);
