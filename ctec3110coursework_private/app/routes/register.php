@@ -9,7 +9,7 @@ $app->post(
     {
         $result = SessionChecker($app);
 
-        if(!(is_null($result)))
+        if($result !== false)
         {
             $html_output2 = $this->view->render($response,
                 'valid_login.html.twig',

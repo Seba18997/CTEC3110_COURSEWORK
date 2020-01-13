@@ -15,7 +15,7 @@ $app->post(
     function(Request $request, Response $response) use ($app)
     {
         $result = SessionCheck($app);
-        if(!(is_null($result))) {
+        if($result !== false) {
             return $this->view->render($response,
                 'valid_login.html.twig',
                 [
