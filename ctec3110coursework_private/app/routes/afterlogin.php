@@ -23,10 +23,10 @@ $app->post(
         $outcome = compare($app, $db_usernamePassword['password'], $password);
 
 
-        //var_dump($password);
-        //var_dump($cleaned_username);
-        $result = Session($app, $password, $cleaned_username);
-        var_dump($result);
+        if($outcome !== 1 ) {
+            $result = Session($app, $password, $cleaned_username);
+            var_dump($result);
+        }
 
         if($outcome == 1 ) {
             return $this->view->render($response,
