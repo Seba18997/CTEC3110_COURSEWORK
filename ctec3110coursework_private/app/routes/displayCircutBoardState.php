@@ -32,6 +32,7 @@ $app->post(
                 'page_title' => APP_NAME,
                 'page_heading_1' => APP_NAME,
                 'page_heading_2' => 'Circut Board State',
+                'action3' => 'logout',
                 'switch1' => $switch1,
                 'switch2' => $switch2,
                 'switch3' => $switch3,

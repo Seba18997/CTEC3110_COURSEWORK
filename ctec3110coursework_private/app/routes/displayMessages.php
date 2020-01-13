@@ -28,6 +28,7 @@ $app->post(
                 'page_title' => APP_NAME,
                 'page_heading_1' => APP_NAME,
                 'page_heading_2' => 'Messages',
+                'action3' => 'logout',
                 'method' => 'post',
                 'messages_data' => $messages_data,
                 'counter' => $counter,

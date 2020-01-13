@@ -14,6 +14,7 @@ $app->get('/', function(Request $request, Response $response)
             'method' => 'post',
             'action' => 'login',
             'action2' => 'register',
+            'action3' => 'logout',
             'page_title' => APP_NAME,
             'page_heading_1' => APP_NAME,
         ]);
