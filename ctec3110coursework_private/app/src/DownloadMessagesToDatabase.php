@@ -62,7 +62,7 @@ class DownloadMessagesToDatabase
 
     public function setMessagesCounter()
     {
-        $counter = (new Helper)->countRowsInArray($this->retrieveMessages());
+        $counter = (new SoapWrapper)->getCountofNotNullRows();
         return $counter;
     }
 
@@ -94,7 +94,7 @@ class DownloadMessagesToDatabase
                             (new Helper)->mapDataFromString($message_result[$i], 'message'));
             }
             $this->downloaded_messages_data = $messages_final_result;
-            return true;
+            return 'Messages successfully prepared.';
     }
 
     public function addPreparedMessages()
@@ -113,7 +113,7 @@ class DownloadMessagesToDatabase
 
             if ($number_of_rows < $this->setMessagesCounter())
             {
-                $messages_exists = false;
+                $messages_exists = 'Messages are not in DB. Adding now...';
 
                   for($i=0; $i<$this->setMessagesCounter(); $i++)
                   {
@@ -139,7 +139,7 @@ class DownloadMessagesToDatabase
             }
             else if ($number_of_rows === $this->setMessagesCounter())
             {
-                 $messages_exists = true;
+                 $messages_exists = 'Messages have been already added';
             }
             else if ($number_of_rows > $this->setMessagesCounter())
             {

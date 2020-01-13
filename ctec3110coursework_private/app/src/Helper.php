@@ -59,7 +59,7 @@ class Helper
 
 
     public function countRowsInArray($array=[]){
-        @$count = count(array_filter($array, function($x) { return !empty($x); }));
+        $count = count(array_filter($array, function($x) { return !empty($x); }));
         return $count;
     }
 
