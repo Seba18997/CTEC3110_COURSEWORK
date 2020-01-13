@@ -62,7 +62,7 @@ class DownloadMessagesToDatabase
 
     public function setMessagesCounter()
     {
-        $counter = (new SoapWrapper)->getCountofNotNullRows();
+        $counter = (new SoapWrapper)->getCountOfNotNullRowsInSoapResponse();
         return $counter;
     }
 
