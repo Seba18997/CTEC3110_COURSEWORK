@@ -9,6 +9,7 @@ class DownloadMessagesToDatabase
     private $database_wrapper;
     private $database_connection_settings;
     private $sql_queries;
+    private $soap_response;
 
     public function __construct()
     {
@@ -16,6 +17,7 @@ class DownloadMessagesToDatabase
             $this->sql_queries = NULL;
             $this->downloaded_messages_data = array();
             $this->message_counter = NULL;
+            $this->soap_response = NULL;
     }
 
     public function __destruct(){
@@ -41,29 +43,9 @@ class DownloadMessagesToDatabase
         $this->message_counter = $message_counter;
     }
 
-    public function setSoapClient()
+    public function setSoapResponse($soap_response)
     {
-            $soap_client = NULL;
-            $soap_client = (new SoapWrapper)->createSoapClient();
-            return $soap_client;
-    }
-
-    public function retrieveMessages()
-    {
-            $messages = NULL;
-            $messages = (new SoapWrapper)->getMessagesFromSoap($this->setSoapClient(), MESSAGES_COUNTER);
-            return $messages;
-    }
-
-    public function getMessagesResult()
-    {
-            return $this->downloaded_messages_data;
-    }
-
-    public function setMessagesCounter()
-    {
-        $counter = (new SoapWrapper)->getCountOfNotNullRowsInSoapResponse();
-        return $counter;
+        $this->soap_response = $soap_response;
     }
 
     public function countMessagesinDB(){
@@ -85,7 +67,7 @@ class DownloadMessagesToDatabase
     {
             $messages_final_result = [];
 
-            $message_result = $this->retrieveMessages();
+            $message_result = $this->soap_response;
 
             for ($i=0;$i<$this->message_counter;$i++) {
                 $messages_final_result['source'][$i] =
@@ -114,7 +96,7 @@ class DownloadMessagesToDatabase
 
     public function addPreparedMessages()
     {
-          for($i=0; $i<$this->setMessagesCounter(); $i++)
+          for($i=0; $i<$this->message_counter; $i++)
           {
                 $source = $this->downloaded_messages_data['source'][$i];
                 $dest = $this->downloaded_messages_data['destination'][$i];
@@ -139,7 +121,7 @@ class DownloadMessagesToDatabase
 
     public function performMainOperation(){
 
-        if ($this->countMessagesinDB() == 0 || $this->countMessagesinDB() < $this->setMessagesCounter()){
+        if ($this->countMessagesinDB() == 0 || $this->countMessagesinDB() < $this->message_counter){
 
             $this->prepareMessagesToStore();
 
@@ -148,13 +130,18 @@ class DownloadMessagesToDatabase
                 $this->addPreparedMessages();
 
                 $result = 'Messages are not in DB. Adding now...';
+
+            } else {
+
+                $result = 'Error with prepareMessagesToStore()';
+
             }
         }
-        else if ($this->countMessagesinDB() === $this->setMessagesCounter())
+        else if ($this->countMessagesinDB() == $this->message_counter)
         {
             $result = 'Messages have been already added';
         }
-        else if ($this->countMessagesinDB() > $this->setMessagesCounter())
+        else if ($this->countMessagesinDB() > $this->message_counter)
         {
             $result = 'Probably cloned messages in DB';
         }

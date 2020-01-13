@@ -52,12 +52,16 @@ function downloadMessages($app)
 {
     $downloaded_messages_model = $app->getContainer()->get('DownloadMessagesToDatabase');
     $soap_wrapper = $app->getContainer()->get('SoapWrapper');
+
+    $soap_response = $soap_wrapper->getMessagesFromSoap($soap_wrapper->createSoapClient(), MESSAGES_COUNTER);
+
     $counter = $soap_wrapper->getCountOfNotNullRowsInSoapResponse();
 
     $downloaded_messages_model->setSqlQueries(setQueries($app));
     $downloaded_messages_model->setDatabaseConnectionSettings(setSettingsFile($app)['pdo_settings']);
     $downloaded_messages_model->setDatabaseWrapper(setDBWrapper($app));
     $downloaded_messages_model->setMsgCounter($counter);
+    $downloaded_messages_model->setSoapResponse($soap_response);
 
     $final_download_messages['perform_action'] = $downloaded_messages_model->performMainOperation();
     $final_download_messages['counter'] = $counter;
