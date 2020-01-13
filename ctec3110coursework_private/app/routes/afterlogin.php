@@ -23,8 +23,8 @@ $app->post(
         $outcome = compare($app, $db_usernamePassword['password'], $password);
 
 
-	var_dump($password);
-        var_dump($cleaned_username);
+        //var_dump($password);
+        //var_dump($cleaned_username);
         $result = Session($app, $password, $cleaned_username);
         var_dump($result);
 
@@ -138,5 +138,6 @@ function Session($app, $password, $username)
     $session_model->storeData();
 
     $store_result = $session_model->getStorageResult();
-    return $store_result;
+    $store_var = $session_wrapper->getSessionVar('password');
+    return $store_var;
 }
