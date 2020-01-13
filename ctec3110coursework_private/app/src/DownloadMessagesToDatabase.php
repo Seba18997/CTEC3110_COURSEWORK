@@ -66,6 +66,21 @@ class DownloadMessagesToDatabase
         return $counter;
     }
 
+    public function countMessagesinDB(){
+
+        $sql_query_get_all_messages = $this->sql_queries->getMessages();
+
+        $this->database_wrapper->setDatabaseConnectionSettings($this->database_connection_settings);
+
+        $this->database_wrapper->makeDatabaseConnection();
+
+        $this->database_wrapper->safeQuery($sql_query_get_all_messages);
+
+        $number_of_rows = $this->database_wrapper->countRows();
+
+        return $number_of_rows;
+    }
+
     public function prepareMessagesToStore()
     {
             $messages_final_result = [];
@@ -94,63 +109,60 @@ class DownloadMessagesToDatabase
                             (new Helper)->mapDataFromString($message_result[$i], 'message'));
             }
             $this->downloaded_messages_data = $messages_final_result;
-            return 'Messages successfully prepared.';
+            return true;
     }
 
     public function addPreparedMessages()
     {
-            $messages_exists = NULL;
+          for($i=0; $i<$this->setMessagesCounter(); $i++)
+          {
+                $source = $this->downloaded_messages_data['source'][$i];
+                $dest = $this->downloaded_messages_data['destination'][$i];
+                $date = $this->downloaded_messages_data['date'][$i];
+                $type = $this->downloaded_messages_data['type'][$i];
+                $message = $this->downloaded_messages_data['message'][$i];
 
-            $sql_query_get_all_messages = $this->sql_queries->getMessages();
+                $query_parameters =
+                    array(':source' => $source,
+                          ':destination' => $dest,
+                          ':date' => $date,
+                          ':type' => $type,
+                          ':message' => $message);
 
-            $this->database_wrapper->setDatabaseConnectionSettings($this->database_connection_settings);
+                $sql_query_store_messages = $this->sql_queries->storeMessage();
 
-            $this->database_wrapper->makeDatabaseConnection();
+                $this->database_wrapper->safeQuery($sql_query_store_messages, $query_parameters);
+           }
 
-            $this->database_wrapper->safeQuery($sql_query_get_all_messages);
-
-            $number_of_rows = $this->database_wrapper->countRows();
-
-            if ($number_of_rows < $this->setMessagesCounter())
-            {
-                $messages_exists = 'Messages are not in DB. Adding now...';
-
-                  for($i=0; $i<$this->setMessagesCounter(); $i++)
-                  {
-                        $source = $this->downloaded_messages_data['source'][$i];
-                        $dest = $this->downloaded_messages_data['destination'][$i];
-                        $date = $this->downloaded_messages_data['date'][$i];
-                        $type = $this->downloaded_messages_data['type'][$i];
-                        $message = $this->downloaded_messages_data['message'][$i];
-
-                        $query_parameters =
-                            array(':source' => $source,
-                                  ':destination' => $dest,
-                                  ':date' => $date,
-                                  ':type' => $type,
-                                  ':message' => $message);
-
-                        $sql_query_store_messages = $this->sql_queries->storeMessage();
-
-                        $this->database_wrapper->safeQuery($sql_query_store_messages, $query_parameters);
+    }
 
 
-                   }
+    public function performMainOperation(){
+
+        if ($this->countMessagesinDB() == 0 || $this->countMessagesinDB() < $this->setMessagesCounter()){
+
+            $this->prepareMessagesToStore();
+
+            if ($this->prepareMessagesToStore() == true){
+
+                $this->addPreparedMessages();
+
+                $result = 'Messages are not in DB. Adding now...';
             }
-            else if ($number_of_rows === $this->setMessagesCounter())
-            {
-                 $messages_exists = 'Messages have been already added';
-            }
-            else if ($number_of_rows > $this->setMessagesCounter())
-            {
-                $messages_exists = 'Probably cloned messages in DB';
-            }
-            else
-            {
-                 $messages_exists = 'Problem with addPreparedMessages' ;
-            }
-
-            return $messages_exists;
+        }
+        else if ($this->countMessagesinDB() === $this->setMessagesCounter())
+        {
+            $result = 'Messages have been already added';
+        }
+        else if ($this->countMessagesinDB() > $this->setMessagesCounter())
+        {
+            $result = 'Probably cloned messages in DB';
+        }
+        else
+        {
+            $result = 'Problem with addPreparedMessages' ;
+        }
+        return $result;
     }
 
 }
