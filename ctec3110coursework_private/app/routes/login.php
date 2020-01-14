@@ -15,7 +15,7 @@ $app->post(
     function(Request $request, Response $response) use ($app)
     {
         $result = SessionCheck($app);
-        if($result !== false) {
+        if($result == true) {
             return $this->view->render($response,
                 'valid_login.html.twig',
                 [
@@ -42,9 +42,20 @@ $app->post(
 
     })->setName('afterlogin');
 
+
 function SessionCheck($app)
 {
     $session_wrapper = $app->getContainer()->get('SessionWrapper');
-    $store_var = $session_wrapper->getSessionVar('username');
-    return $store_var;
+
+    //getSessionVar() returns 'false' if session variable is not set
+    $sessionUsernameSet = $session_wrapper->getSessionVar('username');
+    $sessionPasswordSet= $session_wrapper->getSessionVar('password');
+    $sessionIdSet = $session_wrapper->getSessionVar('sid');
+    
+    if (($sessionUsernameSet && $sessionPasswordSet && $sessionIdSet) == false) {
+        $check = false;
+    } else {
+        $check = true;
+    }
+    return $check;
 }
