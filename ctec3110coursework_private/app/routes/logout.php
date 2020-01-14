@@ -23,4 +23,6 @@ function unsetSession($app)
     $session_wrapper = $app->getContainer()->get('SessionWrapper');
 
     $session_wrapper->unsetSessionVar('username');
+    $session_wrapper->unsetSessionVar('password');
+    $session_wrapper->unsetSessionVar('sid');
 }
