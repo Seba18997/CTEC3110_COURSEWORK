@@ -15,6 +15,7 @@ class SessionModel
     {
         $this->username = null;
         $this->password = null;
+        $this->sid      = null;
         $this->storage_result = null;
         $this->session_wrapper_file = null;
     }
@@ -36,6 +37,11 @@ class SessionModel
         $this->password = $password;
     }
 
+    public function setSessionId($sid)
+    {
+        $this->sid = $sid;
+    }
+
     public function setSessionWrapperFile($session_wrapper)
     {
         $this->session_wrapper_file = $session_wrapper;
@@ -45,12 +51,15 @@ class SessionModel
     {
         $store_result = false;
         $store_result_username
-            = $this->session_wrapper_file->setSessionVar('user_name', $this->username);
+            = $this->session_wrapper_file->setSessionVar('username', $this->username);
 
         $store_result_password
             = $this->session_wrapper_file->setSessionVar('password', $this->password);
 
-        if ($store_result_username !== false && $store_result_password !== false)	{
+        $store_result_sid
+            = $this->session_wrapper_file->setSessionVar('sid', $this->sid);
+
+        if ($store_result_username !== false && $store_result_password !== false && $store_result_sid !== false)	{
             $store_result = true;
         }
         return $store_result;

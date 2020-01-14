@@ -41,9 +41,8 @@ class Authentication
         $this->sql_queries = $sql_queries;
     }
 
-    public function getUsernamePassword($cos)
+    public function getParamsDb($username)
     {
-        $username = $cos;
         $query_string = $this->sql_queries->getUsernamePassword($username);
 
         $this->database_wrapper->setDatabaseConnectionSettings($this->database_connection_settings);
@@ -56,11 +55,9 @@ class Authentication
             $params['username'] = $row['user_name'];
             $params['password'] = $row['password'];
         } else {
-            $params = 1;
+            $params = 'Invalid_credentials';
         }
 
-        $final = $params;
-
-        return $final;
+        return $params;
     }
 }

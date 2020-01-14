@@ -18,17 +18,19 @@ $app->post(
         $password = $tainted_parameters['password'];
         $cleaned_username = cleanupUsername($app, $tainted_username);
 
-        $db_usernamePassword = paramsFromDB($app, $cleaned_username);
+        $db_params = paramsFromDB($app, $cleaned_username);
 
-        $outcome = compare($app, $db_usernamePassword['password'], $password);
+        $outcome = compare($app, $db_params['password'], $password);
+        //var_dump($db_params['password']);
+        $sid = session_id();
 
 
-        if($outcome !== 1 ) {
-            $result = Session($app, $password, $cleaned_username);
+        if($outcome == true ) {
+            $result = Session($app, $db_params['password'], $cleaned_username, $sid);
             var_dump($result);
         }
 
-        if($outcome == 1 ) {
+        if($outcome == false ) {
             return $this->view->render($response,
                 'invalid_login.html.twig',
                 [
@@ -95,9 +97,9 @@ function paramsFromDB($app, $username)
     $auth_model->setDatabaseConnectionSettings($database_connection_settings);
     $auth_model->setDatabaseWrapper($database_wrapper);
 
-    $final_states = $auth_model->getUsernamePassword($username);
+    $params = $auth_model->getParamsDb($username);
 
-    return $final_states;
+    return $params;
 }
 
 /**
@@ -109,35 +111,37 @@ function paramsFromDB($app, $username)
 
 function compare($app, $db_pass, $typed_pass)
 {
-    if($db_pass == 1) {
-        $outcome = 1;
-    } $compare = $app->getContainer()->get('bcryptWrapper');
-    $outcome = $compare->authenticatePassword($typed_pass, $db_pass);
-
-    if($outcome == true) {
-        $outcome = 2;
-        return $outcome;
-
+    if($db_pass == 'Invalid_credentials') {
+        $outcome = false;
     } else {
 
-        $outcome = 1;
-        return $outcome;
-
+        $compare = $app->getContainer()->get('bcryptWrapper');
+        $passwordCheck = $compare->authenticatePassword($typed_pass, $db_pass);
     }
+
+    if($passwordCheck == true) {
+        $outcome = true;
+    }
+
+        return $outcome;
 }
 
-function Session($app, $password, $username)
+function Session($app, $password, $username, $sid)
 {
     $session_wrapper = $app->getContainer()->get('SessionWrapper');
     $session_model = $app->getContainer()->get('SessionModel');
 
-    $store_result = '';
+
     $session_model->setSessionUsername($username);
     $session_model->setSessionPassword($password);
+    $session_model->setSessionId($sid);
     $session_model->setSessionWrapperFile($session_wrapper);
     $session_model->storeData();
 
-    $store_result = $session_model->getStorageResult();
-    $store_var = $session_wrapper->getSessionVar('password');
+
+    $store_var = array($session_wrapper->getSessionVar('username'),
+        $session_wrapper->getSessionVar('password'),
+        $session_wrapper->getSessionVar('sid'));
+
     return $store_var;
 }

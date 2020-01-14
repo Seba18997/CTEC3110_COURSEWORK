@@ -45,6 +45,6 @@ $app->post(
 function SessionCheck($app)
 {
     $session_wrapper = $app->getContainer()->get('SessionWrapper');
-    $store_var = $session_wrapper->getSessionVar('password');
+    $store_var = $session_wrapper->getSessionVar('username');
     return $store_var;
 }
