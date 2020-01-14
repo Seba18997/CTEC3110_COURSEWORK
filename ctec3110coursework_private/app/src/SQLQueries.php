@@ -25,6 +25,16 @@ class SQLQueries
         return $query_string;
     }
 
+    public function getNewestMessage()
+    {
+        $query_string  = "SELECT message ";
+        $query_string .= "FROM messages ";
+        $query_string .= "WHERE date != '' ";
+        $query_string .= "ORDER BY id DESC ";
+        $query_string .= "LIMIT 1;";
+        return $query_string;
+    }
+
     public function getSwitchStates()
     {
         $query_string = "SELECT id, switch1, switch2, switch3, switch4, fan, heater, keypad ";
@@ -39,22 +49,16 @@ class SQLQueries
         return $query_string;
     }
 
-    public function checkIfMessageExists() {
-        $query_string  = "SELECT id ";
-        $query_string .= "FROM messages ";
-        $query_string .= "WHERE source = :source ";
-        $query_string .= "AND WHERE destination = :destination ";
-        $query_string .= "AND WHERE date = :date ";
-        $query_string .= "AND WHERE type = :type ";
-        $query_string .= "AND WHERE message = :message ";
-        $query_string .= ";";
-        return $query_string;
-    }
-
-
     public function updateSwitchState()
     {
-        $query_string = 'UPDATE switch SET switch1 = ":switch1", switch2 = ":switch2", switch3 = ":switch3", switch4 = ":switch4", fan = ":fan", heater = ":heater", keypad = ":keypad" ;';
+        $query_string = 'UPDATE switch 
+                         SET switch1 = IfNull(:switch1, switch1), 
+                         switch2 = IfNull(:switch2, switch2), 
+                         switch3 = IfNull(:switch3, switch3), 
+                         switch4 = IfNull(:switch4, switch4), 
+                         fan = IfNull(:fan, fan), 
+                         heater = IfNull(:heater, heater), 
+                         keypad = IfNull(:keypad, keypad) ';
         $query_string .= "WHERE id=1;";
         return $query_string;
     }
