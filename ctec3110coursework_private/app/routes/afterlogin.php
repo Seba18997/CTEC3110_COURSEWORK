@@ -121,6 +121,8 @@ function compare($app, $db_pass, $typed_pass)
 
     if($passwordCheck == true) {
         $outcome = true;
+    } else {
+        $outcome = false;
     }
 
         return $outcome;
