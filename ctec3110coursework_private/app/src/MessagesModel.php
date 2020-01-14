@@ -47,7 +47,7 @@ class MessagesModel
 
         if ($number_of_data_sets >= 0) {
 
-            $x = $number_of_data_sets - ((new SoapWrapper)->getCountOfNotNullRowsInSoapResponse());
+            $x = 0;
             
             while ($x <= $number_of_data_sets ) {
 
