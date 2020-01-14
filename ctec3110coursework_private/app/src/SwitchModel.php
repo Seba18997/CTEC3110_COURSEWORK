@@ -32,6 +32,7 @@ class SwitchModel
     public function getSwitchState()
     {
         $switch_states = [];
+
         $query_string = $this->sql_queries->getSwitchStates();
 
         $this->database_wrapper->setDatabaseConnectionSettings($this->database_connection_settings);
@@ -60,4 +61,44 @@ class SwitchModel
 
         return $final_states;
     }
+
+    public function updateSwitchStates($final_state=[]){
+
+        $query_string = $this->sql_queries->updateSwitchState();
+
+        $this->database_wrapper->setDatabaseConnectionSettings($this->database_connection_settings);
+
+        $this->database_wrapper->makeDatabaseConnection();
+
+        $query_parameters =
+            array(':switch1' => $final_state['switch1'],
+                ':switch2' => $final_state['switch2'],
+                ':switch3' => $final_state['switch3'],
+                ':switch4' => $final_state['switch4'],
+                ':fan'     => $final_state['fan'],
+                ':heater'  => $final_state['heater'],
+                ':keypad'  => $final_state['keypad']);
+
+        if ($final_state['groupid'] == '19-3110-AZ' && !empty($final_state)){
+
+            $this->database_wrapper->safeQuery($query_string, $query_parameters);
+
+            $final = 'Switch states changed';
+
+        }
+        else if (empty($final_state))
+        {
+
+            $final =  'Array is empty.';
+
+        }
+        else {
+
+            $final =  'Error with changing states.';
+
+        }
+
+        return $final;
+    }
+
 }

@@ -14,7 +14,7 @@ define('CSS_PATH', $css_path);
 define('APP_NAME', 'M2MAPP');
 define('LANDING_PAGE', $_SERVER['SCRIPT_NAME']);
 
-$messages_counter = 30;
+$messages_counter = 50;
 define('MESSAGES_COUNTER', $messages_counter);
 
 $wsdl = 'https://m2mconnect.ee.co.uk/orange-soap/services/MessageServiceByCountry?wsdl';

@@ -27,14 +27,17 @@ CREATE TABLE `messages` (
 DROP TABLE IF EXISTS `switch`;
 CREATE TABLE `switch` (
   `id` int(4) NOT NULL DEFAULT 1,
-  `switch1` int(4) NOT NULL,
-  `switch2` int(4) NOT NULL,
-  `switch3` int(4) NOT NULL,
-  `switch4` int(4) NOT NULL,
+  `switch1` varchar(32) NOT NULL,
+  `switch2` varchar(32) NOT NULL,
+  `switch3` varchar(32) NOT NULL,
+  `switch4` varchar(32) NOT NULL,
   `fan` varchar(32) NOT NULL,
   `heater` varchar(64) NOT NULL,
   `keypad` varchar(64) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `switch` (`id`, `switch1`, `switch2`, `switch3`, `switch4`, `fan`, `heater`, `keypad`) VALUES
+(1,	'off',	'on',	'off',	'on',	'forward',	'11',	'7');
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (

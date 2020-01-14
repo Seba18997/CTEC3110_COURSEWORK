@@ -15,5 +15,3 @@ $app = new \Slim\App($container);
 require __DIR__ . '/app/routes.php';
 
 $app->run();
-
-@session_regenerate_id(true);

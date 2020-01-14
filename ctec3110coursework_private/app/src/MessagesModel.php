@@ -72,4 +72,21 @@ class MessagesModel
         return $messages_to_show;
     }
 
+    public function getNewestMessageFromDB(){
+
+        $query_string = $this->sql_queries->getNewestMessage();
+
+        $this->database_wrapper->setDatabaseConnectionSettings($this->database_connection_settings);
+
+        $this->database_wrapper->makeDatabaseConnection();
+
+        $themessage = $this->database_wrapper->safeQuery($query_string);
+
+        var_dump($themessage);
+
+        return $themessage;
+
+
+    }
+
 }
