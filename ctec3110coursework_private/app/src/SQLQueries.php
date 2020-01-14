@@ -43,6 +43,20 @@ class SQLQueries
         return $query_string;
     }
 
+    public function deleteMessages($range)
+    {
+        $query_string = "DELETE FROM messages ";
+        $query_string .= "WHERE id ";
+        $query_string .= "BETWEEN 1 AND $range;";
+        return $query_string;
+    }
+
+    public function setAIFromOne()
+    {
+        $query_string = "ALTER TABLE messages AUTO_INCREMENT = 1;";
+        return $query_string;
+    }
+
     public function storeMessage()
     {
         $query_string  = 'INSERT INTO messages ( id, source, destination, date, type, message ) VALUES ( NULL, :source, :destination, :date, :type, :message );';

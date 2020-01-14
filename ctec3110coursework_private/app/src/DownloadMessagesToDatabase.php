@@ -69,26 +69,30 @@ class DownloadMessagesToDatabase
 
             $message_result = $this->soap_response;
 
+            $validator = new Validator();
+
+            $helper = new Helper();
+
             for ($i=0;$i<$this->message_counter;$i++) {
                 $messages_final_result['source'][$i] =
-                    (new Validator)->validateDownloadedMessage(
-                        (new Helper)->mapDataFromString($message_result[$i], 'sourcemsisdn'));
+                    $validator->validateDownloadedMessage(
+                        $helper->mapDataFromString($message_result[$i], 'sourcemsisdn'));
 
                 $messages_final_result['destination'][$i] =
-                    (new Validator)->validateDownloadedMessage(
-                        (new Helper)->mapDataFromString($message_result[$i], 'destinationmsisdn'));
+                    $validator->validateDownloadedMessage(
+                        $helper->mapDataFromString($message_result[$i], 'destinationmsisdn'));
 
                 $messages_final_result['date'][$i] =
-                    (new Validator)->validateDownloadedMessage(
-                        (new Helper)->mapDataFromString($message_result[$i], 'receivedtime'));
+                    $validator->validateDownloadedMessage(
+                        $helper->mapDataFromString($message_result[$i], 'receivedtime'));
 
                 $messages_final_result['type'][$i] =
-                    (new Validator)->validateDownloadedMessage(
-                        (new Helper)->mapDataFromString($message_result[$i], 'bearer'));
+                    $validator->validateDownloadedMessage(
+                        $helper->mapDataFromString($message_result[$i], 'bearer'));
 
                 $messages_final_result['message'][$i] =
-                        (new Validator)->validateDownloadedMessage(
-                            (new Helper)->mapDataFromString($message_result[$i], 'message'));
+                    $validator->validateDownloadedMessage(
+                        $helper->mapDataFromString($message_result[$i], 'message'));
             }
             $this->downloaded_messages_data = $messages_final_result;
             return true;
@@ -118,10 +122,33 @@ class DownloadMessagesToDatabase
 
     }
 
+    public function deletePreviousMessages($option){
+
+        $sql_set_auto_increment = $this->sql_queries->setAIFromOne();
+
+        $delete_previous_messages_all = $this->sql_queries->deleteMessages($this->countMessagesinDB());
+
+        $delete_previous_messages_only_newest = $this->sql_queries->deleteMessages(($this->message_counter) - 1);
+
+        if ($option == 'previous'){
+            $this->database_wrapper->safeQuery($delete_previous_messages_only_newest);
+        }
+        else if ($option == 'all')
+        {
+            $this->database_wrapper->safeQuery($delete_previous_messages_all);
+        }
+        else {
+            return 'choose newest/all option first';
+        }
+
+        $this->database_wrapper->safeQuery($sql_set_auto_increment);
+    }
 
     public function performMainOperation(){
 
         if ($this->countMessagesinDB() == 0 || $this->countMessagesinDB() < $this->message_counter){
+
+            $this->deletePreviousMessages('all');
 
             $this->prepareMessagesToStore();
 
@@ -144,6 +171,9 @@ class DownloadMessagesToDatabase
         else if ($this->countMessagesinDB() > $this->message_counter)
         {
             $result = 'Probably cloned messages in DB';
+
+            $this->deletePreviousMessages('previous');
+
         }
         else
         {
