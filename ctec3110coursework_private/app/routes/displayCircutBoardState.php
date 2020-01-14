@@ -66,10 +66,6 @@ function checkIfSwitchStatesChangedandDisplay($app)
     $switch_states_model->setDatabaseConnectionSettings($database_connection_settings);
     $switch_states_model->setDatabaseWrapper($database_wrapper);
 
-    //TODO: FIX GETTING NEWEST MESSAGE
-    //TODO: EVERYTHING ELSE SHOULD WORK
-    //TODO: format "switch2:off;heater:7;id:19-3110-AZ;"
-
     $newest_message = $messages_model->getNewestMessageFromDB();
 
     $decoded_message = $helper->decodeMessage($newest_message);
@@ -77,6 +73,8 @@ function checkIfSwitchStatesChangedandDisplay($app)
     $final_states['newest'] = $newest_message;
 
     $final_states['decoded'] = $decoded_message;
+
+    //TODO: FIX SQL QUERY FOR UPDATE
 
     $final_states['update'] = $switch_states_model->updateSwitchStates($decoded_message);
 

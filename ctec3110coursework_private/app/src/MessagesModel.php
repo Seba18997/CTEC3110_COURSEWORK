@@ -80,13 +80,11 @@ class MessagesModel
 
         $this->database_wrapper->makeDatabaseConnection();
 
-        $themessage = $this->database_wrapper->safeQuery($query_string);
+        $this->database_wrapper->safeQuery($query_string);
 
-        var_dump($themessage);
+        $row = $this->database_wrapper->safeFetchArray();
 
-        return $themessage;
-
-
+        return $row['message'];
     }
 
 }
