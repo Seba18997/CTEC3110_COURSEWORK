@@ -40,10 +40,4 @@ class DoctrineSqlQueries
 
         return $store_result;
     }
-
-    public static function queryRetrieveUserData()
-    {
-        $sql_query_string = '';
-        return $sql_query_string;
-    }
 }
