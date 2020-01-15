@@ -65,17 +65,18 @@ class SQLQueries
 
     public function updateSwitchState()
     {
-        $query_string = 'UPDATE switch 
-                         SET switch1 = IfNull(:switch1, switch1), 
-                         switch2 = IfNull(:switch2, switch2), 
-                         switch3 = IfNull(:switch3, switch3), 
-                         switch4 = IfNull(:switch4, switch4), 
-                         fan = IfNull(:fan, fan), 
-                         heater = IfNull(:heater, heater), 
-                         keypad = IfNull(:keypad, keypad) ';
+        $query_string = "UPDATE switch " ;
+        $query_string .= "SET switch1 = ISNull(:switch1), " ;
+        $query_string .= "switch2 = ISNull(:switch2), " ;
+        $query_string .= "switch3 = ISNull(:switch3), " ;
+        $query_string .= "switch4 = ISNull(:switch4), " ;
+        $query_string .= "fan = ISNull(:fan), " ;
+        $query_string .= "heater = ISNull(:heater), " ;
+        $query_string .= "keypad = ISNull(:keypad) ";
         $query_string .= "WHERE id=1;";
         return $query_string;
     }
+    
 }
 
 
