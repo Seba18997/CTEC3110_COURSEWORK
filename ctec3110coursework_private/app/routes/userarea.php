@@ -18,13 +18,12 @@ $app->post('/userarea',
         //var_dump($db_params['password']);
         $sid = session_id();
 
-        $isloggedin = ifSetUsername($app)['introduction'];
-        $username = ifSetUsername($app)['username'];
-
         if($outcome == true ) {
             $result = doSession($app, $db_params['password'], $cleaned_username, $sid);
-            var_dump($result);
         }
+
+        $isloggedin = ifSetUsername($app)['introduction'];
+        $username = ifSetUsername($app)['username'];
 
         if($outcome == false ) {
             return $this->view->render($response,
