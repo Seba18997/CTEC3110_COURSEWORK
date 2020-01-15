@@ -1,12 +1,20 @@
 {% extends 'banner.html.twig' %}
 {% block content %}
-    <h2>{{ page_heading_2 }}</h2>
-    <form action="{{ action }}" method={{ method }}>
-        <button type="submit" class="btn btn-primary" value="Display current state of the circuit board">Display current state of the circuit board</button>
-    </form>
-    <br/>
-    <form action="{{ action2 }}" method={{ method }}>
-        <button type="submit" class="btn btn-primary" value="Show Messages">Show Messages</button>
-    </form>
+    <div class="jumbotron text-center">
+        <h1 class="display-4">Hello, <b>{{ username }}</b>!</h1>
+        <p class="lead">Your role is: < role ></p>
+        <hr class="my-4">
+        <p>You are eligible to see below content:</p>
+        <div class="btn-group justify-content-between" role="group">
+            <form action="{{ action }}" method={{ method }}>
+                <button type="submit" class="btn btn-primary" value="circuit_board">View circuit board</button>
+            </form>
+        </div>
+        <div class="btn-group justify-content-between" role="group">
+            <form action="{{ action2 }}" method={{ method }}>
+                <button type="submit" class="btn btn-primary" value="messages">View Messages</button>
+            </form>
+        </div>
+    </div>
 
 {% endblock %}

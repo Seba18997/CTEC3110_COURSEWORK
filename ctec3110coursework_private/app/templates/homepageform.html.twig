@@ -1,20 +1,23 @@
 {% extends 'banner.html.twig' %}
 {% block content %}
-    <h2>{{ page_heading_2 }}</h2>
-    <div id="page-content-div">
-        <b>Have an account?</b>
-        <form action="{{ action }}" method={{ method }}>
-            <button type="submit" class="btn btn-primary" value="Sign in">Sign in here</button>
-        </form>
-        <br/>
 
+    <div class="jumbotron text-center">
+        <h1 class="display-4">Hello, stranger</b>!</h1>
+        <p class="lead">It seems that you are not logged in.</p>
+        <hr class="my-4">
+        <p>Login to have access to the data:</p>
+        <div class="btn-group justify-content-between" role="group">
+            <form action="{{ action }}" method={{ method }}>
+                <button type="submit" class="btn btn-primary" value="Sign in">Sign in here</button>
+            </form>
+        </div>
+        <br/><br/>
+        <p>Or make a new account:</p>
+        <div class="btn-group justify-content-between" role="group">
+            <form action="{{ action2 }}" method={{ method }}>
+                <button type="submit" class="btn btn-primary" value="">Sign up here</button>
+            </form>
+        </div>
     </div>
-
-        <b>Don't have an account?</b>
-
-    <br/>
-    <form action="{{ action2 }}" method={{ method }}>
-        <button type="submit" class="btn btn-primary" value="">Sign up here</button>
-    </form>
 
 {% endblock %}

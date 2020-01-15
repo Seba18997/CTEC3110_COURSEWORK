@@ -16,6 +16,8 @@ $app->post(
     {
         $isloggedin = ifSetUsername($app)['introduction'];
         $username = ifSetUsername($app)['username'];
+        $sign_out_form = ifSetUsername($app)['sign_out_form'];
+        $sign_out = '';
 
         $result = sessionCheck($app);
         if($result == true) {
@@ -31,6 +33,7 @@ $app->post(
                     'page_title' => 'User Area',
                     'is_logged_in' => $isloggedin,
                     'username' => $username,
+                    'sign_out_form' => $sign_out_form,
                 ]);}
         else {
             return $this->view->render($response,
@@ -45,6 +48,7 @@ $app->post(
                     'page_heading_2' => ' / Log In',
                     'is_logged_in' => $isloggedin,
                     'username' => $username,
+                    'sign_out_form' => $sign_out_form,
                 ]);}
 
     })->setName('login');

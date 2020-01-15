@@ -14,6 +14,7 @@ $app->post(
     {
         $isloggedin = ifSetUsername($app)['introduction'];
         $username = ifSetUsername($app)['username'];
+        $sign_out_form = ifSetUsername($app)['sign_out_form'];
 
         $switch_state_data = checkIfSwitchStatesChangedandDisplay($app)['get'];
 
@@ -34,7 +35,7 @@ $app->post(
                 'page_heading' => APP_NAME,
                 'is_logged_in' => $isloggedin,
                 'username' => $username,
-                'page_heading_2' => ' / Circut Board State',
+                'page_heading_2' => ' / Circuit Board',
                 'action3' => 'logout',
                 'switch1' => $switch1,
                 'switch2' => $switch2,
@@ -43,7 +44,8 @@ $app->post(
                 'fan' => $fan,
                 'heater' => $heater,
                 'counter' => '',
-                'keypad' => $keypad
+                'keypad' => $keypad,
+                'sign_out_form' => $sign_out_form,
 
             ]);
 

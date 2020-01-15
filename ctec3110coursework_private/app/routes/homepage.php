@@ -7,7 +7,7 @@ $app->get('/', function(Request $request, Response $response) use ($app)
 {
     $isloggedin = ifSetUsername($app)['introduction'];
     $username = ifSetUsername($app)['username'];
-
+    $sign_out_form = ifSetUsername($app)['sign_out_form'];
     $result = sessionCheck($app);
     if($result == true) {
         return $this->view->render($response,
@@ -23,6 +23,7 @@ $app->get('/', function(Request $request, Response $response) use ($app)
                 'page_title' => 'Login Form',
                 'is_logged_in' => $isloggedin,
                 'username' => $username,
+                'sign_out_form' => $sign_out_form,
             ]);}
     else {
 
@@ -36,9 +37,10 @@ $app->get('/', function(Request $request, Response $response) use ($app)
                 'action' => 'login',
                 'action2' => 'register',
                 'action3' => 'logout',
-                'page_title' => APP_NAME,
+                'page_title' => 'APP_NAME',
                 'is_logged_in' => $isloggedin,
                 'username' => $username,
+                'sign_out_form' => $sign_out_form,
             ]);}
 
 })->setName('homepage');

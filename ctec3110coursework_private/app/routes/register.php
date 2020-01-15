@@ -10,7 +10,7 @@ $app->post(
         $result = sessionChecker($app);
         $isloggedin = ifSetUsername($app)['introduction'];
         $username = ifSetUsername($app)['username'];
-
+        $sign_out_form = ifSetUsername($app)['sign_out_form'];
         if($result !== false)
         {
             $html_output2 = $this->view->render($response,
@@ -25,6 +25,7 @@ $app->post(
                     'page_title' => 'User Area',
                     'is_logged_in' => $isloggedin,
                     'username' => $username,
+                    'sign_out_form' => $sign_out_form,
                 ]);
 
             processOutput($app, $html_output2);
@@ -42,6 +43,7 @@ $app->post(
                     'page_heading_2' => ' / User Registration',
                     'is_logged_in' => $isloggedin,
                     'username' => $username,
+                    'sign_out_form' => $sign_out_form,
                 ]);
 
             processOutput($app, $html_output);

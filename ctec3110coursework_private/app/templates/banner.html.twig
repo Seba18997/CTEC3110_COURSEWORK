@@ -10,8 +10,6 @@
         <span class="navbar-text">
             {{ is_logged_in }}<b>{{ username }}</b>
         </span>
-        <form class="form-inline my-2 my-md-0" action="{{ action3 }}" method={{ method }}>
-            <button class="btn btn-light form-control" type="submit">Sign Out</button>
-        </form>
+        {{ sign_out_form }}
     </nav><br/>
 {% endblock %}

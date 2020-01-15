@@ -24,7 +24,7 @@ $app->post('/userarea',
 
         $isloggedin = ifSetUsername($app)['introduction'];
         $username = ifSetUsername($app)['username'];
-
+        $sign_out_form = htmlspecialchars_decode(ifSetUsername($app)['sign_out_form'], ENT_QUOTES);
         if($outcome == false ) {
             return $this->view->render($response,
                 'invalid_login.html.twig',
@@ -36,6 +36,9 @@ $app->post('/userarea',
                     'action' => 'login',
                     'page_title' => 'Invalid Login',
                     'page_heading_1' => 'Invalid credentials',
+                    'is_logged_in' => $isloggedin,
+                    'username' => $username,
+                    'sign_out_form' => $sign_out_form,
                 ]);
         } else {
 
@@ -51,6 +54,7 @@ $app->post('/userarea',
                     'page_title' => 'User Area',
                     'is_logged_in' => $isloggedin,
                     'username' => $username,
+                    'sign_out_form' => $sign_out_form,
                 ]);}
 
     } )->setName('userarea');
@@ -148,9 +152,13 @@ function ifSetUsername($app){
     if (!empty($username)){
         $result['introduction'] = 'User logged in as ';
         $result['username'] = $username;
+        $result['sign_out_form'] = '<form class="form-inline my-2 my-md-0" action="{{ action3 }}" method={{ method }}>
+                <button class="btn btn-light form-control" type="submit">Sign Out</button>
+             </form> ';
     }  else {
         $result['introduction'] = 'Log in to see messages/circuit board';
         $result['username'] = '';
+        $result['sign_out_form'] = '';
     }
     return $result;
 }

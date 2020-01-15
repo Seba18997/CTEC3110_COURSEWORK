@@ -2,7 +2,7 @@
 {% block content %}
     <h2> <b></b></h2>
     <br/>
-    <div class="table-responsive table-bordered table-hover">
+    <div class="table-responsive-sm table-bordered table-hover">
         <table class="table">
             <thead>
             <tr>
@@ -19,9 +19,13 @@
                  <tr><td>{{ message_data.source }}</td><td>{{ message_data.destination }}</td><td>{{ message_data.date }}</td><td>{{ message_data.type }}</td><td>{{ message_data.message }}</td></tr>
              {% endfor %}
              </tbody>
-
         </table>
     </div>
+
+   <br/>
+
+  <p><a href="{{ landing_page }}">Homepage</a></p>
+
 
 {% endblock %}
 
