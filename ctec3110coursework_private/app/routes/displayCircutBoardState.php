@@ -12,6 +12,8 @@ $app->post(
     '/displaycircutboardstate',
     function(Request $request, Response $response) use ($app)
     {
+        $isloggedin = ifSetUsername($app)['introduction'];
+        $username = ifSetUsername($app)['username'];
 
         $switch_state_data = checkIfSwitchStatesChangedandDisplay($app)['get'];
 
@@ -29,8 +31,9 @@ $app->post(
                 'css_path' => CSS_PATH,
                 'landing_page' => LANDING_PAGE,
                 'initial_input_box_value' => null,
-                'page_title' => APP_NAME,
-                'page_heading_1' => APP_NAME,
+                'page_heading' => APP_NAME,
+                'is_logged_in' => $isloggedin,
+                'username' => $username,
                 'page_heading_2' => 'Circut Board State',
                 'action3' => 'logout',
                 'switch1' => $switch1,
@@ -82,4 +85,4 @@ function checkIfSwitchStatesChangedandDisplay($app)
 
 }
 
-var_dump(checkIfSwitchStatesChangedandDisplay($app));
+//var_dump(checkIfSwitchStatesChangedandDisplay($app));

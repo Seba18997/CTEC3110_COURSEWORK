@@ -15,6 +15,9 @@ $app->post(
     function(Request $request, Response $response) use ($app)
     {
 
+        $isloggedin = ifSetUsername($app)['introduction'];
+        $username = ifSetUsername($app)['username'];
+
         $messages_data = retrieveMessages($app)['retrieved_messages'];
 
         $counter = downloadMessages($app)['counter'];
@@ -25,8 +28,9 @@ $app->post(
                 'css_path' => CSS_PATH,
                 'landing_page' => LANDING_PAGE,
                 'initial_input_box_value' => null,
-                'page_title' => APP_NAME,
-                'page_heading_1' => APP_NAME,
+                'page_heading' => APP_NAME,
+                'is_logged_in' => $isloggedin,
+                'username' => $username,
                 'page_heading_2' => 'Messages',
                 'action3' => 'logout',
                 'method' => 'post',
@@ -91,4 +95,4 @@ function retrieveMessages($app)
 
     return $final_messages;
 }
-var_dump(downloadMessages($app));
+//var_dump(downloadMessages($app));

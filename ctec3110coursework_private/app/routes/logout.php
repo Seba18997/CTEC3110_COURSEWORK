@@ -13,7 +13,7 @@ $app->post(
     function(Request $request, Response $response) use ($app)
     {
         unsetSession($app);
-        $response = $response->withRedirect('/ctec3110coursework_public/');
+        $response = $response->withRedirect(LANDING_PAGE);
         return $response;
 
     })->setName('logout');
@@ -21,7 +21,6 @@ $app->post(
 function unsetSession($app)
 {
     $session_wrapper = $app->getContainer()->get('SessionWrapper');
-
     $session_wrapper->unsetSessionVar('username');
     $session_wrapper->unsetSessionVar('password');
     $session_wrapper->unsetSessionVar('sid');

@@ -7,7 +7,9 @@ $app->post(
     '/register',
     function(Request $request, Response $response) use ($app)
     {
-        $result = SessionChecker($app);
+        $result = sessionChecker($app);
+        $isloggedin = ifSetUsername($app)['introduction'];
+        $username = ifSetUsername($app)['username'];
 
         if($result !== false)
         {
@@ -16,11 +18,13 @@ $app->post(
                 [
                     'css_path' => CSS_PATH,
                     'landing_page' => LANDING_PAGE,
+                    'page_heading' => APP_NAME,
                     'method' => 'post',
                     'action' => 'displaycircutboardstate',
                     'action2' => 'displaymessages',
                     'page_title' => 'Login Form',
-                    'page_heading_1' => 'User logged in',
+                    'is_logged_in' => $isloggedin,
+                    'username' => $username,
                 ]);
 
             processOutput($app, $html_output2);
@@ -50,7 +54,7 @@ function processOutput($app, $html_output)
     return $html_output;
 }
 
-function SessionChecker($app)
+function sessionChecker($app)
 {
     $session_wrapper = $app->getContainer()->get('SessionWrapper');
     $store_var = $session_wrapper->getSessionVar('password');
