@@ -12,6 +12,10 @@ $app->post(
         $cleaned_parameters = cleanupParameters($app, $tainted_parameters);
         $hashed_password = hash_password($app, $cleaned_parameters['password']);
 
+        $isloggedin = ifSetUsername($app)['introduction'];
+        $username = ifSetUsername($app)['username'];
+        $sign_out_form_visibility = ifSetUsername($app)['sign_out_form_visibility'];
+
         $html_output =  $this->view->render($response,
             'register_user_result.html.twig',
             [
@@ -19,7 +23,7 @@ $app->post(
                 'css_path' => CSS_PATH,
                 'page_heading' => APP_NAME,
                 'page_heading_1' => 'New User Registration',
-                'page_heading_2' => 'New User Registration',
+                'page_heading_2' => ' / New User Registration',
                 'username' => $tainted_parameters['username'],
                 'password' => $tainted_parameters['password'],
                 'email' => $tainted_parameters['email'],
@@ -27,6 +31,9 @@ $app->post(
                 'cleaned_password' => $cleaned_parameters['password'],
                 'sanitised_email' => $cleaned_parameters['sanitised_email'],
                 'hashed_password' => $hashed_password,
+                'is_logged_in' => $isloggedin,
+                'username' => $username,
+                'sign_out_form' => $sign_out_form_visibility,
             ]);
 
         processOutput($app, $html_output);

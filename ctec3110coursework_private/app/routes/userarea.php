@@ -24,7 +24,8 @@ $app->post('/userarea',
 
         $isloggedin = ifSetUsername($app)['introduction'];
         $username = ifSetUsername($app)['username'];
-        $sign_out_form = htmlspecialchars_decode(ifSetUsername($app)['sign_out_form'], ENT_QUOTES);
+        $sign_out_form_visibility = ifSetUsername($app)['sign_out_form_visibility'];
+
         if($outcome == false ) {
             return $this->view->render($response,
                 'invalid_login.html.twig',
@@ -38,7 +39,7 @@ $app->post('/userarea',
                     'page_heading_1' => 'Invalid credentials',
                     'is_logged_in' => $isloggedin,
                     'username' => $username,
-                    'sign_out_form' => $sign_out_form,
+                    'sign_out_form' => $sign_out_form_visibility,
                 ]);
         } else {
 
@@ -49,12 +50,13 @@ $app->post('/userarea',
                     'landing_page' => LANDING_PAGE,
                     'page_heading' => APP_NAME,
                     'method' => 'post',
+                    'action3' => 'logout',
                     'action' => 'displaycircutboardstate',
                     'action2' => 'displaymessages',
                     'page_title' => 'User Area',
                     'is_logged_in' => $isloggedin,
                     'username' => $username,
-                    'sign_out_form' => $sign_out_form,
+                    'sign_out_form' => $sign_out_form_visibility,
                 ]);}
 
     } )->setName('userarea');
@@ -147,18 +149,18 @@ function doSession($app, $password, $username, $sid)
 }
 
 function ifSetUsername($app){
+
     $session_wrapper = $app->getContainer()->get('SessionWrapper');
     $username = $session_wrapper->getSessionVar('username');
-    if (!empty($username)){
+
+    if (!empty($username) && sessionCheck($app) == false){
         $result['introduction'] = 'User logged in as ';
         $result['username'] = $username;
-        $result['sign_out_form'] = '<form class="form-inline my-2 my-md-0" action="{{ action3 }}" method={{ method }}>
-                <button class="btn btn-light form-control" type="submit">Sign Out</button>
-             </form> ';
-    }  else {
+        $result['sign_out_form_visibility'] = 'block';
+    } else {
         $result['introduction'] = 'Log in to see messages/circuit board';
         $result['username'] = '';
-        $result['sign_out_form'] = '';
+        $result['sign_out_form_visibility'] = 'none';
     }
     return $result;
 }

@@ -17,7 +17,7 @@ $app->post(
 
         $isloggedin = ifSetUsername($app)['introduction'];
         $username = ifSetUsername($app)['username'];
-        $sign_out_form = ifSetUsername($app)['sign_out_form'];
+        $sign_out_form_visibility = ifSetUsername($app)['sign_out_form_visibility'];
         $messages_data = retrieveMessages($app)['retrieved_messages'];
 
         $counter = downloadMessages($app)['counter'];
@@ -36,7 +36,7 @@ $app->post(
                 'method' => 'post',
                 'messages_data' => $messages_data,
                 'counter' => '('.$counter.')',
-                'sign_out_form' => $sign_out_form,
+                'sign_out_form' => $sign_out_form_visibility,
             ]);
 
     })->setName('displaymessages');

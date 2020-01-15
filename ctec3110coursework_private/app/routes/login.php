@@ -3,21 +3,12 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-$app->post(
-
-/**
- * @param Request $request
- * @param Response $response
- * @return mixed
- */
-
-    '/login',
+$app->post('/login',
     function(Request $request, Response $response) use ($app)
     {
         $isloggedin = ifSetUsername($app)['introduction'];
         $username = ifSetUsername($app)['username'];
-        $sign_out_form = ifSetUsername($app)['sign_out_form'];
-        $sign_out = '';
+        $sign_out_form_visibility = ifSetUsername($app)['sign_out_form_visibility'];
 
         $result = sessionCheck($app);
         if($result == true) {
@@ -33,7 +24,7 @@ $app->post(
                     'page_title' => 'User Area',
                     'is_logged_in' => $isloggedin,
                     'username' => $username,
-                    'sign_out_form' => $sign_out_form,
+                    'sign_out_form' => $sign_out_form_visibility,
                 ]);}
         else {
             return $this->view->render($response,
@@ -48,7 +39,7 @@ $app->post(
                     'page_heading_2' => ' / Log In',
                     'is_logged_in' => $isloggedin,
                     'username' => $username,
-                    'sign_out_form' => $sign_out_form,
+                    'sign_out_form' => $sign_out_form_visibility,
                 ]);}
 
     })->setName('login');
