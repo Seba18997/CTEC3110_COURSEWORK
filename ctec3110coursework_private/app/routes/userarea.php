@@ -151,7 +151,7 @@ function ifSetUsername($app){
         $result['introduction'] = 'User logged in as ';
         $result['username'] = $username;
     }  else {
-        $result['introduction'] = 'Log in to see messages/circuit board ';
+        $result['introduction'] = 'Log in to see messages/circuit board';
         $result['username'] = '';
     }
     return $result;

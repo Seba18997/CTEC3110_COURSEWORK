@@ -31,11 +31,11 @@ $app->post(
                 'page_heading' => APP_NAME,
                 'is_logged_in' => $isloggedin,
                 'username' => $username,
-                'page_heading_2' => 'Messages',
+                'page_heading_2' => ' / Messages ',
                 'action3' => 'logout',
                 'method' => 'post',
                 'messages_data' => $messages_data,
-                'counter' => $counter,
+                'counter' => '('.$counter.')',
             ]);
 
     })->setName('displaymessages');

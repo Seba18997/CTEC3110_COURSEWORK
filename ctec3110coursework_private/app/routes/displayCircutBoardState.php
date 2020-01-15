@@ -34,7 +34,7 @@ $app->post(
                 'page_heading' => APP_NAME,
                 'is_logged_in' => $isloggedin,
                 'username' => $username,
-                'page_heading_2' => 'Circut Board State',
+                'page_heading_2' => ' / Circut Board State',
                 'action3' => 'logout',
                 'switch1' => $switch1,
                 'switch2' => $switch2,
@@ -42,6 +42,7 @@ $app->post(
                 'switch4' => $switch4,
                 'fan' => $fan,
                 'heater' => $heater,
+                'counter' => '',
                 'keypad' => $keypad
 
             ]);

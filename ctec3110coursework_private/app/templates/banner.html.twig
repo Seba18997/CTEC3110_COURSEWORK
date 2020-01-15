@@ -1,18 +1,17 @@
 {% extends 'layout.html.twig' %}
 {% block title %}{{ page_title }}{% endblock %}
 {% block banner %}
-    <div class="jumbotron jumbotron-fluid">
-        <div class="container">
-            <h1>{{ page_heading }}</h1>
-            <h4>{{ is_logged_in }}{{ username }}</h4>
-            <p class="lead">Page last updated on <script type="text/javascript">document.write(document.lastModified)</script>
-                <br />
-                Maintained by <a href="mailto:X">email@email.com</a></p>
-
-            <form action="{{ action3 }}" method={{ method }}>
-                <button type="submit" class="btn btn-primary" value="Show Messages">Sign out</button>
-            </form>
-
-        </div>
-    </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between">
+        <a class="badge badge-light" href="{{ landing_page }}"><b><</b> back to home</a>
+        <a class="navbar-brand" href="#">{{ page_heading }}{{ page_heading_2 }}<b>{{ counter }}</b></a>
+        <span class="navbar-text">
+            Page last updated on <b><script type="text/javascript">document.write(document.lastModified)</script></b>
+        </span>
+        <span class="navbar-text">
+            {{ is_logged_in }}<b>{{ username }}</b>
+        </span>
+        <form class="form-inline my-2 my-md-0" action="{{ action3 }}" method={{ method }}>
+            <button class="btn btn-light form-control" type="submit">Sign Out</button>
+        </form>
+    </nav><br/>
 {% endblock %}
