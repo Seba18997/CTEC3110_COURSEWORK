@@ -15,6 +15,7 @@ $app->post(
         $isloggedin = ifSetUsername($app)['introduction'];
         $username = ifSetUsername($app)['username'];
         $sign_out_form_visibility = ifSetUsername($app)['sign_out_form_visibility'];
+        storeUserDetails($app, $cleaned_parameters, $hashed_password);
 
         $html_output =  $this->view->render($response,
             'register_user_result.html.twig',
