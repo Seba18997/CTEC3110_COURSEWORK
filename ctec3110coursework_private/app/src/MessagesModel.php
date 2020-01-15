@@ -47,7 +47,7 @@ class MessagesModel
 
         if ($number_of_data_sets >= 0) {
 
-            $x = $number_of_data_sets - ((new DownloadMessagesToDatabase)->setMessagesCounter());
+            $x = 0;
             
             while ($x <= $number_of_data_sets ) {
 
@@ -70,6 +70,21 @@ class MessagesModel
         $messages_to_show['retrieved_messages'] = $finalmessages;
 
         return $messages_to_show;
+    }
+
+    public function getNewestMessageFromDB(){
+
+        $query_string = $this->sql_queries->getNewestMessage();
+
+        $this->database_wrapper->setDatabaseConnectionSettings($this->database_connection_settings);
+
+        $this->database_wrapper->makeDatabaseConnection();
+
+        $this->database_wrapper->safeQuery($query_string);
+
+        $row = $this->database_wrapper->safeFetchArray();
+
+        return $row['message'];
     }
 
 }

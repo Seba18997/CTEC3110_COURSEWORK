@@ -51,11 +51,6 @@ $container['DownloadMessagesToDatabase'] = function ($container) {
     return $downloader;
 };
 
-$container['Decoder'] = function ($container) {
-    $decoder = new M2MAPP\Decoder();
-    return $decoder;
-};
-
 $container['SwitchModel'] = function ($container) {
     $smodel = new M2MAPP\SwitchModel();
     return $smodel;

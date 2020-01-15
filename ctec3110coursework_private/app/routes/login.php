@@ -14,16 +14,53 @@ $app->post(
     '/login',
     function(Request $request, Response $response) use ($app)
     {
+        $isloggedin = ifSetUsername($app)['introduction'];
+        $username = ifSetUsername($app)['username'];
 
-        return $this->view->render($response,
-            'login.html.twig',
-            [
-                'css_path' => CSS_PATH,
-                'landing_page' => LANDING_PAGE,
-                'method' => 'post',
-                'action' => 'afterlogin',
-                'page_title' => 'Login Form',
-                'page_heading_1' => 'Login To View Content',
-            ]);
+        $result = sessionCheck($app);
+        if($result == true) {
+            return $this->view->render($response,
+                'valid_login.html.twig',
+                [
+                    'css_path' => CSS_PATH,
+                    'landing_page' => LANDING_PAGE,
+                    'page_heading' => APP_NAME,
+                    'method' => 'post',
+                    'action' => 'displaycircutboardstate',
+                    'action2' => 'displaymessages',
+                    'page_title' => 'Login Form',
+                    'is_logged_in' => $isloggedin,
+                    'username' => $username,
+                ]);}
+        else {
+
+            return $this->view->render($response,
+                'login.html.twig',
+                [
+                    'css_path' => CSS_PATH,
+                    'landing_page' => LANDING_PAGE,
+                    'page_heading' => APP_NAME,
+                    'method' => 'post',
+                    'action' => 'userarea',
+                    'page_title' => 'Login Form',
+                    'page_heading_1' => 'Login To View Content',
+                ]);}
 
     })->setName('login');
+
+
+function sessionCheck($app)
+{
+    $session_wrapper = $app->getContainer()->get('SessionWrapper');
+    //getSessionVar() returns 'false' if session variable is not set
+    $sessionUsernameSet = $session_wrapper->getSessionVar('username');
+    $sessionPasswordSet= $session_wrapper->getSessionVar('password');
+    $sessionIdSet = $session_wrapper->getSessionVar('sid');
+
+    if (($sessionUsernameSet && $sessionPasswordSet && $sessionIdSet) == false) {
+        $check = false;
+    } else {
+        $check = true;
+    }
+    return $check;
+}

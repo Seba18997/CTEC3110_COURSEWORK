@@ -9,6 +9,7 @@ class DownloadMessagesToDatabase
     private $database_wrapper;
     private $database_connection_settings;
     private $sql_queries;
+    private $soap_response;
 
     public function __construct()
     {
@@ -16,6 +17,7 @@ class DownloadMessagesToDatabase
             $this->sql_queries = NULL;
             $this->downloaded_messages_data = array();
             $this->message_counter = NULL;
+            $this->soap_response = NULL;
     }
 
     public function __destruct(){
@@ -41,57 +43,56 @@ class DownloadMessagesToDatabase
         $this->message_counter = $message_counter;
     }
 
-    public function setSoapClient()
+    public function setSoapResponse($soap_response)
     {
-            $soap_client = NULL;
-            $soap_client = (new SoapWrapper)->createSoapClient();
-            return $soap_client;
+        $this->soap_response = $soap_response;
     }
 
-    public function retrieveMessages()
-    {
-            $messages = NULL;
-            $messages = (new SoapWrapper)->getMessagesFromSoap($this->setSoapClient(), MESSAGES_COUNTER);
-            return $messages;
-    }
+    public function countMessagesinDB(){
 
-    public function getMessagesResult()
-    {
-            return $this->downloaded_messages_data;
-    }
+        $sql_query_get_all_messages = $this->sql_queries->getMessages();
 
-    public function setMessagesCounter()
-    {
-        $counter = (new Helper)->countRowsInArray($this->retrieveMessages());
-        return $counter;
+        $this->database_wrapper->setDatabaseConnectionSettings($this->database_connection_settings);
+
+        $this->database_wrapper->makeDatabaseConnection();
+
+        $this->database_wrapper->safeQuery($sql_query_get_all_messages);
+
+        $number_of_rows = $this->database_wrapper->countRows();
+
+        return $number_of_rows;
     }
 
     public function prepareMessagesToStore()
     {
             $messages_final_result = [];
 
-            $message_result = $this->retrieveMessages();
+            $message_result = $this->soap_response;
+
+            $validator = new Validator();
+
+            $helper = new Helper();
 
             for ($i=0;$i<$this->message_counter;$i++) {
                 $messages_final_result['source'][$i] =
-                    (new Validator)->validateDownloadedMessage(
-                        (new Helper)->mapDataFromString($message_result[$i], 'sourcemsisdn'));
+                    $validator->validateDownloadedMessage(
+                        $helper->mapDataFromString($message_result[$i], 'sourcemsisdn'));
 
                 $messages_final_result['destination'][$i] =
-                    (new Validator)->validateDownloadedMessage(
-                        (new Helper)->mapDataFromString($message_result[$i], 'destinationmsisdn'));
+                    $validator->validateDownloadedMessage(
+                        $helper->mapDataFromString($message_result[$i], 'destinationmsisdn'));
 
                 $messages_final_result['date'][$i] =
-                    (new Validator)->validateDownloadedMessage(
-                        (new Helper)->mapDataFromString($message_result[$i], 'receivedtime'));
+                    $validator->validateDownloadedMessage(
+                        $helper->mapDataFromString($message_result[$i], 'receivedtime'));
 
                 $messages_final_result['type'][$i] =
-                    (new Validator)->validateDownloadedMessage(
-                        (new Helper)->mapDataFromString($message_result[$i], 'bearer'));
+                    $validator->validateDownloadedMessage(
+                        $helper->mapDataFromString($message_result[$i], 'bearer'));
 
                 $messages_final_result['message'][$i] =
-                        (new Validator)->validateDownloadedMessage(
-                            (new Helper)->mapDataFromString($message_result[$i], 'message'));
+                    $validator->validateDownloadedMessage(
+                        $helper->mapDataFromString($message_result[$i], 'message'));
             }
             $this->downloaded_messages_data = $messages_final_result;
             return true;
@@ -99,58 +100,86 @@ class DownloadMessagesToDatabase
 
     public function addPreparedMessages()
     {
-            $messages_exists = NULL;
+          for($i=0; $i<$this->message_counter; $i++)
+          {
+                $source = $this->downloaded_messages_data['source'][$i];
+                $dest = $this->downloaded_messages_data['destination'][$i];
+                $date = $this->downloaded_messages_data['date'][$i];
+                $type = $this->downloaded_messages_data['type'][$i];
+                $message = $this->downloaded_messages_data['message'][$i];
 
-            $sql_query_get_all_messages = $this->sql_queries->getMessages();
+                $query_parameters =
+                    array(':source' => $source,
+                          ':destination' => $dest,
+                          ':date' => $date,
+                          ':type' => $type,
+                          ':message' => $message);
 
-            $this->database_wrapper->setDatabaseConnectionSettings($this->database_connection_settings);
+                $sql_query_store_messages = $this->sql_queries->storeMessage();
 
-            $this->database_wrapper->makeDatabaseConnection();
+                $this->database_wrapper->safeQuery($sql_query_store_messages, $query_parameters);
+           }
 
-            $this->database_wrapper->safeQuery($sql_query_get_all_messages);
+    }
 
-            $number_of_rows = $this->database_wrapper->countRows();
+    public function deletePreviousMessages($option){
 
-            if ($number_of_rows < $this->setMessagesCounter())
-            {
-                $messages_exists = false;
+        $sql_set_auto_increment = $this->sql_queries->setAIFromOne();
 
-                  for($i=0; $i<$this->setMessagesCounter(); $i++)
-                  {
-                        $source = $this->downloaded_messages_data['source'][$i];
-                        $dest = $this->downloaded_messages_data['destination'][$i];
-                        $date = $this->downloaded_messages_data['date'][$i];
-                        $type = $this->downloaded_messages_data['type'][$i];
-                        $message = $this->downloaded_messages_data['message'][$i];
+        $delete_previous_messages_all = $this->sql_queries->deleteMessages($this->countMessagesinDB());
 
-                        $query_parameters =
-                            array(':source' => $source,
-                                  ':destination' => $dest,
-                                  ':date' => $date,
-                                  ':type' => $type,
-                                  ':message' => $message);
+        $delete_previous_messages_only_newest = $this->sql_queries->deleteMessages(($this->message_counter) - 1);
 
-                        $sql_query_store_messages = $this->sql_queries->storeMessage();
+        if ($option == 'previous'){
+            $this->database_wrapper->safeQuery($delete_previous_messages_only_newest);
+        }
+        else if ($option == 'all')
+        {
+            $this->database_wrapper->safeQuery($delete_previous_messages_all);
+        }
+        else {
+            return 'choose newest/all option first';
+        }
 
-                        $this->database_wrapper->safeQuery($sql_query_store_messages, $query_parameters);
+        $this->database_wrapper->safeQuery($sql_set_auto_increment);
+    }
 
+    public function performMainOperation(){
 
-                   }
+        if ($this->countMessagesinDB() == 0 || $this->countMessagesinDB() < $this->message_counter){
+
+            $this->deletePreviousMessages('all');
+
+            $this->prepareMessagesToStore();
+
+            if ($this->prepareMessagesToStore() == true){
+
+                $this->addPreparedMessages();
+
+                $result = 'Messages are not in DB. Adding now...';
+
+            } else {
+
+                $result = 'Error with prepareMessagesToStore()';
+
             }
-            else if ($number_of_rows === $this->setMessagesCounter())
-            {
-                 $messages_exists = true;
-            }
-            else if ($number_of_rows > $this->setMessagesCounter())
-            {
-                $messages_exists = 'Probably cloned messages in DB';
-            }
-            else
-            {
-                 $messages_exists = 'Problem with addPreparedMessages' ;
-            }
+        }
+        else if ($this->countMessagesinDB() == $this->message_counter)
+        {
+            $result = 'Messages have been already added';
+        }
+        else if ($this->countMessagesinDB() > $this->message_counter)
+        {
+            $result = 'Probably cloned messages in DB';
 
-            return $messages_exists;
+            $this->deletePreviousMessages('previous');
+
+        }
+        else
+        {
+            $result = 'Problem with addPreparedMessages' ;
+        }
+        return $result;
     }
 
 }

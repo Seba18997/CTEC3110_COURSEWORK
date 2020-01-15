@@ -24,7 +24,7 @@ $app->post(
             [
                 'landing_page' => $_SERVER["SCRIPT_NAME"],
                 'css_path' => CSS_PATH,
-                'page_title' => APP_NAME,
+                'page_heading' => APP_NAME,
                 'page_heading_1' => 'New User Registration',
                 'page_heading_2' => 'New User Registration',
                 'username' => $tainted_parameters['username'],

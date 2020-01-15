@@ -55,5 +55,9 @@ class SoapWrapper
         return $soap_call_result;
     }
 
+    public function getCountOfNotNullRowsInSoapResponse(){
+        $count = (new Helper)->countRowsInArray($this->getMessagesFromSoap($this->createSoapClient(), MESSAGES_COUNTER));
+        return $count;
+    }
 
 }

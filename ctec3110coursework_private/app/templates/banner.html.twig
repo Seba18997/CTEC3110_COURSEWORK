@@ -3,10 +3,16 @@
 {% block banner %}
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
-            <h1 class="display-4">{{ page_heading_1 }}</h1>
+            <h1>{{ page_heading }}</h1>
+            <h4>{{ is_logged_in }}{{ username }}</h4>
             <p class="lead">Page last updated on <script type="text/javascript">document.write(document.lastModified)</script>
                 <br />
                 Maintained by <a href="mailto:X">email@email.com</a></p>
+
+            <form action="{{ action3 }}" method={{ method }}>
+                <button type="submit" class="btn btn-primary" value="Show Messages">Sign out</button>
+            </form>
+
         </div>
     </div>
 {% endblock %}

@@ -7,22 +7,43 @@ $app->post(
     '/register',
     function(Request $request, Response $response) use ($app)
     {
+        $result = sessionChecker($app);
+        $isloggedin = ifSetUsername($app)['introduction'];
+        $username = ifSetUsername($app)['username'];
 
-        $sid = session_id();
+        if($result !== false)
+        {
+            $html_output2 = $this->view->render($response,
+                'valid_login.html.twig',
+                [
+                    'css_path' => CSS_PATH,
+                    'landing_page' => LANDING_PAGE,
+                    'page_heading' => APP_NAME,
+                    'method' => 'post',
+                    'action' => 'displaycircutboardstate',
+                    'action2' => 'displaymessages',
+                    'page_title' => 'Login Form',
+                    'is_logged_in' => $isloggedin,
+                    'username' => $username,
+                ]);
 
-        $html_output = $this->view->render($response,
-            'register.html.twig',
-            [
-                'css_path' => CSS_PATH,
-                'landing_page' => LANDING_PAGE,
-                'action' => 'registeruser',
-                'initial_input_box_value' => null,
-                'page_heading_1' => 'New User Registration',
-            ]);
+            processOutput($app, $html_output2);
+            return $html_output2;
+        }
+        else {
+            $html_output = $this->view->render($response,
+                'register.html.twig',
+                [
+                    'css_path' => CSS_PATH,
+                    'landing_page' => LANDING_PAGE,
+                    'action' => 'registeruser',
+                    'initial_input_box_value' => null,
+                    'page_heading_1' => 'New User Registration',
+                ]);
 
-        processOutput($app, $html_output);
-
-        return $html_output;
+            processOutput($app, $html_output);
+            return $html_output;
+        }
 
     })->setName('register');
 
@@ -31,4 +52,11 @@ function processOutput($app, $html_output)
     $process_output = $app->getContainer()->get('processOutput');
     $html_output = $process_output->processOutput($html_output);
     return $html_output;
+}
+
+function sessionChecker($app)
+{
+    $session_wrapper = $app->getContainer()->get('SessionWrapper');
+    $store_var = $session_wrapper->getSessionVar('password');
+    return $store_var;
 }
