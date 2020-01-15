@@ -9,6 +9,7 @@ $app->post('/login',
         $isloggedin = ifSetUsername($app)['introduction'];
         $username = ifSetUsername($app)['username'];
         $sign_out_form_visibility = ifSetUsername($app)['sign_out_form_visibility'];
+        storeUserDetails($app, $cleaned_parameters, $hashed_password);
 
         $result = sessionCheck($app);
         if($result == true) {
