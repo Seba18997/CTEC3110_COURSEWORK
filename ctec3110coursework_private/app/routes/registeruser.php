@@ -36,8 +36,6 @@ $app->post(
                 'sign_out_form' => $sign_out_form_visibility,
             ]);
 
-        processOutput($app, $html_output);
-
         return $html_output;
     });
 

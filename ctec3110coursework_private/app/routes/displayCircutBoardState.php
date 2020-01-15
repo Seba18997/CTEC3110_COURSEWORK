@@ -89,4 +89,3 @@ function checkIfSwitchStatesChangedandDisplay($app)
 
 }
 
-//var_dump(checkIfSwitchStatesChangedandDisplay($app));

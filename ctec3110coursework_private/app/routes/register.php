@@ -30,7 +30,6 @@ $app->post(
                     'sign_out_form' => $sign_out_form_visibility,
                 ]);
 
-            processOutput($app, $html_output2);
             return $html_output2;
         }
         else {
@@ -48,18 +47,10 @@ $app->post(
                     'sign_out_form' => $sign_out_form_visibility,
                 ]);
 
-            processOutput($app, $html_output);
             return $html_output;
         }
 
     })->setName('register');
-
-function processOutput($app, $html_output)
-{
-    $process_output = $app->getContainer()->get('processOutput');
-    $html_output = $process_output->processOutput($html_output);
-    return $html_output;
-}
 
 function sessionChecker($app)
 {

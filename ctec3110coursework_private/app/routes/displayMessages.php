@@ -96,4 +96,3 @@ function retrieveMessages($app)
 
     return $final_messages;
 }
-//var_dump(downloadMessages($app));

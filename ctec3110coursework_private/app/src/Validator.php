@@ -13,15 +13,6 @@ class Validator
 
     }
 
-    public function validateDownloadedMessage($message_content)
-    {
-        $validated_message_content = '';
-
-        $validated_message_content = filter_var($message_content, FILTER_SANITIZE_STRING);
-
-        return $validated_message_content;
-    }
-
     public function sanitiseString(string $string_to_sanitise)
     {
         $sanitised_string = '';
