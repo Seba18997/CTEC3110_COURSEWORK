@@ -152,11 +152,12 @@ function ifSetUsername($app){
 
     $session_wrapper = $app->getContainer()->get('SessionWrapper');
     $username = $session_wrapper->getSessionVar('username');
+    $sid = $session_wrapper->getSessionVar('sid');
 
-    if (!empty($username)){
+    if (!empty($username) || !empty($sid)){
         $result['introduction'] = 'User logged in as ';
         $result['username'] = $username;
-        $result['sign_out_form_visibility'] = 'block';
+        $result['sign_out_form_visibility'] = 'inline';
     } else {
         $result['introduction'] = 'Log in to see messages/circuit board';
         $result['username'] = '';
