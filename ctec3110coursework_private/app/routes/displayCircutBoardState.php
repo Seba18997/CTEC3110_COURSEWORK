@@ -74,8 +74,6 @@ function checkIfSwitchStatesChangedandDisplay($app)
 
     $final_states['decoded'] = $decoded_message;
 
-    //TODO: FIX SQL QUERY FOR UPDATE
-
     $final_states['update'] = $switch_states_model->updateSwitchStates($decoded_message);
 
     $final_states['get'] = $switch_states_model->getSwitchState()['retrieved_switch_states'];

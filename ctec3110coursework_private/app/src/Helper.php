@@ -12,10 +12,9 @@ class Helper
      * @param $data
      * @return \SimpleXMLElement
      */
+
     public function convertSoapArrayToString($data){
-
         $final = simplexml_load_string($data);
-
         return $final;
     }
 
@@ -24,14 +23,11 @@ class Helper
      * @param string $tag
      * @return \SimpleXMLElement
      */
+
     public function mapDataFromString($givenstring, $tag=''){
-
         $input = $this->convertSoapArrayToString($givenstring);
-
         $result = $input->$tag;
-
         return $result;
-
     }
 
     /**
@@ -42,19 +38,12 @@ class Helper
      */
 
     public function getTheValue($string, $start, $end){
-
         $string = ' ' . $string;
-
         $ini = strpos($string, $start);
-
         if ($ini == 0) return '';
-
         $ini += strlen($start);
-
         $len = strpos($string, $end, $ini) - $ini;
-
         return substr($string, $ini, $len);
-
     }
 
     public function countRowsInArray($array=[]){
@@ -63,20 +52,15 @@ class Helper
     }
 
     public function decodeMessage($message_content=''){
-
-        //SMS message format: "switch1:on;switch2:on;switch3:off;switch4:on;fan:forward;heater:3;keypad:4;id:19-3110-AZ"
-
-        $final_message['switch1'] = (new Helper)->getTheValue($message_content, 'switch1:', ';');
-        $final_message['switch2'] = (new Helper)->getTheValue($message_content, 'switch2:', ';');
-        $final_message['switch3'] = (new Helper)->getTheValue($message_content, 'switch3:', ';');
-        $final_message['switch4'] = (new Helper)->getTheValue($message_content, 'switch4:', ';');
-        $final_message['fan']     = (new Helper)->getTheValue($message_content, 'fan:',     ';');
-        $final_message['heater']  = (new Helper)->getTheValue($message_content, 'heater:',  ';');
-        $final_message['keypad']  = (new Helper)->getTheValue($message_content, 'keypad:',  ';');
-        $final_message['groupid'] = (new Helper)->getTheValue($message_content, 'id:',      ';');
-
+        $final_message['switch1'] = $this->getTheValue($message_content, 'switch1:', ';');
+        $final_message['switch2'] = $this->getTheValue($message_content, 'switch2:', ';');
+        $final_message['switch3'] = $this->getTheValue($message_content, 'switch3:', ';');
+        $final_message['switch4'] = $this->getTheValue($message_content, 'switch4:', ';');
+        $final_message['fan']     = $this->getTheValue($message_content, 'fan:',     ';');
+        $final_message['heater']  = $this->getTheValue($message_content, 'heater:',  ';');
+        $final_message['keypad']  = $this->getTheValue($message_content, 'keypad:',  ';');
+        $final_message['groupid'] = $this->getTheValue($message_content, 'id:',      ';');
         return $final_message;
-
     }
 
 }

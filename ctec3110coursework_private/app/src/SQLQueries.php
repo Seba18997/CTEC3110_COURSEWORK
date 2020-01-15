@@ -66,13 +66,13 @@ class SQLQueries
     public function updateSwitchState()
     {
         $query_string = "UPDATE switch " ;
-        $query_string .= "SET switch1 = ISNull(:switch1), " ;
-        $query_string .= "switch2 = ISNull(:switch2), " ;
-        $query_string .= "switch3 = ISNull(:switch3), " ;
-        $query_string .= "switch4 = ISNull(:switch4), " ;
-        $query_string .= "fan = ISNull(:fan), " ;
-        $query_string .= "heater = ISNull(:heater), " ;
-        $query_string .= "keypad = ISNull(:keypad) ";
+        $query_string .= "SET switch1 = CASE WHEN :switch1 IS NOT NULL AND LENGTH(:switch1) > 0 THEN :switch1 ELSE switch1 END, " ;
+        $query_string .= "switch2 = CASE WHEN :switch2 IS NOT NULL AND LENGTH(:switch2) > 0 THEN :switch2 ELSE switch2 END, " ;
+        $query_string .= "switch3 = CASE WHEN :switch3 IS NOT NULL AND LENGTH(:switch3) > 0 THEN :switch3 ELSE switch3 END, " ;
+        $query_string .= "switch4 = CASE WHEN :switch4 IS NOT NULL AND LENGTH(:switch4) > 0 THEN :switch4 ELSE switch4 END, " ;
+        $query_string .= "fan = CASE WHEN :fan IS NOT NULL AND LENGTH(:fan) > 0 THEN :fan ELSE fan END, " ;
+        $query_string .= "heater = CASE WHEN :heater IS NOT NULL AND LENGTH(:heater) > 0 THEN :heater ELSE heater END, " ;
+        $query_string .= "keypad = CASE WHEN :keypad IS NOT NULL AND LENGTH(:keypad) > 0 THEN :keypad ELSE keypad END ";
         $query_string .= "WHERE id=1;";
         return $query_string;
     }
