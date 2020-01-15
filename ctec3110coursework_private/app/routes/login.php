@@ -53,7 +53,7 @@ function sessionCheck($app)
     $sessionPasswordSet= $session_wrapper->getSessionVar('password');
     $sessionIdSet = $session_wrapper->getSessionVar('sid');
 
-    if (($sessionUsernameSet && $sessionPasswordSet && $sessionIdSet) == false) {
+    if ($sessionUsernameSet == false && $sessionPasswordSet == false && $sessionIdSet == false) {
         $check = false;
     } else {
         $check = true;

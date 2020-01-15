@@ -153,7 +153,7 @@ function ifSetUsername($app){
     $session_wrapper = $app->getContainer()->get('SessionWrapper');
     $username = $session_wrapper->getSessionVar('username');
 
-    if (!empty($username) && sessionCheck($app) == false){
+    if (!empty($username)){
         $result['introduction'] = 'User logged in as ';
         $result['username'] = $username;
         $result['sign_out_form_visibility'] = 'block';
