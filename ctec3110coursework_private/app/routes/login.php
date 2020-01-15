@@ -28,12 +28,11 @@ $app->post(
                     'method' => 'post',
                     'action' => 'displaycircutboardstate',
                     'action2' => 'displaymessages',
-                    'page_title' => 'Login Form',
+                    'page_title' => 'User Area',
                     'is_logged_in' => $isloggedin,
                     'username' => $username,
                 ]);}
         else {
-
             return $this->view->render($response,
                 'login.html.twig',
                 [
@@ -43,7 +42,9 @@ $app->post(
                     'method' => 'post',
                     'action' => 'userarea',
                     'page_title' => 'Login Form',
-                    'page_heading_1' => 'Login To View Content',
+                    'page_heading_2' => ' / Log In',
+                    'is_logged_in' => $isloggedin,
+                    'username' => $username,
                 ]);}
 
     })->setName('login');

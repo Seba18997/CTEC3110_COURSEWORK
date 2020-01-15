@@ -22,7 +22,7 @@ $app->post(
                     'method' => 'post',
                     'action' => 'displaycircutboardstate',
                     'action2' => 'displaymessages',
-                    'page_title' => 'Login Form',
+                    'page_title' => 'User Area',
                     'is_logged_in' => $isloggedin,
                     'username' => $username,
                 ]);
@@ -36,9 +36,12 @@ $app->post(
                 [
                     'css_path' => CSS_PATH,
                     'landing_page' => LANDING_PAGE,
+                    'page_heading' => APP_NAME,
                     'action' => 'registeruser',
                     'initial_input_box_value' => null,
-                    'page_heading_1' => 'New User Registration',
+                    'page_heading_2' => ' / User Registration',
+                    'is_logged_in' => $isloggedin,
+                    'username' => $username,
                 ]);
 
             processOutput($app, $html_output);

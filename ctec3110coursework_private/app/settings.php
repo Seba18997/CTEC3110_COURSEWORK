@@ -63,6 +63,5 @@ $settings = [
             'password' => 'password',
             'charset' => 'utf8mb4'
         ]],
-
 ];
 return $settings;

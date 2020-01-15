@@ -7,7 +7,7 @@ use \Psr\Http\Message\ResponseInterface as Response;
 $app->post('/userarea',
     function(Request $request, Response $response) use ($app)
     {
-        $tainted_parameters  = $request->getParsedBody();
+        $tainted_parameters = $request->getParsedBody();
         $tainted_username = $tainted_parameters['user_name'];
         $password = $tainted_parameters['password'];
         $cleaned_username = cleanupUsername($app, $tainted_username);
@@ -34,7 +34,7 @@ $app->post('/userarea',
                     'page_heading' => APP_NAME,
                     'method' => 'post',
                     'action' => 'login',
-                    'page_title' => 'Login Form',
+                    'page_title' => 'Invalid Login',
                     'page_heading_1' => 'Invalid credentials',
                 ]);
         } else {
@@ -48,7 +48,7 @@ $app->post('/userarea',
                     'method' => 'post',
                     'action' => 'displaycircutboardstate',
                     'action2' => 'displaymessages',
-                    'page_title' => 'Login Form',
+                    'page_title' => 'User Area',
                     'is_logged_in' => $isloggedin,
                     'username' => $username,
                 ]);}
@@ -66,8 +66,6 @@ function cleanupUsername($app, $tainted_username)
 {
 
     $validator = $app->getContainer()->get('Validator');
-
-    $tainted_username = $tainted_username;
 
     $cleaned_username = $validator->sanitiseString($tainted_username);
 

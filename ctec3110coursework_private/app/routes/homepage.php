@@ -37,6 +37,8 @@ $app->get('/', function(Request $request, Response $response) use ($app)
                 'action2' => 'register',
                 'action3' => 'logout',
                 'page_title' => APP_NAME,
+                'is_logged_in' => $isloggedin,
+                'username' => $username,
             ]);}
 
 })->setName('homepage');

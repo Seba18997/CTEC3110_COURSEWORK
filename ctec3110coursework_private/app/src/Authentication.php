@@ -43,19 +43,21 @@ class Authentication
 
     public function getParamsDb($username)
     {
-        $query_string = $this->sql_queries->getUsernamePassword($username);
+        $query_string = $this->sql_queries->getUsernamePassword();
 
         $this->database_wrapper->setDatabaseConnectionSettings($this->database_connection_settings);
 
         $this->database_wrapper->makeDatabaseConnection();
 
-        $this->database_wrapper->safeQuery($query_string);
+        $query_parameters = array(':username' => $username);
+
+        $this->database_wrapper->safeQuery($query_string, $query_parameters);
 
         if ($row = $this->database_wrapper->safeFetchArray()) {
             $params['username'] = $row['user_name'];
             $params['password'] = $row['password'];
         } else {
-            $params = 'Invalid_credentials';
+            $params[0] = 'Invalid_credentials';
         }
 
         return $params;

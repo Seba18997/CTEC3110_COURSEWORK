@@ -62,9 +62,9 @@ function storeUserDetails($app, array $cleaned_parameters, string $hashed_passwo
 {
     $storage_result = [];
     $store_result = '';
-    $database_connection_settings = $app->getContainer()->get('doctrine_settings');
+    $database_connection_settings = $app->getContainer()->get('settings');
     $doctrine_queries = $app->getContainer()->get('doctrineSqlQueries');
-    $database_connection = DriverManager::getConnection($database_connection_settings);
+    $database_connection = DriverManager::getConnection($database_connection_settings['doctrine_settings']);
 
     $queryBuilder = $database_connection->createQueryBuilder();
 
