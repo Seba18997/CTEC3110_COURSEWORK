@@ -128,7 +128,7 @@ function paramsFromDB($app, $username)
 function compare($app, $db_pass, $typed_pass)
 {
     if($db_pass == 'Invalid_credentials') {
-        $outcome = false;
+        $passwordCheck = false;
     } else {
 
         $compare = $app->getContainer()->get('bcryptWrapper');

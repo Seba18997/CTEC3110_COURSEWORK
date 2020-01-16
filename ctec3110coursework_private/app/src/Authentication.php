@@ -50,7 +50,9 @@ class Authentication
             $params['password'] = $row['password'];
             $params['role']     = $row['role'];
         } else {
-            $params[0] = 'Invalid_credentials';
+            $params['username'] = 'Invalid_credentials';
+            $params['password'] = 'Invalid_credentials';
+            $params['role']     = 'Invalid_credentials';
         }
 
         return $params;
