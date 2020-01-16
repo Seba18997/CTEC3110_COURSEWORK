@@ -17,7 +17,7 @@ class DoctrineSqlQueries
      * @return array
      */
 
-    public static function queryStoreUserData($queryBuilder, $cleaned_parameters, $hashed_password)
+    public static function queryStoreUserData($queryBuilder, array $cleaned_parameters, string $hashed_password)
     {
         $store_result = [];
         $username = $cleaned_parameters['sanitised_username'];
@@ -37,6 +37,18 @@ class DoctrineSqlQueries
 
         $store_result['outcome'] = $queryBuilder->execute();
         $store_result['sql_query'] = $queryBuilder->getSQL();
+
+        return $store_result;
+    }
+
+    public static function querySelectUsername($queryBuilder,  string $cleaned_username)
+    {
+        $queryBuilder = $queryBuilder->select('user_name')
+            ->from('user_data')
+            ->where("user_name = :username")
+            ->setParameter('username', $cleaned_username);
+
+        $store_result = $queryBuilder->execute()->rowCount();
 
         return $store_result;
     }
