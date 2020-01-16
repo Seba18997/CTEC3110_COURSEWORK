@@ -40,4 +40,16 @@ class DoctrineSqlQueries
 
         return $store_result;
     }
+
+    public static function querySelectUsername($queryBuilder,  string $cleaned_username)
+    {
+        $queryBuilder = $queryBuilder->select('user_name')
+            ->from('user_data')
+            ->where("user_name = :username")
+            ->setParameter('username', $cleaned_username);
+
+        $store_result = $queryBuilder->execute()->rowCount();
+
+        return $store_result;
+    }
 }
