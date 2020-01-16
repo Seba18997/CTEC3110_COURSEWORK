@@ -8,9 +8,9 @@ class SQLQueries
 
     public function __destruct() { }
 
-    public function getUsernamePassword()
+    public function getUsernamePasswordRole()
     {
-        $query_string  = "SELECT user_name, password ";
+        $query_string  = "SELECT user_name, password, role ";
         $query_string .= "FROM user_data ";
         $query_string .= "WHERE user_name = :username ;";
         return $query_string;

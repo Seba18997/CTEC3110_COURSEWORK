@@ -75,6 +75,7 @@ CREATE TABLE `user_data` (
   `user_name` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `role` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`auto_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -84,5 +85,5 @@ INSERT INTO `switch` (`id`, `switch1`, `switch2`, `switch3`, `switch4`, `fan`, `
 
 SET NAMES utf8mb4;
 
-INSERT INTO `user_data` (`auto_id`, `user_name`, `email`, `password`, `timestamp`) VALUES
-(1,	'admin',	'admin@admin.com',	'$2y$12$3OrihKFHRXIUFcTn7gouEul5XpYqT/D4NaNW8R8wHtku74QYAk9Lu',	'2020-01-02 17:11:37');
+INSERT INTO `user_data` (`auto_id`, `user_name`, `email`, `password`, `role`, `timestamp`) VALUES
+(99,	'admin',	'admin@admin.com',	'$2y$12$3OrihKFHRXIUFcTn7gouEul5XpYqT/D4NaNW8R8wHtku74QYAk9Lu','admin','2020-01-02 17:11:37');

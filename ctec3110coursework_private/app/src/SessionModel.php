@@ -42,6 +42,11 @@ class SessionModel
         $this->sid = $sid;
     }
 
+    public function setSessionRole($role)
+    {
+        $this->role = $role;
+    }
+
     public function setSessionWrapperFile($session_wrapper)
     {
         $this->session_wrapper_file = $session_wrapper;
@@ -59,7 +64,10 @@ class SessionModel
         $store_result_sid
             = $this->session_wrapper_file->setSessionVar('sid', $this->sid);
 
-        if ($store_result_username !== false && $store_result_password !== false && $store_result_sid !== false)	{
+        $store_result_role
+            = $this->session_wrapper_file->setSessionVar('role', $this->role);
+
+        if ($store_result_username !== false && $store_result_password !== false && $store_result_sid !== false && $store_result_role !== false)	{
             $store_result = true;
         }
         return $store_result;

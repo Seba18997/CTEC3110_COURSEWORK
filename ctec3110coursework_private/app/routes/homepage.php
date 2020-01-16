@@ -7,6 +7,7 @@ $app->get('/', function(Request $request, Response $response) use ($app)
 {
     $isloggedin = ifSetUsername($app)['introduction'];
     $username = ifSetUsername($app)['username'];
+    $role = ifSetUsername($app)['role'];
     $sign_out_form_visibility = ifSetUsername($app)['sign_out_form_visibility'];
     $result = sessionCheck($app);
     if($result == true) {
@@ -23,6 +24,7 @@ $app->get('/', function(Request $request, Response $response) use ($app)
                 'page_title' => APP_NAME.' | User Area',
                 'is_logged_in' => $isloggedin,
                 'username' => $username,
+                'role' => $role,
                 'sign_out_form' => $sign_out_form_visibility,
                 'back_button_visibility' => 'none',
             ]);}

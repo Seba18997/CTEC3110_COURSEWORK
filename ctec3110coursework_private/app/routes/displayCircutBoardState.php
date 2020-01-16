@@ -16,6 +16,7 @@ $app->post(
         $username = ifSetUsername($app)['username'];
         $sign_out_form_visibility = ifSetUsername($app)['sign_out_form_visibility'];
 
+
         $switch_state_data = checkIfSwitchStatesChangedandDisplay($app)['get'];
 
         $switch1 = $switch_state_data['switch1'];

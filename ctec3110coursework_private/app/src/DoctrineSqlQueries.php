@@ -28,11 +28,13 @@ class DoctrineSqlQueries
                 'user_name' => ':name',
                 'email' => ':email',
                 'password' => ':password',
+                'role' => ':role',
             ])
             ->setParameters([
                 ':name' => $username,
                 ':email' => $email,
-                ':password' => $hashed_password
+                ':password' => $hashed_password,
+                ':role' => 'user'
             ]);
 
         $store_result['outcome'] = $queryBuilder->execute();

@@ -7,6 +7,10 @@ use \Psr\Http\Message\ResponseInterface as Response;
 $app->get('/adminarea',
     function(Request $request, Response $response) use ($app)
     {
+        $isloggedin = ifSetUsername($app)['introduction'];
+        $username = ifSetUsername($app)['username'];
+        $role = ifSetUsername($app)['role'];
+        $sign_out_form_visibility = ifSetUsername($app)['sign_out_form_visibility'];
 
             return $this->view->render($response,
                 'admin_area.html.twig',
@@ -22,6 +26,7 @@ $app->get('/adminarea',
                     'page_title' => APP_NAME.' | User Area',
                     'is_logged_in' => $isloggedin,
                     'username' => $username,
+                    'role' => $role,
                     'sign_out_form' => $sign_out_form_visibility,
                     'back_button_visibility' => 'none',
                 ]);
