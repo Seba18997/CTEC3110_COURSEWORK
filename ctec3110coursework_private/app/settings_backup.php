@@ -5,10 +5,8 @@ ini_set('html_errors', 'On');
 ini_set('xdebug.trace_output_name', 'm2mapp.%t');
 ini_set('xdebug.trace_format', '1');
 
-$settings_setup = new \M2MAPP\SettingsSetup();
-$settings_array = $settings_setup->getSettingsFromDB();
-$settings = $settings_array['settings'];
-//var_dump($settings);
+$settings_array = new \M2MAPP\SettingsModel();
+//$settings = $settings_array->getSettingsFromDB();
 
 define('DIRSEP', DIRECTORY_SEPARATOR);
 
@@ -16,17 +14,17 @@ $app_url = dirname($_SERVER['SCRIPT_NAME']);
 $css_path = $app_url . '/css/standard.css';
 
 define('CSS_PATH', $css_path);
-define('APP_NAME', $settings['app_name']);
+define('APP_NAME', 'M2MAPP');
 define('LANDING_PAGE', $_SERVER['SCRIPT_NAME']);
 
-$messages_counter = $settings['wsdl_messagecounter'];
+$messages_counter = 50;
 define('MESSAGES_COUNTER', $messages_counter);
 
-$wsdl = $settings['wsdl'];
+$wsdl = 'https://m2mconnect.ee.co.uk/orange-soap/services/MessageServiceByCountry?wsdl';
 define ('WSDL', $wsdl);
-$username = $settings['wsdl_username'];
+$username = "19_Sebastian";
 define ('USERNAME', $username);
-$password = $settings['wsdl_password'];
+$password = "passXDword123";
 define ('PASSWORD', $password);
 
 define ('BCRYPT_ALGO', PASSWORD_DEFAULT);
@@ -47,26 +45,26 @@ $settings = [
             ]],
         'pdo_settings' => [
             'rdbms' => 'mysql',
-            'host' => $settings['db_host'],
-            'dbname' => $settings['db_name'],
-            'port' => $settings['db_port'],
-            'username' => $settings['db_user'],
-            'userpassword' => $settings['db_userpassword'],
-            'charset' => $settings['db_charset'],
-            'collation' => $settings['db_collation'],
+            'host' => 'localhost',
+            'dbname' => 'coursework',
+            'port' => '3306',
+            'username' => 'p3tuser',
+            'userpassword' => 'password',
+            'charset' => 'utf8',
+            'collation' => 'utf8_unicode_ci',
             'options' => [
                 PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
                 PDO::ATTR_EMULATE_PREPARES   => true,
             ]],
         'doctrine_settings' => [
-            'driver' => $settings['doctrine_driver'],
-            'host' => $settings['db_host'],
-            'dbname' => $settings['db_name'],
-            'port' => $settings['db_port'],
-            'user' => $settings['db_user'],
-            'password' => $settings['db_userpassword'],
-            'charset' => $settings['db_charset']
+            'driver' => 'pdo_mysql',
+            'host' => 'localhost',
+            'dbname' => 'coursework',
+            'port' => '3306',
+            'user' => 'p3tuser',
+            'password' => 'password',
+            'charset' => 'utf8mb4'
         ]],
 ];
 return $settings;

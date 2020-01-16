@@ -40,7 +40,7 @@ class DatabaseWrapper
         $host_details = $host_name . $port_number . $user_database;
         $user_name = $database_settings['username'];
         $user_password = $database_settings['userpassword'];
-        $pdo_attributes = $database_settings['options'];
+        @$pdo_attributes = $database_settings['options'];
 
         try {
             $pdo_handle = new \PDO($host_details, $user_name, $user_password, $pdo_attributes);

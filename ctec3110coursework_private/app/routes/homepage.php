@@ -59,4 +59,3 @@ function showSettings($app){
     $settings = $settings_model->getSettingsFromDB();
     return $settings;
 }
-var_dump(showSettings($app));
