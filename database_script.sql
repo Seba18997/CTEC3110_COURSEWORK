@@ -24,6 +24,30 @@ CREATE TABLE `messages` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
+DROP TABLE IF EXISTS `settings`;
+CREATE TABLE `settings` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `app_name` varchar(128) NOT NULL,
+  `wsdl` varchar(512) NOT NULL,
+  `wsdl_username` varchar(64) NOT NULL,
+  `wsdl_password` varchar(64) NOT NULL,
+  `wsdl_messagecounter` int(11) NOT NULL,
+  `db_host` varchar(64) NOT NULL,
+  `db_name` varchar(64) NOT NULL,
+  `db_port` int(11) NOT NULL,
+  `db_user` varchar(64) NOT NULL,
+  `db_userpassword` varchar(64) NOT NULL,
+  `db_charset` varchar(64) NOT NULL,
+  `db_collation` varchar(64) NOT NULL,
+  `doctrine_driver` varchar(64) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `settings` (`id`, `app_name`, `wsdl`, `wsdl_username`, `wsdl_password`, `wsdl_messagecounter`, `db_host`, `db_name`, `db_port`, `db_user`, `db_userpassword`, `db_charset`, `db_collation`, `doctrine_driver`) VALUES
+(1,	'M2MAPP',	'https://m2mconnect.ee.co.uk/orange-soap/services/MessageServiceByCountry?wsdl',	'19_Sebastian',	'passXDword123',	50,	'localhost',	'coursework',	3306,	'p3tuser',	'password',	'utf8',	'utf8_unicode_ci',	'pdo_mysql');
+
+
 DROP TABLE IF EXISTS `switch`;
 CREATE TABLE `switch` (
   `id` int(4) NOT NULL DEFAULT 1,
@@ -36,8 +60,6 @@ CREATE TABLE `switch` (
   `keypad` varchar(64) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `switch` (`id`, `switch1`, `switch2`, `switch3`, `switch4`, `fan`, `heater`, `keypad`) VALUES
-(1,	'off',	'on',	'off',	'on',	'forward',	'11',	'7');
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
@@ -56,5 +78,3 @@ CREATE TABLE `user_data` (
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`auto_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
