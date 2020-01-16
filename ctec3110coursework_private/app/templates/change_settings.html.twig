@@ -1,0 +1,26 @@
+{% extends 'banner.html.twig' %}
+{% block content %}
+    <br/>
+    <div class="table-responsive-sm table-bordered table-hover">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Source</th>
+                <th scope="col">Destination</th>
+                <th scope="col">Date</th>
+                <th scope="col">Type</th>
+                <th scope="col">Message content</th>
+            </tr>
+            </thead>
+
+             <tbody>
+             {% for message_data in messages_data %}
+                 <tr><td>{{ message_data.source }}</td><td>{{ message_data.destination }}</td><td>{{ message_data.date }}</td><td>{{ message_data.type }}</td><td>{{ message_data.message }}</td></tr>
+             {% endfor %}
+             </tbody>
+        </table>
+    </div>
+
+
+{% endblock %}
+
