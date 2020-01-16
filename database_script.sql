@@ -78,3 +78,11 @@ CREATE TABLE `user_data` (
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`auto_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO `switch` (`id`, `switch1`, `switch2`, `switch3`, `switch4`, `fan`, `heater`, `keypad`) VALUES
+(1,	'on',	'on',	'off',	'on',	'backward',	'4',	'7');
+
+SET NAMES utf8mb4;
+
+INSERT INTO `user_data` (`auto_id`, `user_name`, `email`, `password`, `timestamp`) VALUES
+(1,	'admin',	'admin@admin.com',	'$2y$12$3OrihKFHRXIUFcTn7gouEul5XpYqT/D4NaNW8R8wHtku74QYAk9Lu',	'2020-01-02 17:11:37');
