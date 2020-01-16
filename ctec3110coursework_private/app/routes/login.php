@@ -10,9 +10,9 @@ $app->post('/login',
         $username = ifSetUsername($app)['username'];
         $sign_out_form_visibility = ifSetUsername($app)['sign_out_form_visibility'];
 
-
         $result = sessionCheck($app);
-        if($result == true) {
+        if($result == true)
+        {
             return $this->view->render($response,
                 'valid_login.html.twig',
                 [
@@ -22,12 +22,15 @@ $app->post('/login',
                     'method' => 'post',
                     'action' => 'displaycircutboardstate',
                     'action2' => 'displaymessages',
-                    'page_title' => 'User Area',
+                    'page_title' => APP_NAME.' | User Area',
                     'is_logged_in' => $isloggedin,
                     'username' => $username,
                     'sign_out_form' => $sign_out_form_visibility,
-                ]);}
-        else {
+                    'back_button_visibility' => 'none',
+                ]);
+        }
+        else
+        {
             return $this->view->render($response,
                 'login.html.twig',
                 [
@@ -36,12 +39,14 @@ $app->post('/login',
                     'page_heading' => APP_NAME,
                     'method' => 'post',
                     'action' => 'userarea',
-                    'page_title' => 'Login Form',
+                    'page_title' => APP_NAME.' | Log In',
                     'page_heading_2' => ' / Log In',
                     'is_logged_in' => $isloggedin,
                     'username' => $username,
                     'sign_out_form' => $sign_out_form_visibility,
-                ]);}
+                    'back_button_visibility' => 'block',
+                ]);
+        }
 
     })->setName('login');
 

@@ -65,7 +65,7 @@ class SQLQueries
 
     public function updateSwitchState()
     {
-        $query_string = "UPDATE switch " ;
+        $query_string =  "UPDATE switch " ;
         $query_string .= "SET switch1 = CASE WHEN :switch1 IS NOT NULL AND LENGTH(:switch1) > 0 THEN :switch1 ELSE switch1 END, " ;
         $query_string .= "switch2 = CASE WHEN :switch2 IS NOT NULL AND LENGTH(:switch2) > 0 THEN :switch2 ELSE switch2 END, " ;
         $query_string .= "switch3 = CASE WHEN :switch3 IS NOT NULL AND LENGTH(:switch3) > 0 THEN :switch3 ELSE switch3 END, " ;
@@ -76,7 +76,33 @@ class SQLQueries
         $query_string .= "WHERE id=1;";
         return $query_string;
     }
-    
+
+    public function getSettings(){
+        $query_string =  'SELECT app_name, wsdl, wsdl_username, wsdl_password, wsdl_messagecounter, db_host, db_name, db_port, db_user, db_userpassword, db_charset, db_collation, doctrine_driver ';
+        $query_string .= 'FROM settings ';
+        $query_string .= 'WHERE id=1; ';
+        return $query_string;
+    }
+
+    public function updateSettings(){
+        $query_string =  "UPDATE settings " ;
+        $query_string .= "SET app_name = CASE WHEN :app_name IS NOT NULL AND LENGTH(:app_name) > 0 THEN :app_name ELSE app_name END, " ;
+        $query_string .= "wsdl = CASE WHEN :wsdl IS NOT NULL AND LENGTH(:wsdl) > 0 THEN :wsdl ELSE wsdl END, " ;
+        $query_string .= "wsdl_username = CASE WHEN :wsdl_username IS NOT NULL AND LENGTH(:wsdl_username) > 0 THEN :wsdl_username ELSE wsdl_username END, " ;
+        $query_string .= "wsdl_password = CASE WHEN :wsdl_password IS NOT NULL AND LENGTH(:wsdl_password) > 0 THEN :wsdl_password ELSE wsdl_password END, " ;
+        $query_string .= "wsdl_messagecounter = CASE WHEN :wsdl_messagecounter IS NOT NULL AND LENGTH(:wsdl_messagecounter) > 0 THEN :wsdl_messagecounter ELSE wsdl_messagecounter END, " ;
+        $query_string .= "db_host = CASE WHEN :db_host IS NOT NULL AND LENGTH(:db_host) > 0 THEN :db_host ELSE db_host END, " ;
+        $query_string .= "db_name = CASE WHEN :db_name IS NOT NULL AND LENGTH(:db_name) > 0 THEN :db_name ELSE db_name END ";
+        $query_string .= "db_port = CASE WHEN :db_port IS NOT NULL AND LENGTH(:db_port) > 0 THEN :db_port ELSE db_port END ";
+        $query_string .= "db_user = CASE WHEN :db_user IS NOT NULL AND LENGTH(:db_user) > 0 THEN :db_user ELSE db_user END ";
+        $query_string .= "db_userpassword = CASE WHEN :db_userpassword IS NOT NULL AND LENGTH(:db_userpassword) > 0 THEN :db_userpassword ELSE db_userpassword END ";
+        $query_string .= "db_charset = CASE WHEN :db_charset IS NOT NULL AND LENGTH(:db_charset) > 0 THEN :db_charset ELSE db_charset END ";
+        $query_string .= "db_collation = CASE WHEN :db_collation IS NOT NULL AND LENGTH(:db_collation) > 0 THEN :db_collation ELSE db_collation END ";
+        $query_string .= "doctrine_driver = CASE WHEN :doctrine_driver IS NOT NULL AND LENGTH(:doctrine_driver) > 0 THEN :doctrine_driver ELSE doctrine_driver END ";
+        $query_string .= "WHERE id=1;";
+        return $query_string;
+
+    }
 }
 
 

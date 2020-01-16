@@ -35,6 +35,7 @@ $app->post(
                 'page_heading' => APP_NAME,
                 'is_logged_in' => $isloggedin,
                 'username' => $username,
+                'page_title' => APP_NAME.' | Circuit Board',
                 'page_heading_2' => ' / Circuit Board',
                 'action3' => 'logout',
                 'method' => 'post',
@@ -47,6 +48,7 @@ $app->post(
                 'counter' => '',
                 'keypad' => $keypad,
                 'sign_out_form' => $sign_out_form_visibility,
+                'back_button_visibility' => 'block',
 
             ]);
 

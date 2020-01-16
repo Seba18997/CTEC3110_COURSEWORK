@@ -32,11 +32,13 @@ $app->post(
                 'is_logged_in' => $isloggedin,
                 'username' => $username,
                 'page_heading_2' => ' / Messages ',
+                'page_title' => APP_NAME.' | Messages ('.$counter.')',
                 'action3' => 'logout',
                 'method' => 'post',
                 'messages_data' => $messages_data,
                 'counter' => '('.$counter.')',
                 'sign_out_form' => $sign_out_form_visibility,
+                'back_button_visibility' => 'block',
             ]);
 
     })->setName('displaymessages');

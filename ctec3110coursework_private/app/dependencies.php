@@ -85,3 +85,8 @@ $container['Authentication'] = function ($container) {
     $auth = new \M2MAPP\Authentication();
     return $auth;
 };
+
+$container['SettingsModel'] = function ($container) {
+    $auth = new \M2MAPP\SettingsModel();
+    return $auth;
+};

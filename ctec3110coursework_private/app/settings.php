@@ -5,6 +5,9 @@ ini_set('html_errors', 'On');
 ini_set('xdebug.trace_output_name', 'm2mapp.%t');
 ini_set('xdebug.trace_format', '1');
 
+$settings_array = new \M2MAPP\SettingsModel();
+//$settings = $settings_array->getSettingsFromDB();
+
 define('DIRSEP', DIRECTORY_SEPARATOR);
 
 $app_url = dirname($_SERVER['SCRIPT_NAME']);

@@ -15,7 +15,7 @@ $app->post(
 
         if($result !== false)
         {
-            $html_output2 = $this->view->render($response,
+            return $this->view->render($response,
                 'valid_login.html.twig',
                 [
                     'css_path' => CSS_PATH,
@@ -24,16 +24,16 @@ $app->post(
                     'method' => 'post',
                     'action' => 'displaycircutboardstate',
                     'action2' => 'displaymessages',
-                    'page_title' => 'User Area',
+                    'page_title' => APP_NAME.' | User Area',
                     'is_logged_in' => $isloggedin,
                     'username' => $username,
                     'sign_out_form' => $sign_out_form_visibility,
+                    'back_button_visibility' => 'none',
                 ]);
-
-            return $html_output2;
         }
-        else {
-            $html_output = $this->view->render($response,
+        else
+        {
+            return $this->view->render($response,
                 'register.html.twig',
                 [
                     'css_path' => CSS_PATH,
@@ -41,15 +41,14 @@ $app->post(
                     'page_heading' => APP_NAME,
                     'action' => 'registeruser',
                     'initial_input_box_value' => null,
+                    'page_title' => APP_NAME.' | User Registration',
                     'page_heading_2' => ' / New User Registration',
                     'is_logged_in' => $isloggedin,
                     'username' => $username,
-                    'sign_out_form' => $sign_out_form_visibility,
+                    'sign_out_form' => 'none',
+                    'back_button_visibility' => 'block',
                 ]);
-
-            return $html_output;
         }
-
     })->setName('register');
 
 function sessionChecker($app)

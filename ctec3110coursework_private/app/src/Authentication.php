@@ -18,18 +18,10 @@ class Authentication
     {
     }
 
-    /**
-     * @param $database_wrapper
-     */
-
     public function setDatabaseWrapper($database_wrapper)
     {
         $this->database_wrapper = $database_wrapper;
     }
-
-    /**
-     * @param $database_connection_settings
-     */
 
     public function setDatabaseConnectionSettings($database_connection_settings)
     {

@@ -35,14 +35,16 @@ $app->post('/userarea',
                     'page_heading' => APP_NAME,
                     'method' => 'post',
                     'action' => 'login',
-                    'page_title' => 'Invalid Login',
+                    'page_title' => APP_NAME.' | Invalid Credentials',
                     'page_heading_1' => 'Invalid credentials',
                     'is_logged_in' => $isloggedin,
                     'username' => $username,
                     'sign_out_form' => $sign_out_form_visibility,
+                    'back_button_visibility' => 'none',
                 ]);
-        } else {
-
+        }
+        else
+        {
             return $this->view->render($response,
                 'valid_login.html.twig',
                 [
@@ -53,13 +55,14 @@ $app->post('/userarea',
                     'action3' => 'logout',
                     'action' => 'displaycircutboardstate',
                     'action2' => 'displaymessages',
-                    'page_title' => 'User Area',
+                    'page_title' => APP_NAME.' | User Area',
                     'is_logged_in' => $isloggedin,
                     'username' => $username,
                     'sign_out_form' => $sign_out_form_visibility,
+                    'back_button_visibility' => 'none',
                 ]);}
 
-    } )->setName('userarea');
+    })->setName('userarea');
 
 
 /**
@@ -155,7 +158,7 @@ function ifSetUsername($app){
     $sid = $session_wrapper->getSessionVar('sid');
 
     if (!empty($username) || !empty($sid)){
-        $result['introduction'] = 'User logged in as ';
+        $result['introduction'] = 'You are logged in as ';
         $result['username'] = $username;
         $result['sign_out_form_visibility'] = 'inline';
     } else {
