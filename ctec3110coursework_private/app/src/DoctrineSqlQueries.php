@@ -17,7 +17,7 @@ class DoctrineSqlQueries
      * @return array
      */
 
-    public static function queryStoreUserData($queryBuilder, array $cleaned_parameters, string $hashed_password)
+    public static function queryStoreUserData($queryBuilder, $cleaned_parameters, $hashed_password)
     {
         $store_result = [];
         $username = $cleaned_parameters['sanitised_username'];

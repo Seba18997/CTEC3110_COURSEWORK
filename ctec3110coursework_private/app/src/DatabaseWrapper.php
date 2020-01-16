@@ -27,11 +27,7 @@ class DatabaseWrapper
         $this->database_connection_settings = $database_connection_settings;
     }
 
-    /**
-     * '\' character in front of the PDO class name signifies that it is a globally available class
-     *
-     * @return string
-     */
+
     public function makeDatabaseConnection()
     {
         $pdo = false;
@@ -56,12 +52,7 @@ class DatabaseWrapper
 
         return $pdo_error;
     }
-    /**
-     * @param $query_string
-     * @param null $params
-     *
-     * @return mixed
-     */
+
     public function safeQuery($query_string, $params = null)
     {
         $this->errors['db_error'] = false;
@@ -101,9 +92,6 @@ class DatabaseWrapper
         return $arr_row;
     }
 
-    /**
-     * @return mixed
-     */
     public function lastInsertedID()
     {
         $sql_query = 'SELECT LAST_INSERT_ID()';

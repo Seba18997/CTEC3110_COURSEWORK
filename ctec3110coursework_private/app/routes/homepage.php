@@ -47,3 +47,16 @@ $app->get('/', function(Request $request, Response $response) use ($app)
 
 })->setName('homepage');
 
+function showSettings($app){
+
+    $settings_model = $app->getContainer()->get('SettingsModel');
+    $settings_file = $app->getContainer()->get('settings');
+
+    $settings_model->setSqlQueries($app->getContainer()->get('SQLQueries'));
+    $settings_model->setDatabaseConnectionSettings($settings_file['pdo_settings']);
+    $settings_model->setDatabaseWrapper($app->getContainer()->get('DatabaseWrapper'));
+
+    $settings = $settings_model->getSettingsFromDB();
+    return $settings;
+}
+var_dump(showSettings($app));

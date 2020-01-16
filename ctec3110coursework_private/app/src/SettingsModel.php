@@ -29,13 +29,11 @@ class SettingsModel
         $this->sql_queries = $sql_queries;
     }
 
-    public function makeConnectionAndQuery($query,$params=''){
+    public function makeConnection(){
 
         $this->database_wrapper->setDatabaseConnectionSettings($this->database_connection_settings);
 
         $this->database_wrapper->makeDatabaseConnection();
-
-        $this->database_wrapper->safeQuery($query, $params);
 
     }
 
@@ -47,7 +45,9 @@ class SettingsModel
 
         $query_string_get = $this->sql_queries->getSettings();
 
-        $this->makeConnectionAndQuery($query_string_get);
+        $this->makeConnection();
+
+        $this->database_wrapper->safeQuery($query_string_get);
 
         $number_of_data_sets = $this->database_wrapper->countRows();
 
@@ -81,6 +81,8 @@ class SettingsModel
 
         $query_string_update = $this->sql_queries->updateSettings();
 
+        $this->makeConnection();
+
         $query_parameters =
             array(':app_name' => $final_settings['app_name'],
                 ':wsdl' => $final_settings['wsdl'],
@@ -96,7 +98,7 @@ class SettingsModel
                 ':db_collation'  => $final_settings['db_collation'],
                 ':doctrine_driver'  => $final_settings['doctrine_driver']);
 
-        $this->makeConnectionAndQuery($query_string_update, $query_parameters);
+        $this->database_wrapper->safeQuery($query_string_update, $query_parameters);
 
     }
 

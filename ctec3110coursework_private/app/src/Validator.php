@@ -13,7 +13,7 @@ class Validator
 
     }
 
-    public function sanitiseString(string $string_to_sanitise)
+    public function sanitiseString($string_to_sanitise)
     {
         $sanitised_string = '';
 
@@ -23,7 +23,7 @@ class Validator
         return $sanitised_string;
     }
 
-    public function sanitiseEmail(string $email_to_sanitise)
+    public function sanitiseEmail($email_to_sanitise)
     {
         $cleaned_string = '';
 
