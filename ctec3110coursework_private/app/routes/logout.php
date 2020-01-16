@@ -13,7 +13,7 @@ $app->post(
     function(Request $request, Response $response) use ($app)
     {
         unsetSession($app);
-        $response = $response->withRedirect(LANDING_PAGE);
+        $response = $response->withredirect(LANDING_PAGE);
         return $response;
 
     })->setName('logout');

@@ -20,10 +20,11 @@ $app->get('/', function(Request $request, Response $response) use ($app)
                 'action' => 'displaycircutboardstate',
                 'action2' => 'displaymessages',
                 'action3' => 'logout',
-                'page_title' => 'Login Form',
+                'page_title' => APP_NAME.' | User Area',
                 'is_logged_in' => $isloggedin,
                 'username' => $username,
                 'sign_out_form' => $sign_out_form_visibility,
+                'back_button_visibility' => 'none',
             ]);}
     else {
 
@@ -37,10 +38,11 @@ $app->get('/', function(Request $request, Response $response) use ($app)
                 'action' => 'login',
                 'action2' => 'register',
                 'action3' => 'logout',
-                'page_title' => 'APP_NAME',
+                'page_title' => APP_NAME.' | Homepage',
                 'is_logged_in' => $isloggedin,
                 'username' => $username,
                 'sign_out_form' => $sign_out_form_visibility,
+                'back_button_visibility' => 'none',
             ]);}
 
 })->setName('homepage');

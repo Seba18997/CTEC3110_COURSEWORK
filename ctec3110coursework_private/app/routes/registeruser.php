@@ -15,13 +15,13 @@ $app->post(
         $isloggedin = ifSetUsername($app)['introduction'];
         $username = ifSetUsername($app)['username'];
         $sign_out_form_visibility = ifSetUsername($app)['sign_out_form_visibility'];
-        storeUserDetails($app, $cleaned_parameters, $hashed_password);
 
-        $html_output =  $this->view->render($response,
+        return $this->view->render($response,
             'register_user_result.html.twig',
             [
                 'landing_page' => $_SERVER["SCRIPT_NAME"],
                 'css_path' => CSS_PATH,
+                'page_title' => APP_NAME.' | New User Registration',
                 'page_heading' => APP_NAME,
                 'page_heading_1' => 'New User Registration',
                 'page_heading_2' => ' / New User Registration',
@@ -35,9 +35,8 @@ $app->post(
                 'is_logged_in' => $isloggedin,
                 'username' => $username,
                 'sign_out_form' => $sign_out_form_visibility,
+                'back_button_visibility' => 'block',
             ]);
-
-        return $html_output;
     });
 
 /**
@@ -57,7 +56,7 @@ function storeUserDetails($app, array $cleaned_parameters, string $hashed_passwo
 
     $queryBuilder = $database_connection->createQueryBuilder();
 
-    $storage_result = $doctrine_queries::queryStoreUserData($queryBuilder, $cleaned_parameters, $hashed_password);
+    $storage_result = $doctrine_queries->queryStoreUserData($queryBuilder, $cleaned_parameters, $hashed_password);
 
     if ($storage_result['outcome'] == 1) {
         $store_result = 'User data was successfully stored using the SQL query: ' . $storage_result['sql_query'];
