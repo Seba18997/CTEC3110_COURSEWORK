@@ -16,7 +16,7 @@ A complete implementation will include the following methodologies and technolog
 - [x] following the SOLID guidelines
 - [x] SLIM micro-framework
 - [x] TWIG template engine
-- [ ] Monolog logging
+- [x] Monolog logging
 - [ ] Application of security techniques and avoidance of common web application
 vulnerabilities
 - [ ] Unit testing and security testing
@@ -24,7 +24,7 @@ vulnerabilities
 - [x] MySQL/MariaDb
 - [x] SOAP & WSDL file
 - [ ] Docblock comments
-- [ ] Consistent coding style
+- [x] Consistent coding style
 - [x] following the PHP-FIG PSR-1 & PSR-12 coding standards guidelines
 - [x] Use of the Subversion Version Control Server
 - [ ] Validation of all web-pages at http://validator.w3.org/ - include the W3C validated
@@ -34,14 +34,7 @@ Possible extensions to the implementation could include:
 
 - [x] implementation of registration and login/logout features, incorporating correct session
 management. 
-- [ ] displaying numerical data in chart form.
-- [ ] an interface to send SMS messages back to the “circuit board” containing updated
-settings for the board.
 - [x] administration interface to maintain users/connection data in the database.
-- [ ] logging all web-application activity.
-- [ ] using AJAX and JSON (or an RSS/ATOM feed) to update the display in the browser
-as new SMS reports are downloaded.
+- [x] logging all web-application activity.
 - [x] checking message metadata (eg name/phone number) against pre-stored values, thus
 avoiding duplication of stored messages.
-- [x] sending an SMS or email reporting the receipt of the new message to the user’s
-connection details.
