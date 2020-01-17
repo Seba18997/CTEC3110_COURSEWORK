@@ -14,11 +14,12 @@ $app->post(
 
         $isloggedin = ifSetUsername($app)['introduction'];
         $username = ifSetUsername($app)['username'];
+
         $username_count = checkDuplicateUsername($app, $cleaned_parameters);
-        $params_length = lengthCheck($app, $cleaned_parameters['password'],$cleaned_parameters['sanitised_username']);
+        $username_error = usernameCheck($app, $tainted_parameters['username']);
+        $password_error = passwordCheck($app, $tainted_parameters['password']);
 
-
-        if($username_count == 0 && $params_length == false)
+        if($username_count == 0 && $username_error == false && $password_error == false)
         {
             $this->get('logger')->info("New user successfully registered: " .$cleaned_parameters['sanitised_username']);
             storeUserDetails($app, $cleaned_parameters, $hashed_password);
@@ -48,6 +49,11 @@ $app->post(
         else
         {
             $this->get('logger')->info("Registration process failed because of not meeting minimal requirements of username/password.");
+            if($username_count !== 0) {
+                $username_duplicate = 'Your username already exists in our database.';
+            } else {
+                $username_duplicate = false;
+            }
             return $this->view->render($response,
                 'register.html.twig',
                 [
@@ -61,6 +67,9 @@ $app->post(
                     'username' => $username,
                     'sign_out_form' => 'none',
                     'back_button_visibility' => 'block',
+                    'username_error' => $username_error,
+                    'password_error' => $password_error,
+                    'username_duplicate' => $username_duplicate,
                 ]);
 
         }
@@ -148,15 +157,38 @@ function hash_password($app, $password_to_hash): string
     return $hashed_password;
 }
 
-function lengthCheck($app, $password, $username)
+function usernameCheck($app, $username)
 {
+    $error = false;
 
-    if((strlen($password) < 8) || (strlen($username) < 8))
+    if((strlen($username) <= 4) || (strlen($username) >= 15))
     {
-        $error = "Password and username must be at least 8 chars";
-        return $error;
-    } else {
-        $error = false;
-        return $error;
+        $error = 'Your username must be at least 4 and maximum 15 characters long.';
     }
+    elseif(ctype_alnum($username)==false)
+    {
+        $error = 'Your username must contain only letters and digits.';
+    }
+
+    return $error;
+}
+
+function passwordCheck($app, $password)
+{
+    $error = false;
+
+    if ((strlen($password)) <= '8') {
+        $error = "Your password must contain at least 8 characters.";
+    }
+    elseif(!preg_match("#[0-9]+#",$password)) {
+        $error = "Your password must contain at least 1 number.";
+    }
+    elseif(!preg_match("#[A-Z]+#",$password)) {
+        $error = "Your password must contain at least 1 capital letter.";
+    }
+    elseif(!preg_match("#[a-z]+#",$password)) {
+        $error = "Your password must contain at least 1 lowercase letter.";
+    }
+
+    return $error;
 }
