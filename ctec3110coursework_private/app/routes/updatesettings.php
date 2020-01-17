@@ -4,11 +4,6 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
 $app->post(
-/**
- * @param Request $request
- * @param Response $response
- * @return mixed
- */
     '/updatesettings',
     function(Request $request, Response $response) use ($app)
     {
@@ -24,8 +19,30 @@ $app->post(
             $settingsa = cleanupArray($app, $settings);
 
             updateSettings($app, $settingsa);
-            $response = $response->withredirect(LANDING_PAGE.'/updatesettings');
-            return $response;
+
+            $isloggedin = ifSetUsername($app)['introduction'];
+            $username = ifSetUsername($app)['username'];
+            $role = ifSetUsername($app)['role'];
+            $sign_out_form_visibility = ifSetUsername($app)['sign_out_form_visibility'];
+
+            return $this->view->render($response,
+                'settings_changed.html.twig',
+                [
+                    'css_path' => CSS_PATH,
+                    'landing_page' => LANDING_PAGE,
+                    'initial_input_box_value' => null,
+                    'page_heading' => APP_NAME,
+                    'page_heading_2' => ' / Settings Changed ',
+                    'page_title' => APP_NAME.' | Settings Changed',
+                    'action4' => 'changesettings',
+                    'action3' => 'logout',
+                    'method' => 'post',
+                    'is_logged_in' => $isloggedin,
+                    'username' => $username,
+                    'role' => $role,
+                    'sign_out_form' => $sign_out_form_visibility,
+                    'back_button_visibility' => 'block',
+                ]);
         }
     })->setName('updatesettings');
 
