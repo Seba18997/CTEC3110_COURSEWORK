@@ -1,0 +1,14 @@
+{% extends 'layout.html.twig' %}
+{% block title %}{{ page_title }}{% endblock %}
+{% block banner %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between">
+        <a class="badge badge-light" href="{{ landing_page }}" style="display:{{ back_button_visibility }};"><b><</b> back to home</a>
+        <a class="navbar-brand" href="#">{{ page_heading }}{{ page_heading_2 }}<b>{{ counter }}</b></a>
+        <span class="navbar-text">
+            Page last updated on <b><script type="text/javascript">document.write(document.lastModified)</script></b>
+        </span>
+        <span class="navbar-text">
+            {{ is_logged_in }}<b>{{ username }}</b>
+        </span>
+    </nav><br/>
+{% endblock %}
