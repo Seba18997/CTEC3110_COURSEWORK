@@ -9,7 +9,9 @@ $app->get('/', function(Request $request, Response $response) use ($app)
     $username = ifSetUsername($app)['username'];
     $role = ifSetUsername($app)['role'];
     $sign_out_form_visibility = ifSetUsername($app)['sign_out_form_visibility'];
+
     $result = sessionCheck($app);
+
     $session_check = sessionCheckAdmin($app);
 
     if ($result == true && $session_check == true)
@@ -18,7 +20,8 @@ $app->get('/', function(Request $request, Response $response) use ($app)
         $response = $response->withredirect(LANDING_PAGE . '/adminarea');
         return $response;
     }
-    else if($result == true) {
+    else if($result == true)
+    {
         $this->get('logger')->info("User already logged in, login page => home page.");
         return $this->view->render($response,
             'valid_login.html.twig',
@@ -60,16 +63,3 @@ $app->get('/', function(Request $request, Response $response) use ($app)
     }
 
 })->setName('homepage');
-
-function showSettings($app){
-
-    $settings_model = $app->getContainer()->get('SettingsModel');
-    $settings_file = $app->getContainer()->get('settings');
-
-    $settings_model->setSqlQueries($app->getContainer()->get('SQLQueries'));
-    $settings_model->setDatabaseConnectionSettings($settings_file['pdo_settings']);
-    $settings_model->setDatabaseWrapper($app->getContainer()->get('DatabaseWrapper'));
-
-    $settings = $settings_model->getSettingsFromDB();
-    return $settings;
-}

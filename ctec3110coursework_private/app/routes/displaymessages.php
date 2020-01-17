@@ -4,13 +4,6 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
 $app->post(
-
-/**
- * @param Request $request
- * @param Response $response
- * @return mixed
- */
-
     '/displaymessages',
     function(Request $request, Response $response) use ($app)
     {
@@ -20,7 +13,6 @@ $app->post(
         $sign_out_form_visibility = ifSetUsername($app)['sign_out_form_visibility'];
 
         $messages_data = retrieveMessages($app)['retrieved_messages'];
-
         $counter = downloadMessages($app)['counter'];
 
         $this->get('logger')->info("Messages content downloaded from M2M server to database and then presented on a website.");
@@ -80,17 +72,8 @@ function downloadMessages($app)
     return $final_download_messages;
 }
 
-
-/**
- * @param $app
- * @param $database_wrapper
- * @return mixed
- */
-
-
 function retrieveMessages($app)
 {
-
     $messages_model = $app->getContainer()->get('DisplayMessages');
 
     $messages_model->setSqlQueries(setQueries($app));

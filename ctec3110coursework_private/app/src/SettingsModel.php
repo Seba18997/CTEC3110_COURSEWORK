@@ -37,8 +37,6 @@ class SettingsModel
 
     }
 
-    /* TODO: wsdl/wsdl_username/wsdl_password/wsdl_messagecounter/db_host/db_name/db_port/db_user/db_userpassword/db_charset/db_collation/doctrine_driver/app_name */
-
     public function getSettingsFromDB()
     {
         $settings = [];
@@ -51,7 +49,8 @@ class SettingsModel
 
         $number_of_data_sets = $this->database_wrapper->countRows();
 
-        if ($number_of_data_sets === 1) {
+        if ($number_of_data_sets === 1)
+        {
             while ($row = $this->database_wrapper->safeFetchArray()) {
                 $settings['app_name'] = $row['app_name'];
                 $settings['wsdl'] = $row['wsdl'];
@@ -67,14 +66,15 @@ class SettingsModel
                 $settings['db_collation'] = $row['db_collation'];
                 $settings['doctrine_driver'] = $row['doctrine_driver'];
             }
-        } else {
-            $settings[0] = 'Something is wrong';
+        }
+        else
+        {
+            $final_settings[0] = 'Something is wrong';
         }
 
         $final_settings['settings'] = $settings;
 
         return $final_settings;
-
     }
 
     public function updateSettings($final_settings=[]){
@@ -99,7 +99,6 @@ class SettingsModel
                 ':doctrine_driver'  => $final_settings['doctrine_driver']);
 
         $this->database_wrapper->safeQuery($query_string_update, $query_parameters);
-
     }
 
 

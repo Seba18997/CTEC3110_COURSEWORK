@@ -38,11 +38,9 @@ class Authentication
         $query_string = $this->sql_queries->getUsernamePasswordRole();
 
         $this->database_wrapper->setDatabaseConnectionSettings($this->database_connection_settings);
-
         $this->database_wrapper->makeDatabaseConnection();
 
         $query_parameters = array(':username' => $username);
-
         $this->database_wrapper->safeQuery($query_string, $query_parameters);
 
         if ($row = $this->database_wrapper->safeFetchArray()) {
@@ -54,7 +52,6 @@ class Authentication
             $params['password'] = 'Invalid_credentials';
             $params['role']     = 'Invalid_credentials';
         }
-
         return $params;
     }
 }

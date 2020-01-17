@@ -66,7 +66,7 @@ $app->post('/login',
 function sessionCheck($app)
 {
     $session_wrapper = $app->getContainer()->get('SessionWrapper');
-    //getSessionVar() returns 'false' if session variable is not set
+
     $sessionUsernameSet = $session_wrapper->getSessionVar('username');
     $sessionPasswordSet= $session_wrapper->getSessionVar('password');
     $sessionIdSet = $session_wrapper->getSessionVar('sid');

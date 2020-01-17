@@ -4,17 +4,8 @@
 namespace M2MAPP;
 
 
-class SettingsSetup
+class SettingsSetup extends SettingsModel
 {
-    public function __construct()
-    {
-
-    }
-    public function __destruct()
-    {
-
-    }
-
     public function databaseConnection(){
         $settings = [
                 'pdo_settings' => [

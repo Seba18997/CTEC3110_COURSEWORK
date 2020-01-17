@@ -16,8 +16,8 @@ $app->post(
         $username = ifSetUsername($app)['username'];
 
         $username_count = checkDuplicateUsername($app, $cleaned_parameters);
-        $username_error = usernameCheck($app, $tainted_parameters['username']);
-        $password_error = passwordCheck($app, $tainted_parameters['password']);
+        $username_error = usernameCheck($tainted_parameters['username']);
+        $password_error = passwordCheck($tainted_parameters['password']);
 
         if($username_count == 0 && $username_error == false && $password_error == false)
         {
@@ -51,7 +51,9 @@ $app->post(
             $this->get('logger')->info("Registration process failed because of not meeting minimal requirements of username/password.");
             if($username_count !== 0) {
                 $username_duplicate = 'Your username already exists in our database.';
-            } else {
+            }
+            else
+            {
                 $username_duplicate = false;
             }
             return $this->view->render($response,
@@ -83,10 +85,8 @@ $app->post(
  * @return string
  */
 
-function storeUserDetails($app, array $cleaned_parameters, string $hashed_password): string
+function storeUserDetails($app, $cleaned_parameters, $hashed_password)
 {
-    $storage_result = [];
-    $store_result = '';
     $database_connection_settings = $app->getContainer()->get('settings');
     $doctrine_queries = $app->getContainer()->get('doctrineSqlQueries');
     $database_connection = DriverManager::getConnection($database_connection_settings['doctrine_settings']);
@@ -97,18 +97,17 @@ function storeUserDetails($app, array $cleaned_parameters, string $hashed_passwo
 
     if ($storage_result['outcome'] == 1) {
         $store_result = 'User data was successfully stored using the SQL query: ' . $storage_result['sql_query'];
-    } else {
+    }
+    else
+    {
         $store_result = 'There appears to have been a problem when saving your details.  Please try again later.';
 
     }
     return $store_result;
 }
 
-function checkDuplicateUsername($app, array $cleaned_parameters)
+function checkDuplicateUsername($app, $cleaned_parameters)
 {
-
-    $storage_result = [];
-    $store_result = '';
     $cleaned_username = $cleaned_parameters['sanitised_username'];
     $database_connection_settings = $app->getContainer()->get('settings');
     $doctrine_queries = $app->getContainer()->get('doctrineSqlQueries');
@@ -150,16 +149,16 @@ function cleanupParameters($app, $tainted_parameters)
  * @return string
  */
 
-function hash_password($app, $password_to_hash): string
+function hash_password($app, $password_to_hash)
 {
     $bcrypt_wrapper = $app->getContainer()->get('bcryptWrapper');
     $hashed_password = $bcrypt_wrapper->createHashedPassword($password_to_hash);
     return $hashed_password;
 }
 
-function usernameCheck($app, $username)
+function usernameCheck($username)
 {
-    $error = false;
+    $error = '';
 
     if((strlen($username) <= 4) || (strlen($username) >= 15))
     {
@@ -173,11 +172,11 @@ function usernameCheck($app, $username)
     return $error;
 }
 
-function passwordCheck($app, $password)
+function passwordCheck($password)
 {
-    $error = false;
+    $error = '';
 
-    if ((strlen($password)) <= '8') {
+    if ((strlen($password)) <= 8) {
         $error = "Your password must contain at least 8 characters.";
     }
     elseif(!preg_match("#[0-9]+#",$password)) {

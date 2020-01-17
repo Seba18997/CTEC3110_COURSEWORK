@@ -135,22 +135,21 @@ class DownloadMessagesToDatabase
 
     public function performMainOperation(){
 
-        if ($this->countMessagesinDB() == 0 || $this->countMessagesinDB() < $this->message_counter){
-
+        if ($this->countMessagesinDB() == 0 || $this->countMessagesinDB() < $this->message_counter)
+        {
             $this->prepareDatabase();
 
             $this->prepareMessagesToStore();
 
-            if ($this->prepareMessagesToStore() == true){
-
+            if ($this->prepareMessagesToStore() == true)
+            {
                 $this->addPreparedMessages();
 
                 $result = 'Messages are not in DB. Adding now...';
-
-            } else {
-
+            }
+            else
+            {
                 $result = 'Error with prepareMessagesToStore()';
-
             }
         }
         else if ($this->countMessagesinDB() == $this->message_counter)

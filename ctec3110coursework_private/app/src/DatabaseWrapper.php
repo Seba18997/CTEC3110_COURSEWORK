@@ -67,7 +67,6 @@ class DatabaseWrapper
             $error_message .= 'Error with the database access.' . "\n";
             $error_message .= 'SQL query: ' . $query_string . "\n";
             $error_message .= 'Error: ' . var_dump($this->prepared_statement->errorInfo(), true) . "\n";
-            // NB would usually log to file for sysadmin attention
             $this->errors['db_error'] = true;
             $this->errors['sql_error'] = $error_message;
         }
@@ -95,7 +94,6 @@ class DatabaseWrapper
     public function lastInsertedID()
     {
         $sql_query = 'SELECT LAST_INSERT_ID()';
-
         $this->safeQuery($sql_query);
         $arr_last_inserted_id = $this->safeFetchArray();
         $last_inserted_id = $arr_last_inserted_id['LAST_INSERT_ID()'];

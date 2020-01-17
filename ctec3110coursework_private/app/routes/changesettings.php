@@ -4,13 +4,6 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
 $app->post(
-
-/**
- * @param Request $request
- * @param Response $response
- * @return mixed
- */
-
     '/changesettings',
     function (Request $request, Response $response) use ($app) {
 
@@ -27,7 +20,9 @@ $app->post(
             $this->get('logger')->info("Admin is not logged in while entering /changesettings");
             $response = $response->withredirect(LANDING_PAGE);
             return $response;
-        } else {
+        }
+        else
+        {
             $this->get('logger')->info("Admin successfully entered /changesettings.");
             return $this->view->render($response,
                 'change_settings.html.twig',
@@ -78,9 +73,7 @@ function changeSettings($app)
     $settings_model->setDatabaseConnectionSettings($database_connection_settings);
     $settings_model->setDatabaseWrapper($database_wrapper);
 
-
     $settings = $settings_model->getSettingsFromDB();
-
 
     return $settings;
 
