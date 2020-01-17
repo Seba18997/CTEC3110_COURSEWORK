@@ -1,41 +1,154 @@
 {% extends 'banner.html.twig' %}
 {% block content %}
     <div class="card-deck">
+
+
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">peekMessages()</h5>
-                <p class="card-text">This section allows you to change the 'peekMessages()' arguments.</p>
+                <h5 class="card-title">App Name</h5>
             </div>
             <div class="card-footer">
-                <input type="text" class="form-control" id="user_name" name="user_name" value="{{ initial_input_box_value }}" placeholder="Message Counter">
-                <input type="text" class="form-control" id="user_name" name="user_name" value="{{ initial_input_box_value }}" placeholder="Username">
-                <input type="text" class="form-control" id="user_name" name="user_name" value="{{ initial_input_box_value }}" placeholder="Password">
+                <br>
+                <input type="db" class="form-control" id="user_name" name="user_name" value="{{ initial_input_box_value1 }}" placeholder="{{ app_name }}">
             </div>
         </div>
+
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">soap</h5>
-                <p class="card-text">This section allows you to change the SOAP arguments.</p>
+                <h5 class="card-title">WSDL</h5>
             </div>
             <div class="card-footer">
-                <input type="text" class="form-control" id="user_name" name="user_name" value="{{ initial_input_box_value }}" placeholder="WSDL">
-                <input type="text" class="form-control" id="user_name" name="user_name" value="{{ initial_input_box_value }}" placeholder="XXX">
-                <input type="text" class="form-control" id="user_name" name="user_name" value="{{ initial_input_box_value }}" placeholder="XXX">
+                <br>
+                <input type="db" class="form-control" id="user_name" name="user_name" value="{{ initial_input_box_value2 }}" placeholder="{{ wsdl }}">
             </div>
         </div>
+
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">bcrypt</h5>
-                <p class="card-text">This section allows you to change the Bcrypt parameters.</p>
+                <h5 class="card-title">WSDL username</h5>
             </div>
             <div class="card-footer">
-                <input type="text" class="form-control" id="user_name" name="user_name" value="{{ initial_input_box_value }}" placeholder="BCRYPT ALGO">
-                <input type="text" class="form-control" id="user_name" name="user_name" value="{{ initial_input_box_value }}" placeholder="BCRYPT COST">
-                <input type="text" class="form-control" id="user_name" name="user_name" value="{{ initial_input_box_value }}" placeholder="XXX">
+                <br>
+                <input type="db" class="form-control" id="user_name" name="user_name" value="{{ initial_input_box_value3 }}" placeholder="{{ wsdl_username }}">
             </div>
         </div>
+
+
     </div>
 
+
+
+    <div class="card-deck" style="margin-top:25px">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">WSDL password</h5>
+            </div>
+            <div class="card-footer">
+                <br>
+                <input type="db" class="form-control" id="user_name" name="user_name" value="{{ initial_input_box_value4 }}" placeholder="{{ wsdl_password }}">
+            </div>
+        </div>
+
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">WSDL message counter</h5>
+            </div>
+            <div class="card-footer">
+                <br>
+                <input type="db" class="form-control" id="user_name" name="user_name" value="{{ initial_input_box_value5 }}" placeholder="{{ wsdl_messagecounter }}">
+            </div>
+        </div>
+
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Database host</h5>
+            </div>
+            <div class="card-footer">
+                <br>
+                <input type="db" class="form-control" id="user_name" name="user_name" value="{{ initial_input_box_value6 }}" placeholder="{{ db_host }}">
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Database name</h5>
+            </div>
+            <div class="card-footer">
+                <br>
+                <input type="db" class="form-control" id="user_name" name="user_name" value="{{ initial_input_box_value }}" placeholder="{{ db_name }}">
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Database port</h5>
+            </div>
+            <div class="card-footer">
+                <br>
+                <input type="db" class="form-control" id="user_name" name="user_name" value="{{ initial_input_box_value7 }}" placeholder="{{ db_port }}">
+            </div>
+        </div>
+
+
+
+    </div>
+    <div class="card-deck" style="margin-top:25px">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Database user</h5>
+            </div>
+            <div class="card-footer">
+                <br>
+                <input type="db" class="form-control" id="user_name" name="user_name" value="{{ initial_input_box_value8 }}" placeholder="{{ db_user }}">
+            </div>
+        </div>
+
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Database user password</h5>
+            </div>
+            <div class="card-footer">
+                <br>
+                <input type="db" class="form-control" id="user_name" name="user_name" value="{{ initial_input_box_value9 }}" placeholder="{{ db_userpassword }}">
+            </div>
+        </div>
+
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Database charset</h5>
+            </div>
+            <div class="card-footer">
+                <br>
+                <input type="db" class="form-control" id="user_name" name="user_name" value="{{ initial_input_box_value10 }}" placeholder="{{ db_charset }}">
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Database collation</h5>
+            </div>
+            <div class="card-footer">
+                <br>
+                <input type="db" class="form-control" id="user_name" name="user_name" value="{{ initial_input_box_value11 }}" placeholder="{{ db_collation }}">
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Doctrine driver</h5>
+            </div>
+            <div class="card-footer">
+                <br>
+                <input type="db" class="form-control" id="user_name" name="user_name" value="{{ initial_input_box_value12 }}" placeholder="{{ doctrine_driver }}">
+            </div>
+        </div>
+
+
+    </div>
 
 {% endblock %}
 
