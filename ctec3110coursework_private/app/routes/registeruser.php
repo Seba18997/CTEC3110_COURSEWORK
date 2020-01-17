@@ -20,6 +20,7 @@ $app->post(
 
         if($username_count == 0 && $params_length == false)
         {
+            $this->get('logger')->info("New user successfully registered: " .$cleaned_parameters['sanitised_username']);
             storeUserDetails($app, $cleaned_parameters, $hashed_password);
             return $this->view->render($response,
                 'register_user_result.html.twig',
@@ -45,6 +46,7 @@ $app->post(
         }
         else
         {
+            $this->get('logger')->info("Registration process failed because of not meeting minimal requirements of username/password.");
             return $this->view->render($response,
                 'register.html.twig',
                 [
