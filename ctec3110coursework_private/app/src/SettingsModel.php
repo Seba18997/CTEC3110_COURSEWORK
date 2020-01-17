@@ -68,7 +68,7 @@ class SettingsModel
                 $settings['doctrine_driver'] = $row['doctrine_driver'];
             }
         } else {
-            $final_states[0] = 'Something is wrong';
+            $settings[0] = 'Something is wrong';
         }
 
         $final_settings['settings'] = $settings;

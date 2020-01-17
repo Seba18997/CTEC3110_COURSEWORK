@@ -10,7 +10,13 @@ $app->get('/', function(Request $request, Response $response) use ($app)
     $role = ifSetUsername($app)['role'];
     $sign_out_form_visibility = ifSetUsername($app)['sign_out_form_visibility'];
     $result = sessionCheck($app);
-    if($result == true) {
+    $session_check = sessionCheckAdmin($app);
+
+    if ($result == true && $session_check == true) {
+        $response = $response->withredirect(LANDING_PAGE . '/adminarea');
+        return $response;
+    }
+    else if($result == true) {
         return $this->view->render($response,
             'valid_login.html.twig',
             [
@@ -27,9 +33,10 @@ $app->get('/', function(Request $request, Response $response) use ($app)
                 'role' => $role,
                 'sign_out_form' => $sign_out_form_visibility,
                 'back_button_visibility' => 'none',
-            ]);}
-    else {
-
+            ]);
+    }
+    else
+    {
         return $this->view->render($response,
             'homepageform.html.twig',
             [
@@ -45,7 +52,8 @@ $app->get('/', function(Request $request, Response $response) use ($app)
                 'username' => $username,
                 'sign_out_form' => $sign_out_form_visibility,
                 'back_button_visibility' => 'none',
-            ]);}
+            ]);
+    }
 
 })->setName('homepage');
 

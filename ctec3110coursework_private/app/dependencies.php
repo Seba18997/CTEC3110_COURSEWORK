@@ -15,11 +15,6 @@ $container['view'] = function ($container) {
   return $view;
 };
 
-$container['settings_db'] = function ($container) {
-    $settings_db = new M2MAPP\Helper();
-    return $settings_db;
-};
-
 $container['Helper'] = function ($container) {
     $helper = new M2MAPP\Helper();
     return $helper;

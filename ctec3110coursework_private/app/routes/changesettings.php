@@ -11,13 +11,17 @@ $app->post(
  * @return mixed
  */
 
-    '/changeSettings',
+    '/changesettings',
     function (Request $request, Response $response) use ($app) {
 
         $settings = changeSettings($app);
-        var_dump($settings['settings']['app_name']);
 
         $session_check = sessionCheckAdmin($app);
+
+        $isloggedin = ifSetUsername($app)['introduction'];
+        $username = ifSetUsername($app)['username'];
+        $role = ifSetUsername($app)['role'];
+        $sign_out_form_visibility = ifSetUsername($app)['sign_out_form_visibility'];
 
         if ($session_check == false) {
             $response = $response->withredirect(LANDING_PAGE);
@@ -31,7 +35,8 @@ $app->post(
                     'initial_input_box_value' => null,
                     'page_heading' => APP_NAME,
                     'page_heading_2' => ' / Change Settings ',
-                    'action' => 'updateSettings',
+                    'page_title' => APP_NAME.' | Change Settings',
+                    'action' => 'updatesettings',
                     'action3' => 'logout',
                     'method' => 'post',
                     'app_name' => $settings['settings']['app_name'],
@@ -47,10 +52,15 @@ $app->post(
                     'db_charset' => $settings['settings']['db_charset'],
                     'db_collation' => $settings['settings']['db_collation'],
                     'doctrine_driver' => $settings['settings']['doctrine_driver'],
+                    'is_logged_in' => $isloggedin,
+                    'username' => $username,
+                    'role' => $role,
+                    'sign_out_form' => $sign_out_form_visibility,
+                    'back_button_visibility' => 'block',
                 ]);
         }
 
-    })->setName('changeSettings');
+    })->setName('changesettings');
 
 function changeSettings($app)
 {

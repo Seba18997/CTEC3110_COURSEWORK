@@ -9,7 +9,7 @@ $app->post(
  * @param Response $response
  * @return mixed
  */
-    '/updateSettings',
+    '/updatesettings',
     function(Request $request, Response $response) use ($app)
     {
         $session_check = sessionCheckAdmin($app);
@@ -21,13 +21,13 @@ $app->post(
         }
         else {
             $settings = $request->getParsedBody();
-            $settings = cleanupArray($app, $settings);
+            $settingsa = cleanupArray($app, $settings);
 
-            updateSettings($app, $settings);
-            $response = $response->withredirect(LANDING_PAGE.'/adminarea');
+            updateSettings($app, $settingsa);
+            $response = $response->withredirect(LANDING_PAGE.'/updatesettings');
             return $response;
         }
-    })->setName('updateSettings');
+    })->setName('updatesettings');
 
 function updateSettings($app, $final_settings)
 {

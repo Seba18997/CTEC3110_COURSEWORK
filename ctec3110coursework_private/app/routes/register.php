@@ -11,7 +11,6 @@ $app->post(
 
         $isloggedin = ifSetUsername($app)['introduction'];
         $username = ifSetUsername($app)['username'];
-        $sign_out_form_visibility = ifSetUsername($app)['sign_out_form_visibility'];
 
         if($result !== false)
         {
@@ -27,7 +26,7 @@ $app->post(
                     'page_title' => APP_NAME.' | User Area',
                     'is_logged_in' => $isloggedin,
                     'username' => $username,
-                    'sign_out_form' => $sign_out_form_visibility,
+                    'sign_out_form' => 'block',
                     'back_button_visibility' => 'none',
                 ]);
         }

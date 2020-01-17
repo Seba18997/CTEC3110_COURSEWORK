@@ -15,11 +15,8 @@ $app->post('/userarea',
         $db_params = paramsFromDB($app, $cleaned_username);
 
         $outcome = compare($app, $db_params['password'], $password);
-        var_dump($db_params['password']);
         $sid = session_id();
-
         $user_role = $db_params['role'];
-        var_dump($user_role);
 
         if($outcome == true) {
             $result = doSession($app, $db_params['password'], $cleaned_username, $sid, $user_role);

@@ -14,8 +14,6 @@ $app->get('/adminarea',
 
         $session_check = sessionCheckAdmin($app);
 
-
-
         if($session_check == false)
         {
             $response = $response->withredirect(LANDING_PAGE);
@@ -33,8 +31,8 @@ $app->get('/adminarea',
                     'action3' => 'logout',
                     'action' => 'displaycircutboardstate',
                     'action2' => 'displaymessages',
-                    'action4' => 'changeSettings',
-                    'page_title' => APP_NAME.' | User Area',
+                    'action4' => 'changesettings',
+                    'page_title' => APP_NAME.' | Admin Area',
                     'is_logged_in' => $isloggedin,
                     'username' => $username,
                     'role' => $role,

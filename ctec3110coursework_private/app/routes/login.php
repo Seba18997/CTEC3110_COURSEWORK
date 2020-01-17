@@ -11,7 +11,13 @@ $app->post('/login',
         $sign_out_form_visibility = ifSetUsername($app)['sign_out_form_visibility'];
 
         $result = sessionCheck($app);
-        if($result == true)
+        $session_check = sessionCheckAdmin($app);
+
+        if ($result == true && $session_check == true) {
+            $response = $response->withredirect(LANDING_PAGE . '/adminarea');
+            return $response;
+        }
+        else if($result == true)
         {
             return $this->view->render($response,
                 'valid_login.html.twig',

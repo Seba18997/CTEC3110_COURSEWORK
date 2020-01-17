@@ -14,7 +14,6 @@ $app->post(
 
         $isloggedin = ifSetUsername($app)['introduction'];
         $username = ifSetUsername($app)['username'];
-        $sign_out_form_visibility = ifSetUsername($app)['sign_out_form_visibility'];
         $username_count = checkDuplicateUsername($app, $cleaned_parameters);
         $params_length = lengthCheck($app, $cleaned_parameters['password'],$cleaned_parameters['sanitised_username']);
 
@@ -22,7 +21,7 @@ $app->post(
         if($username_count == 0 && $params_length == false)
         {
             storeUserDetails($app, $cleaned_parameters, $hashed_password);
-            $html_output2 =  $this->view->render($response,
+            return $this->view->render($response,
                 'register_user_result.html.twig',
                 [
                     'landing_page' => $_SERVER["SCRIPT_NAME"],
@@ -38,12 +37,15 @@ $app->post(
                     'sanitised_email' => $cleaned_parameters['sanitised_email'],
                     'hashed_password' => $hashed_password,
                     'is_logged_in' => $isloggedin,
-                    'sign_out_form' => $sign_out_form_visibility,
+                    'username' => $username,
+                    'sign_out_form' => 'none',
+                    'back_button_visibility' => 'block',
                 ]);
-            return $html_output2;
 
-        } else {
-            $html_output = $this->view->render($response,
+        }
+        else
+        {
+            return $this->view->render($response,
                 'register.html.twig',
                 [
                     'css_path' => CSS_PATH,
@@ -51,13 +53,13 @@ $app->post(
                     'page_heading' => APP_NAME,
                     'action' => 'registeruser',
                     'initial_input_box_value' => null,
-                    'page_heading_2' => '/ Password and username must be at least 8 characters',
+                    'page_heading_2' => 'Password and username must be at least 8 characters',
                     'is_logged_in' => $isloggedin,
                     'username' => $username,
-                    'sign_out_form' => $sign_out_form_visibility,
+                    'sign_out_form' => 'none',
+                    'back_button_visibility' => 'block',
                 ]);
 
-            return $html_output;
         }
 
     })->setName('register');
