@@ -18,11 +18,12 @@ $app->post(
         $isloggedin = ifSetUsername($app)['introduction'];
         $username = ifSetUsername($app)['username'];
         $sign_out_form_visibility = ifSetUsername($app)['sign_out_form_visibility'];
+
         $messages_data = retrieveMessages($app)['retrieved_messages'];
 
         $counter = downloadMessages($app)['counter'];
 
-        $this->get('logger')->info(date("Y-m-d H:i:s") . "Messages downloaded and presented on a website.");
+        $this->get('logger')->info("Messages content downloaded from M2M server to database and then presented on a website.");
 
         return $this->view->render($response,
             'display_messages.html.twig',

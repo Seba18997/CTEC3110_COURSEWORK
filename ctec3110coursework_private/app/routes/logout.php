@@ -12,6 +12,8 @@ $app->post(
     '/logout',
     function(Request $request, Response $response) use ($app)
     {
+        $username = ifSetUsername($app)['username'];
+        $this->get('logger')->info("User/Admin (".$username.") successfully logged out.");
         unsetSession($app);
         $response = $response->withredirect(LANDING_PAGE);
         return $response;

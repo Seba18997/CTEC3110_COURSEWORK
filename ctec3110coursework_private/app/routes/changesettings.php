@@ -24,9 +24,11 @@ $app->post(
         $sign_out_form_visibility = ifSetUsername($app)['sign_out_form_visibility'];
 
         if ($session_check == false) {
+            $this->get('logger')->info("Admin is not logged in while entering /changesettings");
             $response = $response->withredirect(LANDING_PAGE);
             return $response;
         } else {
+            $this->get('logger')->info("Admin successfully entered /changesettings.");
             return $this->view->render($response,
                 'change_settings.html.twig',
                 [

@@ -20,6 +20,7 @@ $app->post(
 
         if($username_count == 0 && $params_length == false)
         {
+            $this->get('logger')->info("New user successfully registered: " .$cleaned_parameters['sanitised_username']);
             storeUserDetails($app, $cleaned_parameters, $hashed_password);
             return $this->view->render($response,
                 'register_user_result.html.twig',
@@ -27,8 +28,8 @@ $app->post(
                     'landing_page' => $_SERVER["SCRIPT_NAME"],
                     'css_path' => CSS_PATH,
                     'page_heading' => APP_NAME,
-                    'page_heading_1' => 'New User Registration',
-                    'page_heading_2' => ' / New User Registration',
+                    'page_title' => APP_NAME.' | Successful New User Registration: ' .$cleaned_parameters['sanitised_username'],
+                    'page_heading_2' => ' / Successful New User Registration',
                     'username' => $tainted_parameters['username'],
                     'password' => $tainted_parameters['password'],
                     'email' => $tainted_parameters['email'],
@@ -37,14 +38,16 @@ $app->post(
                     'sanitised_email' => $cleaned_parameters['sanitised_email'],
                     'hashed_password' => $hashed_password,
                     'is_logged_in' => $isloggedin,
-                    'username' => $username,
                     'sign_out_form' => 'none',
                     'back_button_visibility' => 'block',
+                    'method' => 'post',
+                    'action4' => 'login',
                 ]);
 
         }
         else
         {
+            $this->get('logger')->info("Registration process failed because of not meeting minimal requirements of username/password.");
             return $this->view->render($response,
                 'register.html.twig',
                 [
@@ -53,7 +56,7 @@ $app->post(
                     'page_heading' => APP_NAME,
                     'action' => 'registeruser',
                     'initial_input_box_value' => null,
-                    'page_heading_2' => 'Password and username must be at least 8 characters',
+                    'page_heading_2' => ' / Password and username must be at least 8 characters',
                     'is_logged_in' => $isloggedin,
                     'username' => $username,
                     'sign_out_form' => 'none',
