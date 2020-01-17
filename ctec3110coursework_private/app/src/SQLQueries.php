@@ -92,12 +92,12 @@ class SQLQueries
         $query_string .= "wsdl_password = CASE WHEN :wsdl_password IS NOT NULL AND LENGTH(:wsdl_password) > 0 THEN :wsdl_password ELSE wsdl_password END, " ;
         $query_string .= "wsdl_messagecounter = CASE WHEN :wsdl_messagecounter IS NOT NULL AND LENGTH(:wsdl_messagecounter) > 0 THEN :wsdl_messagecounter ELSE wsdl_messagecounter END, " ;
         $query_string .= "db_host = CASE WHEN :db_host IS NOT NULL AND LENGTH(:db_host) > 0 THEN :db_host ELSE db_host END, " ;
-        $query_string .= "db_name = CASE WHEN :db_name IS NOT NULL AND LENGTH(:db_name) > 0 THEN :db_name ELSE db_name END ";
-        $query_string .= "db_port = CASE WHEN :db_port IS NOT NULL AND LENGTH(:db_port) > 0 THEN :db_port ELSE db_port END ";
-        $query_string .= "db_user = CASE WHEN :db_user IS NOT NULL AND LENGTH(:db_user) > 0 THEN :db_user ELSE db_user END ";
-        $query_string .= "db_userpassword = CASE WHEN :db_userpassword IS NOT NULL AND LENGTH(:db_userpassword) > 0 THEN :db_userpassword ELSE db_userpassword END ";
-        $query_string .= "db_charset = CASE WHEN :db_charset IS NOT NULL AND LENGTH(:db_charset) > 0 THEN :db_charset ELSE db_charset END ";
-        $query_string .= "db_collation = CASE WHEN :db_collation IS NOT NULL AND LENGTH(:db_collation) > 0 THEN :db_collation ELSE db_collation END ";
+        $query_string .= "db_name = CASE WHEN :db_name IS NOT NULL AND LENGTH(:db_name) > 0 THEN :db_name ELSE db_name END, ";
+        $query_string .= "db_port = CASE WHEN :db_port IS NOT NULL AND LENGTH(:db_port) > 0 THEN :db_port ELSE db_port END, ";
+        $query_string .= "db_user = CASE WHEN :db_user IS NOT NULL AND LENGTH(:db_user) > 0 THEN :db_user ELSE db_user END, ";
+        $query_string .= "db_userpassword = CASE WHEN :db_userpassword IS NOT NULL AND LENGTH(:db_userpassword) > 0 THEN :db_userpassword ELSE db_userpassword END, ";
+        $query_string .= "db_charset = CASE WHEN :db_charset IS NOT NULL AND LENGTH(:db_charset) > 0 THEN :db_charset ELSE db_charset END, ";
+        $query_string .= "db_collation = CASE WHEN :db_collation IS NOT NULL AND LENGTH(:db_collation) > 0 THEN :db_collation ELSE db_collation END, ";
         $query_string .= "doctrine_driver = CASE WHEN :doctrine_driver IS NOT NULL AND LENGTH(:doctrine_driver) > 0 THEN :doctrine_driver ELSE doctrine_driver END ";
         $query_string .= "WHERE id=1;";
         return $query_string;

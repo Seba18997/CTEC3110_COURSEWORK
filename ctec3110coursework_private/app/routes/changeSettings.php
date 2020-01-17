@@ -31,6 +31,7 @@ $app->post(
                     'initial_input_box_value' => null,
                     'page_heading' => APP_NAME,
                     'page_heading_2' => ' / Change Settings ',
+                    'action' => 'updateSettings',
                     'action3' => 'logout',
                     'method' => 'post',
                     'app_name' => $settings['settings']['app_name'],

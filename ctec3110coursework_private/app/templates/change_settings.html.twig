@@ -1,5 +1,6 @@
 {% extends 'banner.html.twig' %}
 {% block content %}
+    <form action="{{ action }}" method={{ method }}>
     <div class="card-deck">
 
 
@@ -9,7 +10,7 @@
             </div>
             <div class="card-footer">
                 <br>
-                <input type="db" class="form-control" id="user_name" name="user_name" value="{{ initial_input_box_value1 }}" placeholder="{{ app_name }}">
+                <input type="db" class="form-control" id="app_name" name="app_name" value="{{ initial_input_box_value }}" placeholder="{{ app_name }}">
             </div>
         </div>
 
@@ -19,7 +20,7 @@
             </div>
             <div class="card-footer">
                 <br>
-                <input type="db" class="form-control" id="user_name" name="user_name" value="{{ initial_input_box_value2 }}" placeholder="{{ wsdl }}">
+                <input type="db" class="form-control" id="wsdl" name="wsdl" value="{{ initial_input_box_value }}" placeholder="{{ wsdl }}">
             </div>
         </div>
 
@@ -29,7 +30,7 @@
             </div>
             <div class="card-footer">
                 <br>
-                <input type="db" class="form-control" id="user_name" name="user_name" value="{{ initial_input_box_value3 }}" placeholder="{{ wsdl_username }}">
+                <input type="db" class="form-control" id="wsdl_username" name="wsdl_username" value="{{ initial_input_box_value }}" placeholder="{{ wsdl_username }}">
             </div>
         </div>
 
@@ -45,7 +46,7 @@
             </div>
             <div class="card-footer">
                 <br>
-                <input type="db" class="form-control" id="user_name" name="user_name" value="{{ initial_input_box_value4 }}" placeholder="{{ wsdl_password }}">
+                <input type="db" class="form-control" id="wsdl_password" name="wsdl_password" value="{{ initial_input_box_value }}" placeholder="{{ wsdl_password }}">
             </div>
         </div>
 
@@ -56,7 +57,7 @@
             </div>
             <div class="card-footer">
                 <br>
-                <input type="db" class="form-control" id="user_name" name="user_name" value="{{ initial_input_box_value5 }}" placeholder="{{ wsdl_messagecounter }}">
+                <input type="db" class="form-control" id="wsdl_messagecounter" name="wsdl_messagecounter" value="{{ initial_input_box_value }}" placeholder="{{ wsdl_messagecounter }}">
             </div>
         </div>
 
@@ -67,7 +68,7 @@
             </div>
             <div class="card-footer">
                 <br>
-                <input type="db" class="form-control" id="user_name" name="user_name" value="{{ initial_input_box_value6 }}" placeholder="{{ db_host }}">
+                <input type="db" class="form-control" id="db_host" name="db_host" value="{{ initial_input_box_value }}" placeholder="{{ db_host }}">
             </div>
         </div>
 
@@ -77,7 +78,7 @@
             </div>
             <div class="card-footer">
                 <br>
-                <input type="db" class="form-control" id="user_name" name="user_name" value="{{ initial_input_box_value }}" placeholder="{{ db_name }}">
+                <input type="db" class="form-control" id="db_name" name="db_name" value="{{ initial_input_box_value }}" placeholder="{{ db_name }}">
             </div>
         </div>
 
@@ -87,7 +88,7 @@
             </div>
             <div class="card-footer">
                 <br>
-                <input type="db" class="form-control" id="user_name" name="user_name" value="{{ initial_input_box_value7 }}" placeholder="{{ db_port }}">
+                <input type="db" class="form-control" id="db_port" name="db_port" value="{{ initial_input_box_value }}" placeholder="{{ db_port }}">
             </div>
         </div>
 
@@ -101,7 +102,7 @@
             </div>
             <div class="card-footer">
                 <br>
-                <input type="db" class="form-control" id="user_name" name="user_name" value="{{ initial_input_box_value8 }}" placeholder="{{ db_user }}">
+                <input type="db" class="form-control" id="db_user" name="db_user" value="{{ initial_input_box_value }}" placeholder="{{ db_user }}">
             </div>
         </div>
 
@@ -112,7 +113,7 @@
             </div>
             <div class="card-footer">
                 <br>
-                <input type="db" class="form-control" id="user_name" name="user_name" value="{{ initial_input_box_value9 }}" placeholder="{{ db_userpassword }}">
+                <input type="db" class="form-control" id="db_userpassword" name="db_userpassword" value="{{ initial_input_box_value }}" placeholder="{{ db_userpassword }}">
             </div>
         </div>
 
@@ -123,7 +124,7 @@
             </div>
             <div class="card-footer">
                 <br>
-                <input type="db" class="form-control" id="user_name" name="user_name" value="{{ initial_input_box_value10 }}" placeholder="{{ db_charset }}">
+                <input type="db" class="form-control" id="db_charset" name="db_charset" value="{{ initial_input_box_value }}" placeholder="{{ db_charset }}">
             </div>
         </div>
 
@@ -133,7 +134,7 @@
             </div>
             <div class="card-footer">
                 <br>
-                <input type="db" class="form-control" id="user_name" name="user_name" value="{{ initial_input_box_value11 }}" placeholder="{{ db_collation }}">
+                <input type="db" class="form-control" id="db_collation" name="db_collation" value="{{ initial_input_box_value }}" placeholder="{{ db_collation }}">
             </div>
         </div>
 
@@ -143,12 +144,21 @@
             </div>
             <div class="card-footer">
                 <br>
-                <input type="db" class="form-control" id="user_name" name="user_name" value="{{ initial_input_box_value12 }}" placeholder="{{ doctrine_driver }}">
+                <input type="db" class="form-control" id="doctrine_driver" name="doctrine_driver" value="{{ initial_input_box_value }}" placeholder="{{ doctrine_driver }}">
             </div>
         </div>
 
 
     </div>
+
+    <div style="margin-top:25px">
+
+
+            <button type="submit" class="btn btn-primary btn-lg btn-block" value="Submit">Save changes</button>
+        </form>
+
+    </div>
+
 
 {% endblock %}
 
