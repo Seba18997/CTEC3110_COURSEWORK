@@ -15,6 +15,13 @@ $container['view'] = function ($container) {
   return $view;
 };
 
+$container['logger'] = function ($container) {
+    $logger = new \Monolog\Logger('M2MAPP_Logger');
+    $file_handler = new \Monolog\Handler\StreamHandler("../../logs/M2MAPP.log");
+    $logger->pushHandler($file_handler);
+    return $logger;
+};
+
 $container['Helper'] = function ($container) {
     $helper = new M2MAPP\Helper();
     return $helper;

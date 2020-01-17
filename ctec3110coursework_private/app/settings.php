@@ -15,7 +15,9 @@ define('DIRSEP', DIRECTORY_SEPARATOR);
 $app_url = dirname($_SERVER['SCRIPT_NAME']);
 $css_path = $app_url . '/css/standard.css';
 
+define('APP_URL', $app_url);
 define('CSS_PATH', $css_path);
+
 define('APP_NAME', $settings['app_name']);
 define('LANDING_PAGE', $_SERVER['SCRIPT_NAME']);
 

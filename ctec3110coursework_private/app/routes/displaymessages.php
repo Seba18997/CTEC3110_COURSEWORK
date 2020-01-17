@@ -22,6 +22,8 @@ $app->post(
 
         $counter = downloadMessages($app)['counter'];
 
+        $this->get('logger')->info(date("Y-m-d H:i:s") . "Messages downloaded and presented on a website.");
+
         return $this->view->render($response,
             'display_messages.html.twig',
             [
