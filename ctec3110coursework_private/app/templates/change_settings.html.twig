@@ -1,24 +1,39 @@
 {% extends 'banner.html.twig' %}
 {% block content %}
-    <br/>
-    <div class="table-responsive-sm table-bordered table-hover">
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">Source</th>
-                <th scope="col">Destination</th>
-                <th scope="col">Date</th>
-                <th scope="col">Type</th>
-                <th scope="col">Message content</th>
-            </tr>
-            </thead>
-
-             <tbody>
-             {% for message_data in messages_data %}
-                 <tr><td>{{ message_data.source }}</td><td>{{ message_data.destination }}</td><td>{{ message_data.date }}</td><td>{{ message_data.type }}</td><td>{{ message_data.message }}</td></tr>
-             {% endfor %}
-             </tbody>
-        </table>
+    <div class="card-deck">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">peekMessages()</h5>
+                <p class="card-text">This section allows you to change the 'peekMessages()' arguments.</p>
+            </div>
+            <div class="card-footer">
+                <input type="text" class="form-control" id="user_name" name="user_name" value="{{ initial_input_box_value }}" placeholder="Message Counter">
+                <input type="text" class="form-control" id="user_name" name="user_name" value="{{ initial_input_box_value }}" placeholder="Username">
+                <input type="text" class="form-control" id="user_name" name="user_name" value="{{ initial_input_box_value }}" placeholder="Password">
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">soap</h5>
+                <p class="card-text">This section allows you to change the SOAP arguments.</p>
+            </div>
+            <div class="card-footer">
+                <input type="text" class="form-control" id="user_name" name="user_name" value="{{ initial_input_box_value }}" placeholder="WSDL">
+                <input type="text" class="form-control" id="user_name" name="user_name" value="{{ initial_input_box_value }}" placeholder="XXX">
+                <input type="text" class="form-control" id="user_name" name="user_name" value="{{ initial_input_box_value }}" placeholder="XXX">
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">bcrypt</h5>
+                <p class="card-text">This section allows you to change the Bcrypt parameters.</p>
+            </div>
+            <div class="card-footer">
+                <input type="text" class="form-control" id="user_name" name="user_name" value="{{ initial_input_box_value }}" placeholder="BCRYPT ALGO">
+                <input type="text" class="form-control" id="user_name" name="user_name" value="{{ initial_input_box_value }}" placeholder="BCRYPT COST">
+                <input type="text" class="form-control" id="user_name" name="user_name" value="{{ initial_input_box_value }}" placeholder="XXX">
+            </div>
+        </div>
     </div>
 
 
