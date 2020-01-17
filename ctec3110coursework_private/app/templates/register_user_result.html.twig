@@ -1,12 +1,13 @@
 {% extends 'banner_reg.html.twig' %}
 {% block content %}
-    <div id="page-content-div">
-
-        <h3>{{ page_heading_1 }}</h3>
-        <h4>{{ sid_text }}{{ sid }}</h4>
-        <p>Entered user name: {{ username }}</p>
-        <p>Entered password: {{ hashed_password }}</p>
-        <p>Entered email: {{ email }}</p>
-
+    <br/>
+    <div class="alert alert-success" role="alert">
+        <h4 class="alert-heading">Well Done!</h4>
+        <p>You created new account <b><u>{{ username }}</u></b></p>
+        <p>Hash of entered password: <b><u>{{ hashed_password }}</u></b></p>
+        <p>Entered email: <b><u>{{ email }}</u></b></p>
+        <form action="{{ action4 }}" method={{ method }}>
+            <button type="submit" class="btn btn-success" value="messages">Go to Login page to access content</button>
+        </form>
     </div>
 {% endblock %}
