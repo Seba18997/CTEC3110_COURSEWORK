@@ -22,7 +22,7 @@ $app->post(
         else {
             $settings = $request->getParsedBody();
             updateSettings($app, $settings);
-            $response = $response->withredirect(LANDING_PAGE);
+            $response = $response->withredirect(withredirect(LANDING_PAGE.'/adminarea'));
             return $response;
         }
     })->setName('updateSettings');
