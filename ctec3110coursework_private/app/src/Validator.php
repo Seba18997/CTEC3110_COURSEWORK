@@ -13,6 +13,14 @@ class Validator
 
     }
 
+    public function sanitiseArray($array_to_sanitise=[])
+    {
+        if (!empty($array_to_sanitise)) {
+            $sanitised_array = filter_var_array($array_to_sanitise, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+        }
+        return $sanitised_array;
+    }
+
     public function sanitiseString($string_to_sanitise)
     {
         $sanitised_string = '';

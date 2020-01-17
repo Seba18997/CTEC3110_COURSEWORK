@@ -21,8 +21,10 @@ $app->post(
         }
         else {
             $settings = $request->getParsedBody();
+            $settings = cleanupArray($app, $settings);
+
             updateSettings($app, $settings);
-            $response = $response->withredirect(withredirect(LANDING_PAGE.'/adminarea'));
+            $response = $response->withredirect(LANDING_PAGE.'/adminarea');
             return $response;
         }
     })->setName('updateSettings');
@@ -49,3 +51,12 @@ function updateSettings($app, $final_settings)
 
 }
 
+function cleanupArray($app, $tainted_array)
+{
+
+    $validator = $app->getContainer()->get('Validator');
+
+    $cleaned_array = $validator->sanitiseArray($tainted_array);
+
+    return $cleaned_array;
+}
