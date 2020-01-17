@@ -6,20 +6,20 @@ use Doctrine\DBAL\DriverManager;
 
 $app->post(
     '/registeruser',
-    function(Request $request, Response $response) use ($app)
-    {
+    function (Request $request, Response $response) use ($app) {
         $tainted_parameters = $request->getParsedBody();
         $cleaned_parameters = cleanupParameters($app, $tainted_parameters);
         $hashed_password = hash_password($app, $cleaned_parameters['password']);
 
         $isloggedin = ifSetUsername($app)['introduction'];
         $username = ifSetUsername($app)['username'];
+
         $username_count = checkDuplicateUsername($app, $cleaned_parameters);
-        $params_length = lengthCheck($app, $cleaned_parameters['password'],$cleaned_parameters['sanitised_username']);
+        $username_error = usernameCheck($app, $tainted_parameters['username']);
+        $password_error = passwordCheck($app, $tainted_parameters['password']);
 
 
-        if($username_count == 0 && $params_length == false)
-        {
+        if ($username_count == 0 && $username_error == false && $password_error == false) {
             storeUserDetails($app, $cleaned_parameters, $hashed_password);
             return $this->view->render($response,
                 'register_user_result.html.twig',
@@ -42,18 +42,24 @@ $app->post(
                     'back_button_visibility' => 'block',
                 ]);
 
-        }
-        else
-        {
+        } else {
+            if ($username_count !== 0) {
+                $username_duplicate = 'Your username already exists in our database.';
+            } else {
+                $username_duplicate = false;
+            }
+
             return $this->view->render($response,
-                'register.html.twig',
+                'register_error.html.twig',
                 [
                     'css_path' => CSS_PATH,
                     'landing_page' => LANDING_PAGE,
                     'page_heading' => APP_NAME,
                     'action' => 'registeruser',
                     'initial_input_box_value' => null,
-                    'page_heading_2' => 'Password and username must be at least 8 characters',
+                    'username_error' => $username_error,
+                    'password_error' => $password_error,
+                    'username_duplicate' => $username_duplicate,
                     'is_logged_in' => $isloggedin,
                     'username' => $username,
                     'sign_out_form' => 'none',
@@ -145,15 +151,32 @@ function hash_password($app, $password_to_hash): string
     return $hashed_password;
 }
 
-function lengthCheck($app, $password, $username)
+function usernameCheck($app, $username)
 {
+    $error = false;
 
-    if((strlen($password) < 8) || (strlen($username) < 8))
-    {
-        $error = "Password and username must be at least 8 chars";
-        return $error;
-    } else {
-        $error = false;
-        return $error;
+    if ((strlen($username) <= 4) || (strlen($username) >= 15)) {
+        $error = 'Your username must be at least 4 and maximum 15 characters long.';
+    } elseif (ctype_alnum($username) == false) {
+        $error = 'Your username must contain only letters and digits.';
     }
+
+    return $error;
+}
+
+function passwordCheck($app, $password)
+{
+    $error = false;
+
+    if ((strlen($password)) <= '8') {
+        $error = "Your password must contain at least 8 characters.";
+    } elseif (!preg_match("#[0-9]+#", $password)) {
+        $error = "Your password must contain at least 1 number.";
+    } elseif (!preg_match("#[A-Z]+#", $password)) {
+        $error = "Your password must contain at least 1 capital letter.";
+    } elseif (!preg_match("#[a-z]+#", $password)) {
+        $error = "Your password must contain at least 1 lowercase letter.";
+    }
+
+    return $error;
 }
