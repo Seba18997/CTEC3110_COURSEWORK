@@ -1,33 +1,13 @@
-{% extends 'banner.html.twig' %}
+{% extends 'banner_reg.html.twig' %}
 {% block content %}
-    <div id="page-content-div">
-        <h3>{{ page_heading_2 }}</h3>
-        <h4>{{ sid_text }}{{ sid }}</h4>
-        <h4>Original text entries:</h4>
-        <p>Entered user name: {{ username }}</p>
-        <p>Entered password: {{ password }}</p>
-        <p>Entered email: {{ email }}</p>
-
-        <h4>Cleaned text entries:</h4>
-        <p>Entered user name: {{ sanitised_username }}</p>
-        <p>Entered password: {{ cleaned_password }}</p>
-        <p>Entered email: {{ sanitised_email }}</p>
-
-        <h4>Hashed values:</h4>
-        <p>NB Values were hashed with the BCrypt library</p>
-        <p>Hashed password: {{ hashed_password }}</p>
-
-        <h4>Encrypted text entries:</h4>
-        <p>Encrypted user name: {{ encrypted_username }}</p>
-        <p>Encrypted email: {{ encrypted_email }}</p>
-
-        <h4>Base64 Encoded strings from the encrypted entries:</h4>
-        <p>Encoded user name: {{ encoded_username }}</p>
-        <p>Encoded email: {{ encoded_email }}</p>
-
-        <h4>Storage results:</h4>
-        <p>{{ storage_result }}</p>
-
-        <p class="curr_page"><a href="{{ landing_page }}">Home</a></p>
+    <br/>
+    <div class="alert alert-success" role="alert">
+        <h4 class="alert-heading">Well Done!</h4>
+        <p>You created new account <b><u>{{ username }}</u></b></p>
+        <p>Hash of entered password: <b><u>{{ hashed_password }}</u></b></p>
+        <p>Entered email: <b><u>{{ email }}</u></b></p>
+        <form action="{{ action4 }}" method={{ method }}>
+            <button type="submit" class="btn btn-success" value="messages">Go to Login page to access content</button>
+        </form>
     </div>
 {% endblock %}

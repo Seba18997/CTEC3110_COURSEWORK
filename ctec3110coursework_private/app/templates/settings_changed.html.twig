@@ -1,0 +1,12 @@
+{% extends 'banner.html.twig' %}
+{% block content %}
+  <br/>
+  <div class="alert alert-success" role="alert">
+    <h4 class="alert-heading">Well done!</h4>
+    <p>Settings changed successfully</p>
+    <form action="{{ action4 }}" method={{ method }}>
+      <button type="submit" class="btn btn-success" value="messages">Go back to Change Settings page</button>
+    </form>
+  </div>
+
+{% endblock %}

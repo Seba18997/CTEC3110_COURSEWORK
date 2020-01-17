@@ -43,7 +43,8 @@ class SwitchModel
 
         $number_of_data_sets = $this->database_wrapper->countRows();
 
-        if ($number_of_data_sets === 1) {
+        if ($number_of_data_sets === 1)
+        {
             while ($row = $this->database_wrapper->safeFetchArray()) {
                 $switch_states['switch1'] = $row['switch1'];
                 $switch_states['switch2'] = $row['switch2'];
@@ -53,7 +54,9 @@ class SwitchModel
                 $switch_states['heater'] = $row['heater'];
                 $switch_states['keypad'] = $row['keypad'];
             }
-        } else {
+        }
+        else
+        {
             $final_states[0] = 'Something is wrong';
         }
 

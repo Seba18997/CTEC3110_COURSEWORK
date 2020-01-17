@@ -13,18 +13,17 @@ class Validator
 
     }
 
-    public function validateDownloadedMessage($message_content)
+    public function sanitiseArray($array_to_sanitise=[])
     {
-        $validated_message_content = '';
-
-        $validated_message_content = filter_var($message_content, FILTER_SANITIZE_STRING);
-
-        return $validated_message_content;
+        if (!empty($array_to_sanitise)) {
+            $sanitised_array = filter_var_array($array_to_sanitise, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+        }
+        return $sanitised_array;
     }
 
-    public function sanitiseString(string $string_to_sanitise): string
+    public function sanitiseString($string_to_sanitise)
     {
-        $sanitised_string = false;
+        $sanitised_string = '';
 
         if (!empty($string_to_sanitise)) {
             $sanitised_string = filter_var($string_to_sanitise, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -32,9 +31,9 @@ class Validator
         return $sanitised_string;
     }
 
-    public function sanitiseEmail(string $email_to_sanitise): string
+    public function sanitiseEmail($email_to_sanitise)
     {
-        $cleaned_string = false;
+        $cleaned_string = '';
 
         if (!empty($email_to_sanitise)) {
             $sanitised_email = filter_var($email_to_sanitise, FILTER_SANITIZE_EMAIL);

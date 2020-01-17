@@ -45,8 +45,8 @@ class MessagesModel
 
         $number_of_data_sets = $this->database_wrapper->countRows();
 
-        if ($number_of_data_sets >= 0) {
-
+        if ($number_of_data_sets >= 0)
+        {
             $x = 0;
             
             while ($x <= $number_of_data_sets ) {
@@ -62,7 +62,9 @@ class MessagesModel
 
                 $x++;
             }
-        } else {
+        }
+        else
+        {
             $messages_to_show[0] = 'No messages found or there are 0 messages in the database.';
         }
 

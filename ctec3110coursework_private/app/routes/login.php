@@ -3,22 +3,27 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-$app->post(
-
-/**
- * @param Request $request
- * @param Response $response
- * @return mixed
- */
-
-    '/login',
+$app->post('/login',
     function(Request $request, Response $response) use ($app)
     {
         $isloggedin = ifSetUsername($app)['introduction'];
         $username = ifSetUsername($app)['username'];
+        $sign_out_form_visibility = ifSetUsername($app)['sign_out_form_visibility'];
 
         $result = sessionCheck($app);
-        if($result == true) {
+        $session_check = sessionCheckAdmin($app);
+
+        $this->get('logger')->info("Log In page opened.");
+
+        if ($result == true && $session_check == true)
+        {
+            $this->get('logger')->info("Admin already logged in, login page => admin page.");
+            $response = $response->withredirect(LANDING_PAGE . '/adminarea');
+            return $response;
+        }
+        else if($result == true)
+        {
+            $this->get('logger')->info("User already logged in, login page => home page.");
             return $this->view->render($response,
                 'valid_login.html.twig',
                 [
@@ -28,12 +33,16 @@ $app->post(
                     'method' => 'post',
                     'action' => 'displaycircutboardstate',
                     'action2' => 'displaymessages',
-                    'page_title' => 'Login Form',
+                    'page_title' => APP_NAME.' | User Area',
                     'is_logged_in' => $isloggedin,
                     'username' => $username,
-                ]);}
-        else {
-
+                    'sign_out_form' => $sign_out_form_visibility,
+                    'back_button_visibility' => 'none',
+                ]);
+        }
+        else
+        {
+            $this->get('logger')->info("User not logged in yet.");
             return $this->view->render($response,
                 'login.html.twig',
                 [
@@ -42,9 +51,14 @@ $app->post(
                     'page_heading' => APP_NAME,
                     'method' => 'post',
                     'action' => 'userarea',
-                    'page_title' => 'Login Form',
-                    'page_heading_1' => 'Login To View Content',
-                ]);}
+                    'page_title' => APP_NAME.' | Log In',
+                    'page_heading_2' => ' / Log In',
+                    'is_logged_in' => $isloggedin,
+                    'username' => $username,
+                    'sign_out_form' => $sign_out_form_visibility,
+                    'back_button_visibility' => 'block',
+                ]);
+        }
 
     })->setName('login');
 
@@ -52,12 +66,12 @@ $app->post(
 function sessionCheck($app)
 {
     $session_wrapper = $app->getContainer()->get('SessionWrapper');
-    //getSessionVar() returns 'false' if session variable is not set
+
     $sessionUsernameSet = $session_wrapper->getSessionVar('username');
     $sessionPasswordSet= $session_wrapper->getSessionVar('password');
     $sessionIdSet = $session_wrapper->getSessionVar('sid');
 
-    if (($sessionUsernameSet && $sessionPasswordSet && $sessionIdSet) == false) {
+    if ($sessionUsernameSet == false && $sessionPasswordSet == false && $sessionIdSet == false) {
         $check = false;
     } else {
         $check = true;

@@ -18,18 +18,10 @@ class Authentication
     {
     }
 
-    /**
-     * @param $database_wrapper
-     */
-
     public function setDatabaseWrapper($database_wrapper)
     {
         $this->database_wrapper = $database_wrapper;
     }
-
-    /**
-     * @param $database_connection_settings
-     */
 
     public function setDatabaseConnectionSettings($database_connection_settings)
     {
@@ -43,21 +35,23 @@ class Authentication
 
     public function getParamsDb($username)
     {
-        $query_string = $this->sql_queries->getUsernamePassword($username);
+        $query_string = $this->sql_queries->getUsernamePasswordRole();
 
         $this->database_wrapper->setDatabaseConnectionSettings($this->database_connection_settings);
-
         $this->database_wrapper->makeDatabaseConnection();
 
-        $this->database_wrapper->safeQuery($query_string);
+        $query_parameters = array(':username' => $username);
+        $this->database_wrapper->safeQuery($query_string, $query_parameters);
 
         if ($row = $this->database_wrapper->safeFetchArray()) {
             $params['username'] = $row['user_name'];
             $params['password'] = $row['password'];
+            $params['role']     = $row['role'];
         } else {
-            $params = 'Invalid_credentials';
+            $params['username'] = 'Invalid_credentials';
+            $params['password'] = 'Invalid_credentials';
+            $params['role']     = 'Invalid_credentials';
         }
-
         return $params;
     }
 }

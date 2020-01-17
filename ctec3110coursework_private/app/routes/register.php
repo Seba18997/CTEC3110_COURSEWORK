@@ -8,12 +8,14 @@ $app->post(
     function(Request $request, Response $response) use ($app)
     {
         $result = sessionChecker($app);
+
         $isloggedin = ifSetUsername($app)['introduction'];
         $username = ifSetUsername($app)['username'];
 
         if($result !== false)
         {
-            $html_output2 = $this->view->render($response,
+            $this->get('logger')->info("User/Admin already logged in, registration page => home page.");
+            return $this->view->render($response,
                 'valid_login.html.twig',
                 [
                     'css_path' => CSS_PATH,
@@ -22,37 +24,33 @@ $app->post(
                     'method' => 'post',
                     'action' => 'displaycircutboardstate',
                     'action2' => 'displaymessages',
-                    'page_title' => 'Login Form',
+                    'page_title' => APP_NAME.' | User Area',
                     'is_logged_in' => $isloggedin,
                     'username' => $username,
+                    'sign_out_form' => 'block',
+                    'back_button_visibility' => 'none',
                 ]);
-
-            processOutput($app, $html_output2);
-            return $html_output2;
         }
-        else {
-            $html_output = $this->view->render($response,
+        else
+        {
+            $this->get('logger')->info("User entered registration page.");
+            return $this->view->render($response,
                 'register.html.twig',
                 [
                     'css_path' => CSS_PATH,
                     'landing_page' => LANDING_PAGE,
+                    'page_heading' => APP_NAME,
                     'action' => 'registeruser',
                     'initial_input_box_value' => null,
-                    'page_heading_1' => 'New User Registration',
+                    'page_title' => APP_NAME.' | User Registration',
+                    'page_heading_2' => ' / New User Registration',
+                    'is_logged_in' => $isloggedin,
+                    'username' => $username,
+                    'sign_out_form' => 'none',
+                    'back_button_visibility' => 'block',
                 ]);
-
-            processOutput($app, $html_output);
-            return $html_output;
         }
-
     })->setName('register');
-
-function processOutput($app, $html_output)
-{
-    $process_output = $app->getContainer()->get('processOutput');
-    $html_output = $process_output->processOutput($html_output);
-    return $html_output;
-}
 
 function sessionChecker($app)
 {

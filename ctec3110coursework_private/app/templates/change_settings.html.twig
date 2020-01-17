@@ -1,0 +1,163 @@
+{% extends 'banner.html.twig' %}
+{% block content %}
+    <form action="{{ action }}" method={{ method }}>
+    <div class="card-deck">
+
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">App Name</h5>
+            </div>
+            <div class="card-footer">
+                <br>
+                <input type="db" class="form-control" id="app_name" name="app_name" value="{{ app_name }}">
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">WSDL URL</h5>
+            </div>
+            <div class="card-footer">
+                <br>
+                <input type="db" class="form-control" id="wsdl" name="wsdl" value="{{ wsdl }}">
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">WSDL username</h5>
+            </div>
+            <div class="card-footer">
+                <br>
+                <input type="db" class="form-control" id="wsdl_username" name="wsdl_username" value="{{ wsdl_username }}">
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+    <div class="card-deck" style="margin-top:25px">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">WSDL password</h5>
+            </div>
+            <div class="card-footer">
+                <br>
+                <input type="db" class="form-control" id="wsdl_password" name="wsdl_password" value="{{ wsdl_password }}">
+            </div>
+        </div>
+
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">WSDL message counter</h5>
+            </div>
+            <div class="card-footer">
+                <br>
+                <input type="db" class="form-control" id="wsdl_messagecounter" name="wsdl_messagecounter" value="{{ wsdl_messagecounter }}">
+            </div>
+        </div>
+
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Database host</h5>
+            </div>
+            <div class="card-footer">
+                <br>
+                <input type="db" class="form-control" id="db_host" name="db_host" value="{{ db_host }}">
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Database name</h5>
+            </div>
+            <div class="card-footer">
+                <br>
+                <input type="db" class="form-control" id="db_name" name="db_name" value="{{ db_name }}">
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Database port</h5>
+            </div>
+            <div class="card-footer">
+                <br>
+                <input type="db" class="form-control" id="db_port" name="db_port" value="{{ db_port }}">
+            </div>
+        </div>
+
+
+
+    </div>
+    <div class="card-deck" style="margin-top:25px">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Database user</h5>
+            </div>
+            <div class="card-footer">
+                <br>
+                <input type="db" class="form-control" id="db_user" name="db_user" value="{{ db_user }}">
+            </div>
+        </div>
+
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Database user password</h5>
+            </div>
+            <div class="card-footer">
+                <br>
+                <input type="db" class="form-control" id="db_userpassword" name="db_userpassword" value="{{ db_userpassword }}">
+            </div>
+        </div>
+
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Database charset</h5>
+            </div>
+            <div class="card-footer">
+                <br>
+                <input type="db" class="form-control" id="db_charset" name="db_charset" value="{{ db_charset }}">
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Database collation</h5>
+            </div>
+            <div class="card-footer">
+                <br>
+                <input type="db" class="form-control" id="db_collation" name="db_collation" value="{{ db_collation }}">
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Doctrine driver</h5>
+            </div>
+            <div class="card-footer">
+                <br>
+                <input type="db" class="form-control" id="doctrine_driver" name="doctrine_driver" value="{{ doctrine_driver }}">
+            </div>
+        </div>
+
+
+    </div>
+
+    <div style="margin-top:25px">
+
+
+            <button type="submit" class="btn btn-primary btn-lg btn-block" value="Submit">Save changes</button>
+
+
+    </div>
+    </form>
+{% endblock %}
+

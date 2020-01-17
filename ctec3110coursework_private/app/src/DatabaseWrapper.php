@@ -27,11 +27,7 @@ class DatabaseWrapper
         $this->database_connection_settings = $database_connection_settings;
     }
 
-    /**
-     * '\' character in front of the PDO class name signifies that it is a globally available class
-     *
-     * @return string
-     */
+
     public function makeDatabaseConnection()
     {
         $pdo = false;
@@ -44,7 +40,7 @@ class DatabaseWrapper
         $host_details = $host_name . $port_number . $user_database;
         $user_name = $database_settings['username'];
         $user_password = $database_settings['userpassword'];
-        $pdo_attributes = $database_settings['options'];
+        @$pdo_attributes = $database_settings['options'];
 
         try {
             $pdo_handle = new \PDO($host_details, $user_name, $user_password, $pdo_attributes);
@@ -56,12 +52,7 @@ class DatabaseWrapper
 
         return $pdo_error;
     }
-    /**
-     * @param $query_string
-     * @param null $params
-     *
-     * @return mixed
-     */
+
     public function safeQuery($query_string, $params = null)
     {
         $this->errors['db_error'] = false;
@@ -76,7 +67,6 @@ class DatabaseWrapper
             $error_message .= 'Error with the database access.' . "\n";
             $error_message .= 'SQL query: ' . $query_string . "\n";
             $error_message .= 'Error: ' . var_dump($this->prepared_statement->errorInfo(), true) . "\n";
-            // NB would usually log to file for sysadmin attention
             $this->errors['db_error'] = true;
             $this->errors['sql_error'] = $error_message;
         }
@@ -101,13 +91,9 @@ class DatabaseWrapper
         return $arr_row;
     }
 
-    /**
-     * @return mixed
-     */
     public function lastInsertedID()
     {
         $sql_query = 'SELECT LAST_INSERT_ID()';
-
         $this->safeQuery($sql_query);
         $arr_last_inserted_id = $this->safeFetchArray();
         $last_inserted_id = $arr_last_inserted_id['LAST_INSERT_ID()'];

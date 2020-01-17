@@ -1,21 +1,25 @@
 {% extends 'banner.html.twig' %}
 {% block content %}
-    <h2>{{ page_heading_2 }}</h2>
 
-
+    <br/>
     <form action="{{ action }}" method="post">
-        <fieldset>
-            <legend>LOGIN</legend>
-            <br>
-            <label for="user_name">Enter your username:</label>
-            <input id="user_name" name="user_name" type="text" value="{{ initial_input_box_value }}" size="30" maxlength="50">
-            <br><br>
-            <label for="password">Enter your password:</label>
-            <input id="password" name="password" type="password" value="{{ initial_input_box_value }}" size="30" maxlength="50">
-            <br><br>
-            <button type="submit" class="btn btn-primary" value="Submit">Login to view content</button>
-        </fieldset>
+        <div class="form-group row">
+            <label for="user_name" class="col-sm-2 col-form-label">Username</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" id="user_name" name="user_name" value="{{ initial_input_box_value }}" placeholder="Username">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="password" class="col-sm-2 col-form-label">Password</label>
+            <div class="col-sm-6">
+                <input type="password" class="form-control" id="password" name="password" value="{{ initial_input_box_value }}" placeholder="Password">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-6">
+                <button type="submit" class="btn btn-primary" value="Submit">Login to view content</button>
+            </div>
+        </div>
     </form>
 
-    <p class="curr_page"><a href="{{ landing_page }}">Homepage</a></p>
 {% endblock %}

@@ -75,23 +75,23 @@ class DownloadMessagesToDatabase
 
             for ($i=0;$i<$this->message_counter;$i++) {
                 $messages_final_result['source'][$i] =
-                    $validator->validateDownloadedMessage(
+                    $validator->sanitiseString(
                         $helper->mapDataFromString($message_result[$i], 'sourcemsisdn'));
 
                 $messages_final_result['destination'][$i] =
-                    $validator->validateDownloadedMessage(
+                    $validator->sanitiseString(
                         $helper->mapDataFromString($message_result[$i], 'destinationmsisdn'));
 
                 $messages_final_result['date'][$i] =
-                    $validator->validateDownloadedMessage(
+                    $validator->sanitiseString(
                         $helper->mapDataFromString($message_result[$i], 'receivedtime'));
 
                 $messages_final_result['type'][$i] =
-                    $validator->validateDownloadedMessage(
+                    $validator->sanitiseString(
                         $helper->mapDataFromString($message_result[$i], 'bearer'));
 
                 $messages_final_result['message'][$i] =
-                    $validator->validateDownloadedMessage(
+                    $validator->sanitiseString(
                         $helper->mapDataFromString($message_result[$i], 'message'));
             }
             $this->downloaded_messages_data = $messages_final_result;
@@ -122,58 +122,39 @@ class DownloadMessagesToDatabase
 
     }
 
-    public function deletePreviousMessages($option){
+    public function prepareDatabase(){
 
         $sql_set_auto_increment = $this->sql_queries->setAIFromOne();
 
-        $delete_previous_messages_all = $this->sql_queries->deleteMessages($this->countMessagesinDB());
+        $sql_delete_previous_messages = $this->sql_queries->deleteMessages(($this->message_counter) - 1);
 
-        $delete_previous_messages_only_newest = $this->sql_queries->deleteMessages(($this->message_counter) - 1);
-
-        if ($option == 'previous'){
-            $this->database_wrapper->safeQuery($delete_previous_messages_only_newest);
-        }
-        else if ($option == 'all')
-        {
-            $this->database_wrapper->safeQuery($delete_previous_messages_all);
-        }
-        else {
-            return 'choose newest/all option first';
-        }
+        $this->database_wrapper->safeQuery($sql_delete_previous_messages);
 
         $this->database_wrapper->safeQuery($sql_set_auto_increment);
     }
 
     public function performMainOperation(){
 
-        if ($this->countMessagesinDB() == 0 || $this->countMessagesinDB() < $this->message_counter){
-
-            $this->deletePreviousMessages('all');
+        if ($this->countMessagesinDB() == 0 || $this->countMessagesinDB() < $this->message_counter)
+        {
+            $this->prepareDatabase();
 
             $this->prepareMessagesToStore();
 
-            if ($this->prepareMessagesToStore() == true){
-
+            if ($this->prepareMessagesToStore() == true)
+            {
                 $this->addPreparedMessages();
 
                 $result = 'Messages are not in DB. Adding now...';
-
-            } else {
-
+            }
+            else
+            {
                 $result = 'Error with prepareMessagesToStore()';
-
             }
         }
         else if ($this->countMessagesinDB() == $this->message_counter)
         {
             $result = 'Messages have been already added';
-        }
-        else if ($this->countMessagesinDB() > $this->message_counter)
-        {
-            $result = 'Probably cloned messages in DB';
-
-            $this->deletePreviousMessages('previous');
-
         }
         else
         {

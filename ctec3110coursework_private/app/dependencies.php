@@ -9,11 +9,17 @@ $container['view'] = function ($container) {
     ]
   );
 
-  // Instantiate and add Slim specific extension
   $basePath = rtrim(str_ireplace('index.php', '', $container['request']->getUri()->getBasePath()), '/');
   $view->addExtension(new Slim\Views\TwigExtension($container['router'], $basePath));
 
   return $view;
+};
+
+$container['logger'] = function ($container) {
+    $logger = new \Monolog\Logger('M2MAPP_Logger');
+    $file_handler = new \Monolog\Handler\StreamHandler("../../logs/M2MAPP.log");
+    $logger->pushHandler($file_handler);
+    return $logger;
 };
 
 $container['Helper'] = function ($container) {
@@ -66,19 +72,8 @@ $container['doctrineSqlQueries'] = function ($container) {
     return $doctrine_sql_queries;
 };
 
-$container['libSodiumWrapper'] = function ($container)
-{
-    $wrapper = new \M2MAPP\LibSodiumWrapper();
-    return $wrapper;
-};
-
 $container['bcryptWrapper'] = function ($container) {
     $wrapper = new \M2MAPP\BcryptWrapper();
-    return $wrapper;
-};
-
-$container['base64Wrapper'] = function ($container) {
-    $wrapper = new \M2MAPP\Base64Wrapper();
     return $wrapper;
 };
 
@@ -94,5 +89,10 @@ $container['SessionModel'] = function ($container) {
 
 $container['Authentication'] = function ($container) {
     $auth = new \M2MAPP\Authentication();
+    return $auth;
+};
+
+$container['SettingsModel'] = function ($container) {
+    $auth = new \M2MAPP\SettingsModel();
     return $auth;
 };
