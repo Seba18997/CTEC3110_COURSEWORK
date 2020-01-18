@@ -51,11 +51,12 @@ class UsersModel
 
                 $row = $this->database_wrapper->safeFetchArray();
 
-                $users_data[$x]['id'] = $row['auto_id'];
+                $users_data[$x]['id'] = $row['auto_id']; // id from database
                 $users_data[$x]['username'] = $row['user_name'];
                 $users_data[$x]['email'] = $row['email'];
                 $users_data[$x]['role'] = $row['role'];
                 $users_data[$x]['date'] = strval($row['timestamp']);
+                $users_data[$x]['id_web'] = $x+1; // id only for the website and simplifying development
 
                 $x++;
             }
