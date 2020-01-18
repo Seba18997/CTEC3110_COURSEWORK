@@ -22,7 +22,7 @@ $app->post(
         }
         else
         {
-            $this->get('logger')->info("Admin successfully entered /changesettings.");
+            $this->get('logger')->info("Admin (".$username.") successfully entered /changesettings.");
             return $this->view->render($response,
                 'change_settings.html.twig',
                 [

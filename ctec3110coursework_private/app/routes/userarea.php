@@ -28,7 +28,7 @@ $app->post('/userarea',
         $role = ifSetUsername($app)['role'];
 
         if($outcome == false ) {
-            $this->get('logger')->info("User provided invalid credentials during logging in.");
+            $this->get('logger')->info("User (".$cleaned_username.") provided invalid credentials during logging in.");
             return $this->view->render($response,
                 'invalid_login.html.twig',
                 [
@@ -47,7 +47,7 @@ $app->post('/userarea',
         }
         elseif($user_role == 'user')
         {
-            $this->get('logger')->info("User provided correct credentials during logging in.");
+            $this->get('logger')->info("User (".$username.") provided correct credentials during logging in.");
             return $this->view->render($response,
                 'valid_login.html.twig',
                 [

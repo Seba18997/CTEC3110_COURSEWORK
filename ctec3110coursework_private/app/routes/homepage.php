@@ -16,13 +16,13 @@ $app->get('/', function(Request $request, Response $response) use ($app)
 
     if ($result == true && $session_check == true)
     {
-        $this->get('logger')->info("Admin already logged in, login page => admin page.");
+        $this->get('logger')->info("Admin (".$username.") already logged in, login page => admin page.");
         $response = $response->withredirect(LANDING_PAGE . '/adminarea');
         return $response;
     }
     else if($result == true)
     {
-        $this->get('logger')->info("User already logged in, login page => home page.");
+        $this->get('logger')->info("User (".$username.") already logged in, login page => home page.");
         return $this->view->render($response,
             'valid_login.html.twig',
             [
@@ -43,7 +43,7 @@ $app->get('/', function(Request $request, Response $response) use ($app)
     }
     else
     {
-        $this->get('logger')->info("User/Admin entered Log In page.");
+        $this->get('logger')->info("User/Admin (".$username.") entered Log In page.");
         return $this->view->render($response,
             'homepageform.html.twig',
             [

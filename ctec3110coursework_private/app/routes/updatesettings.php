@@ -26,7 +26,7 @@ $app->post(
             $role = ifSetUsername($app)['role'];
             $sign_out_form_visibility = ifSetUsername($app)['sign_out_form_visibility'];
 
-            $this->get('logger')->info("Admin changed settings successfully.");
+            $this->get('logger')->info("Admin (".$username.") changed settings successfully.");
 
             return $this->view->render($response,
                 'settings_changed.html.twig',

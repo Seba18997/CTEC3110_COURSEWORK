@@ -22,7 +22,7 @@ $app->get('/adminarea',
         }
         else
         {
-            $this->get('logger')->info("Admin logged in successfully or already logged in.");
+            $this->get('logger')->info("Admin (".$username.") logged in successfully or already logged in.");
             return $this->view->render($response,
                 'admin_area.html.twig',
                 [

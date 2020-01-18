@@ -14,7 +14,7 @@ $app->post(
 
         if($result !== false)
         {
-            $this->get('logger')->info("User/Admin already logged in, registration page => home page.");
+            $this->get('logger')->info("User/Admin (".$username.") already logged in, registration page => home page.");
             return $this->view->render($response,
                 'valid_login.html.twig',
                 [
@@ -33,7 +33,7 @@ $app->post(
         }
         else
         {
-            $this->get('logger')->info("User entered registration page.");
+            $this->get('logger')->info("Unregistered user entered registration page.");
             return $this->view->render($response,
                 'register.html.twig',
                 [
