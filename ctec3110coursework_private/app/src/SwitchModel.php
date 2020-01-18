@@ -87,18 +87,13 @@ class SwitchModel
             $this->database_wrapper->safeQuery($query_string, $query_parameters);
 
             $final = 'Switch states changed';
-
         }
         else if (empty($final_state))
         {
-
             $final =  'Array is empty.';
-
         }
         else {
-
             $final =  'Error with changing states.';
-
         }
 
         return $final;

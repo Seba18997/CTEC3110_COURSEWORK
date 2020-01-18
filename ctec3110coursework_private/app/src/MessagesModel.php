@@ -82,7 +82,9 @@ class MessagesModel
 
         $row = $this->database_wrapper->safeFetchArray();
 
-        return $row['message'];
+        $message_content = $row['message'];
+
+        return $message_content;
     }
 
 }

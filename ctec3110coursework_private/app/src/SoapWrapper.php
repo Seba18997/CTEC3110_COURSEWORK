@@ -33,11 +33,6 @@ class SoapWrapper
         return $soap_client_handle;
     }
 
-    /**
-     * @param $soap_client
-     * @param $messages_counter
-     * @return array
-     */
     public function getMessagesFromSoap($soap_client, $messages_counter)
     {
         $soap_call_result = null;
@@ -48,7 +43,7 @@ class SoapWrapper
             try {
                 $soap_call_result = $soap_client->peekMessages($username, $password, $messages_counter, "");
             } catch (\SoapFault $exception) {
-                echo 'getMessagesFromSoap : Oops - something went wrong connecting to the data supplier.  Please try again later <br/>\'';
+                echo 'getMessagesFromSoap : Oops - something went wrong connecting to the data supplier.  Please try again later <br/>';
             }
         }
 

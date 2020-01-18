@@ -45,7 +45,7 @@ CREATE TABLE `settings` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `settings` (`id`, `app_name`, `wsdl`, `wsdl_username`, `wsdl_password`, `wsdl_messagecounter`, `db_host`, `db_name`, `db_port`, `db_user`, `db_userpassword`, `db_charset`, `db_collation`, `doctrine_driver`) VALUES
-(1,	'M2MAPP',	'https://m2mconnect.ee.co.uk/orange-soap/services/MessageServiceByCountry?wsdl',	'19_Sebastian',	'passXDword123',	50,	'localhost',	'coursework',	3306,	'p3tuser',	'password',	'utf8',	'utf8_unicode_ci',	'pdo_mysql');
+(1,	'M2MAPP',	'https://m2mconnect.ee.co.uk/orange-soap/services/MessageServiceByCountry?wsdl',	'19_Sebastian',	'passXDword123',	75,	'localhost',	'coursework',	3306,	'p3tuser',	'password',	'utf8',	'utf8_unicode_ci',	'pdo_mysql');
 
 DROP TABLE IF EXISTS `switch`;
 CREATE TABLE `switch` (
