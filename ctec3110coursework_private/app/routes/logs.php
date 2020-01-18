@@ -36,7 +36,7 @@ $app->post(
                     'method' => 'post',
                     'is_logged_in' => $isloggedin,
                     'username' => $username,
-                    'logs_data' => $logs_data,
+                    'logsdata' => $logs_data,
                     'sign_out_form' => $sign_out_form_visibility,
                     'back_button_visibility' => 'block',
                 ]);

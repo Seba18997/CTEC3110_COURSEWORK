@@ -27,10 +27,6 @@ class MessagesModel
         $this->sql_queries = $sql_queries;
     }
 
-    /**
-     * @return array
-     */
-
     public function getMessagesFromDB()
     {
         $messages_to_show = [];

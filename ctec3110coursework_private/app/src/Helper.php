@@ -8,34 +8,16 @@ class Helper
 
     public function __destruct() { }
 
-    /**
-     * @param $data
-     * @return \SimpleXMLElement
-     */
-
     public function convertSoapArrayToString($data){
         $final = simplexml_load_string($data);
         return $final;
     }
-
-    /**
-     * @param $givenstring
-     * @param string $tag
-     * @return \SimpleXMLElement
-     */
 
     public function mapDataFromString($givenstring, $tag=''){
         $input = $this->convertSoapArrayToString($givenstring);
         $result = $input->$tag;
         return $result;
     }
-
-    /**
-     * @param $string
-     * @param $start
-     * @param $end
-     * @return bool|string
-     */
 
     public function getTheValue($string, $start, $end){
         $string = ' ' . $string;
