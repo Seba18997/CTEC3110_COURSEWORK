@@ -1,12 +1,13 @@
 {% extends 'banner.html.twig' %}
 {% block content %}
-
-    <div class="alert alert-danger" role="alert">
-        <h4 class="alert-heading">Oops! Something went wrong.</h4>
-        <p>Error: Invalid credentials!</p>
-        <form action="{{ action }}" method={{ method }}>
-            <button type="submit" class="btn btn-danger" value="Sign in again">Try to sign in again</button>
-        </form>
+    <div class="d-flex justify-content-sm-center">
+        <div class="alert alert-danger" role="alert">
+            <h4 class="alert-heading">Oops! Something went wrong.</h4>
+            <p>Error: Invalid credentials!</p>
+            <form action="{{ action }}" method={{ method }}>
+                <button type="submit" class="btn btn-danger" value="Sign in again">Try to sign in again</button>
+            </form>
+        </div>
     </div>
 
 {% endblock %}
