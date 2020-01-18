@@ -1,5 +1,15 @@
 {% extends 'banner.html.twig' %}
 {% block content %}
+    <div class="text-center">
+        <div class="alert alert-warning" role="alert">
+            <h4 class="alert-heading">Oops! Something went wrong.</h4>
+            <p>{{ username_error }}</p>
+            <p>{{ password_error }}</p>
+            <p>{{ username_duplicate }}</p>
+
+        </div>
+    </div>
+    <br/>
     <div class="d-flex justify-content-sm-center">
 
         <div class="card bg-light mb-3" style="max-width: 18rem;">
@@ -30,4 +40,5 @@
             </div>
         </div>
     </div>
+
 {% endblock %}

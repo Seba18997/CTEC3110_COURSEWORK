@@ -57,14 +57,14 @@ $app->post(
                 $username_duplicate = false;
             }
             return $this->view->render($response,
-                'register.html.twig',
+                'register_error.html.twig',
                 [
                     'css_path' => CSS_PATH,
                     'landing_page' => LANDING_PAGE,
                     'page_heading' => APP_NAME,
                     'action' => 'registeruser',
                     'initial_input_box_value' => null,
-                    'page_heading_2' => ' / Password and username must be at least 8 characters',
+                    'page_heading_2' => ' / New User Registration',
                     'is_logged_in' => $isloggedin,
                     'username' => $username,
                     'sign_out_form' => 'none',
