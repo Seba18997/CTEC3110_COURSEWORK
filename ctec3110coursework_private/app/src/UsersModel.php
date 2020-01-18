@@ -29,15 +29,20 @@ class UsersModel
         $this->sql_queries = $sql_queries;
     }
 
+    public function makeConnection()
+    {
+        $this->database_wrapper->setDatabaseConnectionSettings($this->database_connection_settings);
+
+        $this->database_wrapper->makeDatabaseConnection();
+    }
+
     public function getUsersData()
     {
         $users_data = [];
 
         $sql_query_user_data = $this->sql_queries->getUserData();
 
-        $this->database_wrapper->setDatabaseConnectionSettings($this->database_connection_settings);
-
-        $this->database_wrapper->makeDatabaseConnection();
+        $this->makeConnection();
 
         $this->database_wrapper->safeQuery($sql_query_user_data);
 
@@ -72,13 +77,12 @@ class UsersModel
         return $final_user_data;
     }
 
+    /*
     public function changeUserData($final_changes=[])
     {
         $query_string = $this->sql_queries->updateUserData();
 
-        $this->database_wrapper->setDatabaseConnectionSettings($this->database_connection_settings);
-
-        $this->database_wrapper->makeDatabaseConnection();
+        $this->makeConnection();
 
         $query_parameters =
             array(':user_name' => $final_changes['username'],
@@ -95,6 +99,29 @@ class UsersModel
         {
             return false;
         }
+    }
+*/
+
+    public function changeUserRole($role, $userid)
+    {
+        $query_string = $this->sql_queries->updateUserRole();
+
+        $this->makeConnection();
+
+        $query_parameters =
+            array(':role' => $role,
+                ':id' => $userid);
+
+        if(!empty($userid) && !empty($role))
+        {
+            $this->database_wrapper->safeQuery($query_string, $query_parameters);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
     }
 
 }

@@ -11,6 +11,7 @@ $app->post(
 
         if($session_check == false)
         {
+            $this->get('logger')->info("Admin is not logged in to make any changes in settings.");
             $response = $response->withredirect(LANDING_PAGE);
             return $response;
         }

@@ -26,8 +26,8 @@ $app->post(
                 'page_heading' => APP_NAME,
                 'is_logged_in' => $isloggedin,
                 'username' => $username,
-                'page_heading_2' => ' / Messages ',
-                'page_title' => APP_NAME,
+                'page_heading_2' => ' / Manage Users ',
+                'page_title' => APP_NAME.' | Manage Users',
                 'action' => 'updateuser',
                 'action3' => 'logout',
                 'method' => 'post',
@@ -41,7 +41,6 @@ $app->post(
 
 function getUsers($app)
 {
-
     $users_model = $app->getContainer()->get('UsersModel');
     $database_wrapper = $app->getContainer()->get('DatabaseWrapper');
     $sql_queries = $app->getContainer()->get('SQLQueries');
@@ -59,24 +58,6 @@ function getUsers($app)
 
 }
 
-function changeRole($user_id, $app){
-    $sourcex = getUsers($app)['retrieved_users_data'];
-    $source = $sourcex[$user_id]['role'];
-    $resultx = [];
-    if (!empty($source) && $source == 'user')
-    {
-        $resultx['actual_role'] = $source;
-        $resultx['action'] = 'promote';
-        $resultx['desired_role'] = 'admin';
-    }
-    else if(!empty($source) && $source == 'admin')
-    {
-        $resultx['actual_role'] = $source;
-        $resultx['action'] = 'demote';
-        $resultx['desired_role'] = 'user';
-    }
-    return $resultx;
-}
 
-var_dump(changeRole(2, $app));
+
 

@@ -40,7 +40,7 @@ class Logger
         }
 
         $final_info['log_file'] = $data;
-        $final_info['log_counter'] = $line;
+        $final_info['log_counter'] = $line - 1;
 
         fclose($logfile);
 

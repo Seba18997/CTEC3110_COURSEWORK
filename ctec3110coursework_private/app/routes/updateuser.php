@@ -14,15 +14,32 @@ $app->post('/updateuser',
         $result = sessionCheck($app);
         $session_check = sessionCheckAdmin($app);
 
-        $this->get('logger')->info("Log In page opened.");
-
         if ($result == true && $session_check == true)
         {
-            $this->get('logger')->info("Admin (".$username.") already logged in, login page => admin page.");
             $changes = $request->getParsedBody();
-            var_dump($changes);
-            changeUsers($app, $changes);
-            return $response;
+            $role_changes = changeRole($changes['id_db'] - 10, $app);
+            $this->get('logger')->info("Admin (".$username.") changes role of ".$role_changes['user_name']." to ".$role_changes['desired_role']);
+            return $this->view->render($response,
+                'user_changed.html.twig',
+                [
+                    'css_path' => CSS_PATH,
+                    'landing_page' => LANDING_PAGE,
+                    'initial_input_box_value' => null,
+                    'page_heading' => APP_NAME,
+                    'page_heading_2' => ' / User Changed ',
+                    'page_title' => APP_NAME.' | User Changed',
+                    'action4' => 'manageusers',
+                    'action5' => 'updateuser',
+                    'action3' => 'logout',
+                    'method' => 'post',
+                    'is_logged_in' => $isloggedin,
+                    'username' => $username,
+                    'sign_out_form' => $sign_out_form_visibility,
+                    'back_button_visibility' => 'block',
+                    'usernamex' => $role_changes['user_name'],
+                    'old_role' => $role_changes['actual_role'],
+                    'new_role' => $role_changes['desired_role'],
+                ]);
         }
         else if($result == true)
         {
@@ -65,7 +82,7 @@ $app->post('/updateuser',
 
     })->setName('updateuser');
 
-
+/*
 function changeUsers($app, $changes)
 {
 
@@ -84,4 +101,44 @@ function changeUsers($app, $changes)
 
     return $users;
 
+}
+*/
+function changeRole($user_id, $app)
+{
+    $users_model = $app->getContainer()->get('UsersModel');
+    $database_wrapper = $app->getContainer()->get('DatabaseWrapper');
+    $sql_queries = $app->getContainer()->get('SQLQueries');
+    $settings = $app->getContainer()->get('settings');
+
+    $database_connection_settings = $settings['pdo_settings'];
+
+    $users_model->setSqlQueries($sql_queries);
+    $users_model->setDatabaseConnectionSettings($database_connection_settings);
+    $users_model->setDatabaseWrapper($database_wrapper);
+
+    $users_data = getUsers($app)['retrieved_users_data'];
+    $user_role = $users_data[$user_id]['role'];
+    $user_name = $users_data[$user_id]['username'];
+    $resultx = [];
+
+    if (!empty($user_role) && $user_role == 'user')
+    {
+        $resultx['user_id'] = $user_id;
+        $resultx['user_name'] = $user_name;
+        $resultx['actual_role'] = $user_role;
+        $resultx['action'] = 'promote';
+        $resultx['desired_role'] = 'admin';
+    }
+    else if(!empty($user_role) && $user_role == 'admin')
+    {
+        $resultx['user_id'] = $user_id;
+        $resultx['user_name'] = $user_name;
+        $resultx['actual_role'] = $user_role;
+        $resultx['action'] = 'demote';
+        $resultx['desired_role'] = 'user';
+    }
+
+    $resultx['final_change'] = $users_model->changeUserRole($resultx['desired_role'], $user_id);
+
+    return $resultx;
 }
