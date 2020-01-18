@@ -17,9 +17,9 @@ A complete implementation will include the following methodologies and technolog
 - [x] SLIM micro-framework
 - [x] TWIG template engine
 - [x] Monolog logging
-- [ ] Application of security techniques and avoidance of common web application
+- [x] Application of security techniques and avoidance of common web application
 vulnerabilities
-- [ ] Unit testing and security testing
+- [x] Unit testing and security testing
 - [x] Validated HTML 5 (using simple CSS for web-page layout/presentation)
 - [x] MySQL/MariaDb
 - [x] SOAP & WSDL file
