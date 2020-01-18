@@ -11,3 +11,5 @@ require 'routes/adminarea.php';
 require 'routes/changesettings.php';
 require 'routes/updatesettings.php';
 require 'routes/manageusers.php';
+require 'routes/logs.php';
+
