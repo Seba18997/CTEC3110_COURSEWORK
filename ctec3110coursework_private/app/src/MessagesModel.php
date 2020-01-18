@@ -45,7 +45,7 @@ class MessagesModel
         {
             $x = 0;
             
-            while ($x <= $number_of_data_sets ) {
+            while ($x < $number_of_data_sets ) {
 
                 $row = $this->database_wrapper->safeFetchArray();
 
