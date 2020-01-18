@@ -1,12 +1,14 @@
 {% extends 'banner.html.twig' %}
 {% block content %}
-    <div class="text-center">
-        <div class="alert alert-warning" role="alert">
-            <h4 class="alert-heading">Oops! Something went wrong.</h4>
-            <p>{{ username_error }}</p>
-            <p>{{ password_error }}</p>
-            <p>{{ username_duplicate }}</p>
+    <div class="d-flex justify-content-sm-center">
+        <div class="text-center">
+            <div class="alert alert-warning" role="alert">
+                <h4 class="alert-heading">Oops! Something went wrong.</h4>
+                <p>{{ username_error }}</p>
+                <p>{{ password_error }}</p>
+                <p>{{ username_duplicate }}</p>
 
+            </div>
         </div>
     </div>
     <br/>
@@ -18,22 +20,27 @@
                 <form action="{{ action }}" method="post">
                     <div class="form-group row">
                         <div class="col-sm-12">
-                            <input type="text" class="form-control" id="username" name="username" value="{{ initial_input_box_value }}" placeholder="Username">
+                            <input type="text" class="form-control" id="username" name="username"
+                                   placeholder="Username">
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-12">
-                            <input type="password" class="form-control" id="password" name="password" value="{{ initial_input_box_value }}" placeholder="Password">
+                            <input type="password" class="form-control" id="password" name="password"
+                                   placeholder="Password">
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-12">
-                            <input type="email" class="form-control" id="email" name="email" value="{{ initial_input_box_value }}" placeholder="Email address">
+                            <input type="email" class="form-control" id="email" name="email"
+                                   placeholder="Email address">
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-12">
-                            <button type="submit" class="btn btn-primary btn-lg btn-block" value="Submit">Register a new user</button>
+                            <button type="submit" class="btn btn-primary btn-lg btn-block" value="Submit">Register a new
+                                user
+                            </button>
                         </div>
                     </div>
                 </form>
