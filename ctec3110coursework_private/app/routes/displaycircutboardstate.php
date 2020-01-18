@@ -21,7 +21,7 @@ $app->post(
         $heater = $switch_state_data['heater'];
         $keypad = $switch_state_data['keypad'];
 
-        $this->get('logger')->info("Switch states downloaded from M2M server to database and then presented on a website.");
+        $this->get('logger')->info($username. ": Switch states downloaded from M2M server to database and then presented on a website.");
 
         return $this->view->render($response,
             'display_board.html.twig',

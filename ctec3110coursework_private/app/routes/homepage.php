@@ -43,7 +43,7 @@ $app->get('/', function(Request $request, Response $response) use ($app)
     }
     else
     {
-        $this->get('logger')->info("User/Admin (".$username.") entered Log In page.");
+        $this->get('logger')->info("User/Admin entered Log In page.");
         return $this->view->render($response,
             'homepageform.html.twig',
             [

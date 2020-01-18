@@ -15,7 +15,7 @@ $app->post(
         $messages_data = retrieveMessages($app)['retrieved_messages'];
         $counter = downloadMessages($app)['counter'];
 
-        $this->get('logger')->info("Messages content downloaded from M2M server to database and then presented on a website.");
+        $this->get('logger')->info($username. ": Messages content downloaded from M2M server to database and then presented on a website.");
 
         return $this->view->render($response,
             'display_messages.html.twig',

@@ -8,13 +8,12 @@ ini_set('xdebug.trace_format', '1');
 $settings_setup = new \M2MAPP\SettingsSetup();
 $settings_array = $settings_setup->getSettingsFromDB();
 $settings = $settings_array['settings'];
-//var_dump($settings);
 
 define('DIRSEP', DIRECTORY_SEPARATOR);
 
 $app_url = dirname($_SERVER['SCRIPT_NAME']);
 $css_path = $app_url . '/css/standard.css';
-$log_path = '../../logs/M2MAPP_01.log';
+$log_path = '../../logs/M2MAPP_02.log';
 
 define('APP_URL', $app_url);
 define('CSS_PATH', $css_path);
