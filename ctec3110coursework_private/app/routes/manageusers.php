@@ -58,22 +58,24 @@ function getUsers($app)
 
 }
 
-function changeRole($user_id, $desired_role, $app){
+function changeRole($user_id, $app){
     $sourcex = getUsers($app)['retrieved_users_data'];
     $source = $sourcex[$user_id]['role'];
     $resultx = [];
-    if (!empty($source) && $source == 'user' && $desired_role = 'admin')
+    if (!empty($source) && $source == 'user')
     {
+        $resultx['actual_role'] = $source;
         $resultx['action'] = 'promote';
-        $resultx['role'] = 'admin';
+        $resultx['desired_role'] = 'admin';
     }
-    else if(!empty($source) && $source == 'admin' && $desired_role = 'user')
+    else if(!empty($source) && $source == 'admin')
     {
+        $resultx['actual_role'] = $source;
         $resultx['action'] = 'demote';
-        $resultx['role'] = 'user';
+        $resultx['desired_role'] = 'user';
     }
     return $resultx;
 }
 
-var_dump(changeRole(2, 'admin', $app));
+var_dump(changeRole(2, $app));
 
