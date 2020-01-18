@@ -30,10 +30,11 @@ class Logger
 
         while (!feof($logfile)) {
             $oneline = fgets($logfile);
-            $data['date'][$x] = $helper->getTheValue($oneline, '[', 'T');
-            $data['hour'][$x] = substr($helper->getTheValue($oneline, 'T', '+'), 0, 8);
-            $data['type'][$x] = $helper->getTheValue($oneline, 'M2MAPP_Logger.', ':');
-            $data['action'][$x] = $helper->getTheValue($oneline, ': ', ' [] []');
+            $data[$x]['date'] = $helper->getTheValue($oneline, '[', 'T');
+            $data[$x]['hour'] = substr($helper->getTheValue($oneline, 'T', '+'), 0, 8);
+            $data[$x]['type'] = $helper->getTheValue($oneline, 'M2MAPP_Logger.', ':');
+            $data[$x]['action'] = $helper->getTheValue($oneline, ': ', ' [] []');
+            $data[$x]['id'] = $x + 1;
             $line++;
             $x++;
         }
