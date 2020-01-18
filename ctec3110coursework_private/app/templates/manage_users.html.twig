@@ -1,0 +1,25 @@
+{% extends 'banner.html.twig' %}
+{% block content %}
+    <br/>
+    <div class="table-responsive-sm table-bordered table-hover">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Username</th>
+                <th scope="col">Email</th>
+                <th scope="col">Role</th>
+                <th scope="col">Date</th>
+            </tr>
+            </thead>
+             <tbody>
+             {% for user_data in users_data %}
+                 <tr><td>{{ user_data.id }}</td><td>{{ user_data.username }}</td><td>{{ user_data.email }}</td><td>{{ user_data.role }}</td><td>{{ user_data.date }}</td></tr>
+             {% endfor %}
+             </tbody>
+        </table>
+    </div>
+
+
+{% endblock %}
+

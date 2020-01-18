@@ -76,4 +76,4 @@ CREATE TABLE `user_data` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO `user_data` (`auto_id`, `user_name`, `email`, `password`, `role`, `timestamp`) VALUES
-(99,	'admin',	'admin@admin.com',	'$2y$12$3OrihKFHRXIUFcTn7gouEul5XpYqT/D4NaNW8R8wHtku74QYAk9Lu',	'admin',	'2020-01-02 17:11:37'),
+(99,	'admin',	'admin@admin.com',	'$2y$12$3OrihKFHRXIUFcTn7gouEul5XpYqT/D4NaNW8R8wHtku74QYAk9Lu',	'admin',	'2020-01-02 17:11:37');

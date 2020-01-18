@@ -45,12 +45,19 @@ class UsersModel
 
         if ($number_of_data_sets >= 1)
         {
-            while ($row = $this->database_wrapper->safeFetchArray()) {
-                $users_data['id'] = $row['auto_id'];
-                $users_data['username'] = $row['user_name'];
-                $users_data['email'] = $row['email'];
-                $users_data['role'] = $row['role'];
-                $users_data['date'] = strval($row['timestamp']);
+            $x = 0;
+
+            while ($x <= $number_of_data_sets ) {
+
+                $row = $this->database_wrapper->safeFetchArray();
+
+                $users_data[$x]['id'] = $row['auto_id'];
+                $users_data[$x]['username'] = $row['user_name'];
+                $users_data[$x]['email'] = $row['email'];
+                $users_data[$x]['role'] = $row['role'];
+                $users_data[$x]['date'] = strval($row['timestamp']);
+
+                $x++;
             }
         }
         else

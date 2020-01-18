@@ -105,7 +105,7 @@ class SQLQueries
     }
 
     public function getUserData(){
-        $query_string =  'SELECT auto_id, user_name, email, role, timestamp';
+        $query_string =  'SELECT auto_id, user_name, email, role, timestamp ';
         $query_string .= 'FROM user_data ';
         return $query_string;
     }
