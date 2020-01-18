@@ -62,11 +62,6 @@ $container['SwitchModel'] = function ($container) {
     return $smodel;
 };
 
-$container['processOutput'] = function ($container) {
-    $process = new M2MAPP\ProcessOutput();
-    return $process;
-};
-
 $container['doctrineSqlQueries'] = function ($container) {
     $doctrine_sql_queries = new \M2MAPP\DoctrineSqlQueries();
     return $doctrine_sql_queries;
@@ -93,6 +88,11 @@ $container['Authentication'] = function ($container) {
 };
 
 $container['SettingsModel'] = function ($container) {
-    $auth = new \M2MAPP\SettingsModel();
-    return $auth;
+    $stmodel = new \M2MAPP\SettingsModel();
+    return $stmodel;
+};
+
+$container['UsersModel'] = function ($container) {
+    $usrmodel = new \M2MAPP\UsersModel();
+    return $usrmodel;
 };
