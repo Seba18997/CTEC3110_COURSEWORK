@@ -17,7 +17,7 @@ $container['view'] = function ($container) {
 
 $container['logger'] = function ($container) {
     $logger = new \Monolog\Logger('M2MAPP_Logger');
-    $file_handler = new \Monolog\Handler\StreamHandler("../../logs/M2MAPP.log");
+    $file_handler = new \Monolog\Handler\StreamHandler(LOG_PATH);
     $logger->pushHandler($file_handler);
     return $logger;
 };
@@ -95,4 +95,9 @@ $container['SettingsModel'] = function ($container) {
 $container['UsersModel'] = function ($container) {
     $usrmodel = new \M2MAPP\UsersModel();
     return $usrmodel;
+};
+
+$container['Logs'] = function ($container) {
+    $clogger = new \M2MAPP\Logger();
+    return $clogger;
 };

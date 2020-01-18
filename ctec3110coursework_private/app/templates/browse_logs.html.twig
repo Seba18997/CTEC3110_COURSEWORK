@@ -1,0 +1,22 @@
+{% extends 'banner.html.twig' %}
+{% block content %}
+    <br/>
+    <div class="table-responsive-sm table-bordered table-hover">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Type</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for log_data in logs_data %}
+                <tr><td>{{ log_data.date }} {{  log_data.hour }}</td><td>{{ log_data.type }}</td><td>{{ log_data.action }}</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}
+

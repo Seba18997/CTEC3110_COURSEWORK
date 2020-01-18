@@ -10,3 +10,4 @@ require 'routes/logout.php';
 require 'routes/adminarea.php';
 require 'routes/changesettings.php';
 require 'routes/updatesettings.php';
+require 'routes/logs.php';
