@@ -30,6 +30,7 @@ $app->post(
                 'username' => $username,
                 'page_heading_2' => ' / Messages ',
                 'page_title' => APP_NAME,
+                'action' => 'updateuser',
                 'action3' => 'logout',
                 'method' => 'post',
                 'users_data' => $users_data,
