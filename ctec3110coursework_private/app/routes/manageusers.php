@@ -12,9 +12,7 @@ $app->post(
         $username = ifSetUsername($app)['username'];
         $sign_out_form_visibility = ifSetUsername($app)['sign_out_form_visibility'];
 
-
         $users_data = getUsers($app)['retrieved_users_data'];
-        var_dump($users_data);
         $counter = getUsers($app)['amount_of_users'];
 
         $this->get('logger')->info("Users content downloaded from M2M server to database and then presented on a website.");
@@ -60,4 +58,23 @@ function getUsers($app)
     return $users;
 
 }
+
+function changeRole($user_id, $desired_role, $app){
+    $sourcex = getUsers($app)['retrieved_users_data'];
+    $source = $sourcex[$user_id]['role'];
+    $resultx = [];
+    if (!empty($source) && $source == 'user' && $desired_role = 'admin')
+    {
+        $resultx['action'] = 'promote';
+        $resultx['role'] = 'admin';
+    }
+    else if(!empty($source) && $source == 'admin' && $desired_role = 'user')
+    {
+        $resultx['action'] = 'demote';
+        $resultx['role'] = 'user';
+    }
+    return $resultx;
+}
+
+var_dump(changeRole(2, 'admin', $app));
 

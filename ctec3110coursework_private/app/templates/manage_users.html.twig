@@ -14,7 +14,7 @@
             </thead>
              <tbody>
              {% for user_data in users_data %}
-                 <tr><td>{{ user_data.id }}</td><td>{{ user_data.username }}</td><td>{{ user_data.email }}</td><td>{{ user_data.role }}</td><td>{{ user_data.date }}</td></tr>
+                 <tr><td>{{ user_data.id_web }} (<i>{{ user_data.id }}</i>)</td><td>{{ user_data.username }}</td><td>{{ user_data.email }}</td><td>{{ user_data.role }}</td><td>{{ user_data.date }}</td></tr>
              {% endfor %}
              </tbody>
         </table>
