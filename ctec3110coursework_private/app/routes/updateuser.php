@@ -21,6 +21,7 @@ $app->post('/updateuser',
             $this->get('logger')->info("Admin (".$username.") already logged in, login page => admin page.");
             $changes = $request->getParsedBody();
             var_dump($changes);
+            changeUsers($app, $changes);
             return $response;
         }
         else if($result == true)

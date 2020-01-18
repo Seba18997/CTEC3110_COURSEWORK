@@ -113,9 +113,9 @@ class SQLQueries
     public function updateUserData(){
         $query_string =  "UPDATE user_data " ;
         $query_string .= "SET user_name = CASE WHEN :user_name IS NOT NULL AND LENGTH(:user_name) > 0 THEN :user_name ELSE user_name END, " ;
-        $query_string .= "SET email = CASE WHEN :email IS NOT NULL AND LENGTH(:email) > 0 THEN :email ELSE email END, " ;
-        $query_string .= "SET role = CASE WHEN :role IS NOT NULL AND LENGTH(:role) > 0 THEN :role ELSE role END, " ;
-        $query_string .= "WHERE id = :id;";
+        $query_string .= "email = CASE WHEN :email IS NOT NULL AND LENGTH(:email) > 0 THEN :email ELSE email END, " ;
+        $query_string .= "role = CASE WHEN :role IS NOT NULL AND LENGTH(:role) > 0 THEN :role ELSE role END " ;
+        $query_string .= "WHERE auto_id = :id;";
         return $query_string;
     }
 }

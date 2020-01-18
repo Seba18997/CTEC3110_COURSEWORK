@@ -1,55 +1,49 @@
 {% extends 'banner.html.twig' %}
 {% block content %}
     <br/>
-    <form action="{{ action }}" method={{ method }}>
-        <div class="table-responsive-sm table-bordered table-hover">
-            <table class="table">
-                <thead>
+
+    <div class="table-responsive-sm table-bordered table-hover">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Username</th>
+                <th scope="col">Email</th>
+                <th scope="col">Role</th>
+                <th scope="col">Date</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for user_data in users_data %}
                 <tr>
-                    <th scope="col">Id</th>
-                    <th scope="col">Username</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Role</th>
-                    <th scope="col">Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for user_data in users_data %}
-                    <tr>
+                    <form action="{{ action }}" method={{ method }}>
                         <td><input type="db" class="form-control" id="id" name="id" value="{{ user_data.id }}">
                         </td>
                         <td><input type="db" class="form-control" id="username" name="username"
                                    value="{{ user_data.username }}"></td>
                         <td><input type="db" class="form-control" id="email" name="email"
                                    value="{{ user_data.email }}"></td>
-                        <td><input type="db" class="form-control" id="date" name="date"
-                                   value="{{ user_data.date }}"></td>
-                        <td>{{ user_data.role }}</td>
-                        <td>{% if user_data.role == 'admin' %}
-                            <form action="{{ action }}" method={{ method }}>
-                                    <div class="col-sm-12">
-                                        <button type="submit" class="btn btn-primary btn-lg btn-block" value="Submit">
-                                            Demote
-                                        </button>
-                                    </div></form>{% endif %}
-                            {% if user_data.role == 'user' %}
-                            <form action="{{ action }}" method={{ method }}>
-                                    <div class="col-sm-12">
-                                        <button type="submit" class="btn btn-primary btn-lg btn-block" value="Submit">
-                                            Promote
-                                        </button>
-                                    </div></form>{% endif %}
-                        </td>
-                    </tr>
-                {% endfor %}</tbody>
-            </table>
+                        <td><input type="db" class="form-control" id="role" name="role"
+                                   value="{{ user_data.role }}"></td>
+                        <td>{{ user_data.date }}</td>
+                        <td>
 
-        </div>
+                            <div class="col-sm-12">
+                                <button type="submit" class="btn btn-primary btn-lg btn-block" value="Submit">
+                                    Save
+                                </button>
+                            </div>
+                    </form>
+
+                    </td>
+                </tr>
+            {% endfor %}</tbody>
+        </table>
+
+    </div>
 
 
-        <button type="submit" class="btn btn-primary btn-lg btn-block" value="Submit">Save changes</button>
-    </form>
 
 
 {% endblock %}
