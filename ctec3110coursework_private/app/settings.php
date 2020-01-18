@@ -14,7 +14,7 @@ define('DIRSEP', DIRECTORY_SEPARATOR);
 
 $app_url = dirname($_SERVER['SCRIPT_NAME']);
 $css_path = $app_url . '/css/standard.css';
-$log_path = '../../logs/M2MAPP.log';
+$log_path = '../../logs/M2MAPP_01.log';
 
 define('APP_URL', $app_url);
 define('CSS_PATH', $css_path);

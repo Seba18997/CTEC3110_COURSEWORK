@@ -12,7 +12,7 @@
             </thead>
             <tbody>
             {% for log_data in logs_data %}
-                <tr><td>{{ log_data.date }} {{  log_data.hour }}</td><td>{{ log_data.type }}</td><td>{{ log_data.action }}</td></tr>
+                <tr><td>{{ log_data.date }} {{ log_data.hour }}</td><td>{{ log_data.type }}</td><td>{{ log_data.action }}</td></tr>
             {% endfor %}
             </tbody>
         </table>
