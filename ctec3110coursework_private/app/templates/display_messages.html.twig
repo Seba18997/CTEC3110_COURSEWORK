@@ -12,7 +12,6 @@
                 <th scope="col">Message content</th>
             </tr>
             </thead>
-
              <tbody>
              {% for message_data in messages_data %}
                  <tr><td>{{ message_data.source }}</td><td>{{ message_data.destination }}</td><td>{{ message_data.date }}</td><td>{{ message_data.type }}</td><td>{{ message_data.message }}</td></tr>

@@ -13,7 +13,6 @@ $app->post(
 
         $isloggedin = ifSetUsername($app)['introduction'];
         $username = ifSetUsername($app)['username'];
-        $role = ifSetUsername($app)['role'];
         $sign_out_form_visibility = ifSetUsername($app)['sign_out_form_visibility'];
 
         if ($session_check == false) {
@@ -51,7 +50,6 @@ $app->post(
                     'doctrine_driver' => $settings['settings']['doctrine_driver'],
                     'is_logged_in' => $isloggedin,
                     'username' => $username,
-                    'role' => $role,
                     'sign_out_form' => $sign_out_form_visibility,
                     'back_button_visibility' => 'block',
                 ]);
