@@ -15,8 +15,8 @@
             </tr>
             </thead>
             <tbody>
-            <form action="{{ action }}" method={{ method }}>
             {% for user_data in users_data %}
+                <form action="{{ action }}" method={{ method }}>
                 <tr>
                     <input type="hidden" name="id_web" id="id_web" value="{{ user_data.id }}" />
                     <input type="hidden" name="id_db" id="id_db" value="{{ user_data.id_web }}" />
@@ -30,9 +30,11 @@
                             <button type="submit" class="btn btn-info btn-sm btn-block" value="Submit">
                                 Promote/Demote
                             </button>
+
                         </div>
                     </td>
                 </tr>
+            </form>
             {% endfor %}
             </form>
             </tbody>

@@ -17,7 +17,9 @@ $app->post('/updateuser',
         if ($result == true && $session_check == true)
         {
             $changes = $request->getParsedBody();
-            $role_changes = changeRole($changes['id_db'] - 10, $app);
+            var_dump($changes);
+            $role_changes = changeRole($changes['id_db'], $app);
+
             $this->get('logger')->info("Admin (".$username.") changes role of ".$role_changes['user_name']." to ".$role_changes['desired_role']);
             return $this->view->render($response,
                 'user_changed.html.twig',
@@ -29,7 +31,7 @@ $app->post('/updateuser',
                     'page_heading_2' => ' / User Changed ',
                     'page_title' => APP_NAME.' | User Changed',
                     'action4' => 'manageusers',
-                    'action5' => 'updateuser',
+                    'action5' => 'updateuserverification',
                     'action3' => 'logout',
                     'method' => 'post',
                     'is_logged_in' => $isloggedin,
@@ -82,27 +84,7 @@ $app->post('/updateuser',
 
     })->setName('updateuser');
 
-/*
-function changeUsers($app, $changes)
-{
 
-    $users_model = $app->getContainer()->get('UsersModel');
-    $database_wrapper = $app->getContainer()->get('DatabaseWrapper');
-    $sql_queries = $app->getContainer()->get('SQLQueries');
-    $settings = $app->getContainer()->get('settings');
-
-    $database_connection_settings = $settings['pdo_settings'];
-
-    $users_model->setSqlQueries($sql_queries);
-    $users_model->setDatabaseConnectionSettings($database_connection_settings);
-    $users_model->setDatabaseWrapper($database_wrapper);
-
-    $users = $users_model->changeUserData($changes);
-
-    return $users;
-
-}
-*/
 function changeRole($user_id, $app)
 {
     $users_model = $app->getContainer()->get('UsersModel');

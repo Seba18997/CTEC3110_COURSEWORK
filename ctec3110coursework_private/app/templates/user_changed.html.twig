@@ -5,7 +5,7 @@
             <h4 class="alert-heading">Changes detected!</h4>
             <p>CHANGE: User {{ usernamex }} changed role from <b>{{ old_role }}</b> to <b>{{ new_role }}</b></p>
             <p>To accept all changes, provide your password again below:</p>
-            <form action="{{ action5 }}" method={{ method }}">
+            <form action="{{ action5 }}" method={{ method }}>
                 <input type="password" class="form-control" id="password" name="password" placeholder="Password">
                 <button type="submit" class="btn btn-success" value="messages">Submit changes</button>
             </form>
@@ -17,3 +17,4 @@
     </div>
 
 {% endblock %}
+

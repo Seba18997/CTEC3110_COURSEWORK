@@ -13,4 +13,5 @@ require 'routes/updatesettings.php';
 require 'routes/manageusers.php';
 require 'routes/logs.php';
 require 'routes/updateuser.php';
+require 'routes/updateuserverification.php';
 
