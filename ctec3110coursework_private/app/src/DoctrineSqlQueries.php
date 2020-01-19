@@ -6,9 +6,13 @@ namespace M2MAPP;
 
 class DoctrineSqlQueries
 {
-    public function __construct(){}
+    public function __construct()
+    {
+    }
 
-    public function __destruct(){}
+    public function __destruct()
+    {
+    }
 
     /**
      * @param $queryBuilder

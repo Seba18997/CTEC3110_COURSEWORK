@@ -10,9 +10,15 @@ class SwitchModel
     private $database_connection_settings;
     private $sql_queries;
 
-    public function __construct(){}
+    public function __construct()
+    {
 
-    public function __destruct(){}
+    }
+
+    public function __destruct()
+    {
+
+    }
 
     public function setDatabaseWrapper($database_wrapper)
     {
@@ -29,6 +35,9 @@ class SwitchModel
         $this->sql_queries = $sql_queries;
     }
 
+    /**
+     * @return mixed
+     */
     public function getSwitchState()
     {
         $switch_states = [];
@@ -43,8 +52,7 @@ class SwitchModel
 
         $number_of_data_sets = $this->database_wrapper->countRows();
 
-        if ($number_of_data_sets === 1)
-        {
+        if ($number_of_data_sets === 1) {
             while ($row = $this->database_wrapper->safeFetchArray()) {
                 $switch_states['switch1'] = $row['switch1'];
                 $switch_states['switch2'] = $row['switch2'];
@@ -54,9 +62,7 @@ class SwitchModel
                 $switch_states['heater'] = $row['heater'];
                 $switch_states['keypad'] = $row['keypad'];
             }
-        }
-        else
-        {
+        } else {
             $final_states[0] = 'Something is wrong';
         }
 
@@ -65,7 +71,12 @@ class SwitchModel
         return $final_states;
     }
 
-    public function updateSwitchStates($final_state=[]){
+    /**
+     * @param array $final_state
+     * @return string
+     */
+    public function updateSwitchStates($final_state=[])
+    {
 
         $query_string = $this->sql_queries->updateSwitchState();
 
@@ -87,12 +98,9 @@ class SwitchModel
             $this->database_wrapper->safeQuery($query_string, $query_parameters);
 
             $final = 'Switch states changed';
-        }
-        else if (empty($final_state))
-        {
+        } elseif (empty($final_state)) {
             $final =  'Array is empty.';
-        }
-        else {
+        } else {
             $final =  'Error with changing states.';
         }
 

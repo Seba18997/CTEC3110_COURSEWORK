@@ -4,7 +4,11 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
 $app->post(
-    '/displaymessages',
+/**
+ * @param Request $request
+ * @param Response $response
+ * @return mixed
+ */ '/displaymessages',
     function(Request $request, Response $response) use ($app)
     {
 
@@ -39,18 +43,37 @@ $app->post(
     })->setName('displaymessages');
 
 
-function setDBWrapper($app){
+/**
+ * @param $app
+ * @return mixed
+ */
+function setDBWrapper($app)
+{
     return $app->getContainer()->get('DatabaseWrapper');
 }
 
-function setQueries($app){
+/**
+ * @param $app
+ * @return mixed
+ */
+function setQueries($app)
+{
     return $app->getContainer()->get('SQLQueries');
 }
 
-function setSettingsFile($app){
+/**
+ * @param $app
+ * @return mixed
+ */
+function setSettingsFile($app)
+{
     return $app->getContainer()->get('settings');
 }
 
+/**
+ * @param $app
+ * @return mixed
+ */
 function downloadMessages($app)
 {
     $downloaded_messages_model = $app->getContainer()->get('DownloadMessagesToDatabase');
@@ -72,6 +95,10 @@ function downloadMessages($app)
     return $final_download_messages;
 }
 
+/**
+ * @param $app
+ * @return mixed
+ */
 function retrieveMessages($app)
 {
     $messages_model = $app->getContainer()->get('DisplayMessages');

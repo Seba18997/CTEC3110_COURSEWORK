@@ -4,7 +4,11 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
 $app->post(
-    '/logout',
+/**
+ * @param Request $request
+ * @param Response $response
+ * @return Response
+ */ '/logout',
     function(Request $request, Response $response) use ($app)
     {
         $username = ifSetUsername($app)['username'];
@@ -15,6 +19,9 @@ $app->post(
 
     })->setName('logout');
 
+/**
+ * @param $app
+ */
 function unsetSession($app)
 {
     $session_wrapper = $app->getContainer()->get('SessionWrapper');

@@ -3,7 +3,11 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-$app->post('/updateuser',
+$app->post(/**
+ * @param Request $request
+ * @param Response $response
+ * @return mixed
+ */ '/updateuser',
     function(Request $request, Response $response) use ($app)
     {
 
@@ -14,8 +18,7 @@ $app->post('/updateuser',
         $result = sessionCheck($app);
         $session_check = sessionCheckAdmin($app);
 
-        if ($result == true && $session_check == true)
-        {
+        if ($result == true && $session_check == true) {
             $changes = $request->getParsedBody();
             $user_id = intval($changes['id']);
             $role_changes = changeRole($user_id, $app);
@@ -43,9 +46,7 @@ $app->post('/updateuser',
                     'old_role' => $role_changes['actual_role'],
                     'new_role' => $role_changes['desired_role'],
                 ]);
-        }
-        else if($result == true)
-        {
+        } elseif ($result == true) {
             $this->get('logger')->info("User (".$username.") already logged in, login page => home page.");
             return $this->view->render($response,
                 'valid_login.html.twig',
@@ -62,9 +63,7 @@ $app->post('/updateuser',
                     'sign_out_form' => $sign_out_form_visibility,
                     'back_button_visibility' => 'none',
                 ]);
-        }
-        else
-        {
+        } else {
             $this->get('logger')->info("User not logged in yet.");
             return $this->view->render($response,
                 'login.html.twig',
@@ -86,6 +85,11 @@ $app->post('/updateuser',
     })->setName('updateuser');
 
 
+/**
+ * @param $user_id
+ * @param $app
+ * @return array
+ */
 function changeRole($user_id, $app)
 {
     $theuserid = $user_id - 1;
@@ -95,16 +99,13 @@ function changeRole($user_id, $app)
     $user_name = $users_data[$theuserid]['username'];
     $resultx = [];
 
-    if ($user_role == 'user')
-    {
+    if ($user_role == 'user') {
         $resultx['user_id'] = $user_id;
         $resultx['user_name'] = $user_name;
         $resultx['actual_role'] = $user_role;
         $resultx['action'] = 'promote';
         $resultx['desired_role'] = 'admin';
-    }
-    else if($user_role == 'admin')
-    {
+    } elseif ($user_role == 'admin') {
         $resultx['user_id'] = $user_id;
         $resultx['user_name'] = $user_name;
         $resultx['actual_role'] = $user_role;

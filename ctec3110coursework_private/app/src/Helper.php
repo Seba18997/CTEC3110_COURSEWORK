@@ -4,22 +4,46 @@ namespace M2MAPP;
 
 class Helper
 {
-    public function __construct() { }
+    public function __construct()
+    {
 
-    public function __destruct() { }
+    }
 
-    public function convertSoapArrayToString($data){
+    public function __destruct()
+    {
+
+    }
+
+    /**
+     * @param $data
+     * @return \SimpleXMLElement
+     */
+    public function convertSoapArrayToString($data)
+    {
         $final = simplexml_load_string($data);
         return $final;
     }
 
-    public function mapDataFromString($givenstring, $tag=''){
+    /**
+     * @param $givenstring
+     * @param string $tag
+     * @return \SimpleXMLElement
+     */
+    public function mapDataFromString($givenstring, $tag='')
+    {
         $input = $this->convertSoapArrayToString($givenstring);
         $result = $input->$tag;
         return $result;
     }
 
-    public function getTheValue($string, $start, $end){
+    /**
+     * @param $string
+     * @param $start
+     * @param $end
+     * @return false|string
+     */
+    public function getTheValue($string, $start, $end)
+    {
         $string = ' ' . $string;
         $ini = strpos($string, $start);
         if ($ini == 0) return '';
@@ -28,12 +52,22 @@ class Helper
         return substr($string, $ini, $len);
     }
 
-    public function countRowsInArray($array=[]){
+    /**
+     * @param array $array
+     * @return int
+     */
+    public function countRowsInArray($array=[])
+    {
         $count = count(array_filter($array, function($x) { return !empty($x); }));
         return $count;
     }
 
-    public function decodeMessage($message_content=''){
+    /**
+     * @param string $message_content
+     * @return mixed
+     */
+    public function decodeMessage($message_content='')
+    {
         $final_message['switch1'] = $this->getTheValue($message_content, 'switch1:', ';');
         $final_message['switch2'] = $this->getTheValue($message_content, 'switch2:', ';');
         $final_message['switch3'] = $this->getTheValue($message_content, 'switch3:', ';');

@@ -4,7 +4,11 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
 
-$app->get('/adminarea',
+$app->get(/**
+ * @param Request $request
+ * @param Response $response
+ * @return Response
+ */ '/adminarea',
     function(Request $request, Response $response) use ($app)
     {
         $isloggedin = ifSetUsername($app)['introduction'];
@@ -14,14 +18,11 @@ $app->get('/adminarea',
 
         $session_check = sessionCheckAdmin($app);
 
-        if($session_check == false)
-        {
+        if ($session_check == false) {
             $this->get('logger')->info("Admin is not logged in");
             $response = $response->withredirect(LANDING_PAGE);
             return $response;
-        }
-        else
-        {
+        } else {
             $this->get('logger')->info("Admin (".$username.") logged in successfully or already logged in.");
             return $this->view->render($response,
                 'admin_area.html.twig',
@@ -48,6 +49,10 @@ $app->get('/adminarea',
     })->setName('adminarea');
 
 
+/**
+ * @param $app
+ * @return bool
+ */
 function sessionCheckAdmin($app)
 {
     $session_wrapper = $app->getContainer()->get('SessionWrapper');

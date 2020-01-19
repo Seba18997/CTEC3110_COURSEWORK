@@ -4,7 +4,11 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
 $app->post(
-    '/displaycircutboardstate',
+/**
+ * @param Request $request
+ * @param Response $response
+ * @return mixed
+ */ '/displaycircutboardstate',
     function(Request $request, Response $response) use ($app)
     {
         $isloggedin = ifSetUsername($app)['introduction'];
@@ -52,6 +56,10 @@ $app->post(
     })->setName('displaycircuitboard');
 
 
+/**
+ * @param $app
+ * @return mixed
+ */
 function checkIfSwitchStatesChangedandDisplay($app)
 {
 

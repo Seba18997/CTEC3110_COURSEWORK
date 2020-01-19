@@ -6,7 +6,11 @@ namespace M2MAPP;
 
 class SettingsSetup extends SettingsModel
 {
-    public function databaseConnection(){
+    /**
+     * @return array
+     */
+    public function databaseConnection()
+    {
         $settings = [
                 'pdo_settings' => [
                     'rdbms' => 'mysql',
@@ -21,6 +25,9 @@ class SettingsSetup extends SettingsModel
         return $settings;
     }
 
+    /**
+     * @return mixed
+     */
     public function getSettingsFromDB(){
         $settings_model = new SettingsModel();
         $settings_model->setDatabaseWrapper(new DatabaseWrapper);

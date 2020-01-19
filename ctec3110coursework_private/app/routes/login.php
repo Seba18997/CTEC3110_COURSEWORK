@@ -3,7 +3,11 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-$app->post('/login',
+$app->post(/**
+ * @param Request $request
+ * @param Response $response
+ * @return Response
+ */ '/login',
     function(Request $request, Response $response) use ($app)
     {
         $isloggedin = ifSetUsername($app)['introduction'];
@@ -15,14 +19,11 @@ $app->post('/login',
 
         $this->get('logger')->info("Log In page opened.");
 
-        if ($result == true && $session_check == true)
-        {
+        if ($result == true && $session_check == true) {
             $this->get('logger')->info("Admin (".$username.") already logged in, login page => admin page.");
             $response = $response->withredirect(LANDING_PAGE . '/adminarea');
             return $response;
-        }
-        else if($result == true)
-        {
+        } else if ($result == true) {
             $this->get('logger')->info("User (".$username.") already logged in, login page => home page.");
             return $this->view->render($response,
                 'valid_login.html.twig',
@@ -39,9 +40,7 @@ $app->post('/login',
                     'sign_out_form' => $sign_out_form_visibility,
                     'back_button_visibility' => 'none',
                 ]);
-        }
-        else
-        {
+        } else {
             $this->get('logger')->info("User not logged in yet.");
             return $this->view->render($response,
                 'login.html.twig',
@@ -63,6 +62,10 @@ $app->post('/login',
     })->setName('login');
 
 
+/**
+ * @param $app
+ * @return bool
+ */
 function sessionCheck($app)
 {
     $session_wrapper = $app->getContainer()->get('SessionWrapper');

@@ -4,7 +4,11 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
 
-$app->post('/authenticate',
+$app->post(/**
+ * @param Request $request
+ * @param Response $response
+ * @return Response
+ */ '/authenticate',
     function(Request $request, Response $response) use ($app)
     {
         $posted_data = $request->getParsedBody();
@@ -15,16 +19,12 @@ $app->post('/authenticate',
 
         $session_check = sessionCheckAdmin($app);
 
-        if($session_check == false)
-        {
+        if ($session_check == false) {
             $this->get('logger')->info("Admin is not logged in to authenticate.");
             $response = $response->withredirect(LANDING_PAGE);
             return $response;
-        }
-        else
-        {
-            if ($posted_data['action'] == 'settings_changed')
-            {
+        } else {
+            if ($posted_data['action'] == 'settings_changed') {
                 $settingsa = cleanupArray($app, $posted_data['settings']);
                 updateSettings($app, $settingsa);
 
@@ -48,9 +48,7 @@ $app->post('/authenticate',
                         'sign_out_form' => $sign_out_form_visibility,
                         'back_button_visibility' => 'block',
                     ]);
-            }
-            else if ($posted_data['action'] == 'users_changed')
-            {
+            } elseif ($posted_data['action'] == 'users_changed') {
                 //users_changed_related_functions
 
                 return $this->view->render($response,

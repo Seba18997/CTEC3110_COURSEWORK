@@ -4,8 +4,13 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
 $app->post(
-    '/logs',
-    function (Request $request, Response $response) use ($app) {
+/**
+ * @param Request $request
+ * @param Response $response
+ * @return Response
+ */ '/logs',
+    function (Request $request, Response $response) use ($app)
+    {
 
         $session_check = sessionCheckAdmin($app);
         $isloggedin = ifSetUsername($app)['introduction'];
@@ -19,9 +24,7 @@ $app->post(
             $this->get('logger')->info("Admin is not logged in while entering /logs");
             $response = $response->withredirect(LANDING_PAGE);
             return $response;
-        }
-        else
-        {
+        } else {
             $this->get('logger')->info("Admin (".$username.") successfully entered /logs.");
             return $this->view->render($response,
                 'browse_logs.html.twig',
@@ -44,6 +47,10 @@ $app->post(
 
     })->setName('logs');
 
+/**
+ * @param $app
+ * @return mixed
+ */
 function retrieveLogs($app)
 {
     $logs = $app->getContainer()->get('Logs');

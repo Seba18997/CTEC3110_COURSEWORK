@@ -4,8 +4,13 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
 $app->post(
-    '/changesettings',
-    function (Request $request, Response $response) use ($app) {
+/**
+ * @param Request $request
+ * @param Response $response
+ * @return Response
+ */ '/changesettings',
+    function (Request $request, Response $response) use ($app)
+    {
 
         $settings = changeSettings($app);
 
@@ -19,9 +24,7 @@ $app->post(
             $this->get('logger')->info("Admin is not logged in while entering /changesettings");
             $response = $response->withredirect(LANDING_PAGE);
             return $response;
-        }
-        else
-        {
+        } else {
             $this->get('logger')->info("Admin (".$username.") successfully entered /changesettings.");
             return $this->view->render($response,
                 'change_settings.html.twig',
@@ -57,6 +60,10 @@ $app->post(
 
     })->setName('changesettings');
 
+/**
+ * @param $app
+ * @return mixed
+ */
 function changeSettings($app)
 {
 

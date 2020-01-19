@@ -8,19 +8,29 @@ class Logger
 {
     private $logfileurl;
 
-    public function __construct() {
+    public function __construct()
+    {
          $this->logfileurl = NULL;
     }
 
-    public function __destruct() {
+    public function __destruct()
+    {
 
     }
+
+    /**
+     * @param $logfile
+     */
     public function setLogFile($logfile)
     {
         $this->logfileurl = $logfile;
     }
 
-    public function readLogFile(){
+    /**
+     * @return array
+     */
+    public function readLogFile()
+    {
         $logfile = fopen($this->logfileurl, 'r') or die ('File opening failed');
         $data = [];
         $x = 0;

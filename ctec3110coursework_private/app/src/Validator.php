@@ -5,14 +5,20 @@ namespace M2MAPP;
 
 class Validator
 {
-    public function __construct() {
+    public function __construct()
+    {
 
     }
 
-    public function __destruct() {
+    public function __destruct()
+    {
 
     }
 
+    /**
+     * @param array $array_to_sanitise
+     * @return mixed
+     */
     public function sanitiseArray($array_to_sanitise=[])
     {
         if (!empty($array_to_sanitise)) {
@@ -21,6 +27,10 @@ class Validator
         return $sanitised_array;
     }
 
+    /**
+     * @param $string_to_sanitise
+     * @return mixed|string
+     */
     public function sanitiseString($string_to_sanitise)
     {
         $sanitised_string = '';
@@ -31,6 +41,10 @@ class Validator
         return $sanitised_string;
     }
 
+    /**
+     * @param $email_to_sanitise
+     * @return mixed|string
+     */
     public function sanitiseEmail($email_to_sanitise)
     {
         $cleaned_string = '';

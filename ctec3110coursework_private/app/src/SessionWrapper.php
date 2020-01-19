@@ -6,11 +6,20 @@ namespace M2MAPP;
 
 class SessionWrapper
 {
-    public function __construct() { }
+    public function __construct()
+    {
 
-    public function __destruct() {
     }
 
+    public function __destruct()
+    {
+    }
+
+    /**
+     * @param $session_key
+     * @param $session_value_to_set
+     * @return bool
+     */
     public function setSessionVar($session_key, $session_value_to_set)
     {
         $session_value_set_successfully = false;
@@ -23,6 +32,10 @@ class SessionWrapper
         return $session_value_set_successfully;
     }
 
+    /**
+     * @param $session_key
+     * @return bool|mixed
+     */
     public function getSessionVar($session_key)
     {
         $session_value = false;
@@ -33,6 +46,10 @@ class SessionWrapper
         return $session_value;
     }
 
+    /**
+     * @param $session_key
+     * @return bool
+     */
     public function unsetSessionVar($session_key)
     {
         $unset_session = false;

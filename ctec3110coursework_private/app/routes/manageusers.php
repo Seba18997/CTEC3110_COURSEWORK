@@ -4,7 +4,11 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
 $app->post(
-    '/manageusers',
+/**
+ * @param Request $request
+ * @param Response $response
+ * @return mixed
+ */ '/manageusers',
     function(Request $request, Response $response) use ($app)
     {
 
@@ -39,6 +43,10 @@ $app->post(
 
     })->setName('manageusers');
 
+/**
+ * @param $app
+ * @return mixed
+ */
 function getUsers($app)
 {
     $users_model = $app->getContainer()->get('UsersModel');

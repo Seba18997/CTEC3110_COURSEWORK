@@ -3,7 +3,11 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-$app->post('/updateuserverification',
+$app->post(/**
+ * @param Request $request
+ * @param Response $response
+ * @return mixed
+ */ '/updateuserverification',
     function(Request $request, Response $response) use ($app)
     {
         $tainted_params = $request->getParsedBody();
@@ -17,7 +21,7 @@ $app->post('/updateuserverification',
         $sign_out_form_visibility = ifSetUsername($app)['sign_out_form_visibility'];
         $role = ifSetUsername($app)['role'];
 
-        if($outcome == true ) {
+        if ($outcome == true ) {
 
             $user_id = intval($tainted_params['changes']);
             $role_changes = changeRoleDB($user_id, $app);
@@ -38,9 +42,7 @@ $app->post('/updateuserverification',
                      'sign_out_form' => $sign_out_form_visibility,
                      'back_button_visibility' => 'none',
                  ]);
-         }
-         else
-         {
+         } else {
              $this->get('logger')->info("User (".$username.") provided correct credentials during logging in.");
              return $this->view->render($response,
                  'user_changed_failure.html.twig',
@@ -62,6 +64,11 @@ $app->post('/updateuserverification',
 
     })->setName('updateuserverification');
 
+/**
+ * @param $user_id
+ * @param $app
+ * @return array
+ */
 function changeRoleDB($user_id, $app)
 {
     $theuserid = $user_id - 1;
@@ -80,12 +87,9 @@ function changeRoleDB($user_id, $app)
     $user_role = $users_data[$theuserid]['role'];
     $resultx = [];
 
-    if ($user_role == 'user')
-    {
+    if ($user_role == 'user') {
         $resultx['desired_role'] = 'admin';
-    }
-    else if($user_role == 'admin')
-    {
+    } elseif ($user_role == 'admin') {
         $resultx['desired_role'] = 'user';
     }
 
