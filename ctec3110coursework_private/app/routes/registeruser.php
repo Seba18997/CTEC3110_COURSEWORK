@@ -200,3 +200,8 @@ function passwordCheck($password)
 
     return $error;
 }
+
+function setAIFromOne(){
+
+
+}

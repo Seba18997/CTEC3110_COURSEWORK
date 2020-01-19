@@ -76,9 +76,18 @@ class SQLQueries
     /**
      * @return string
      */
-    public function setAIFromOne()
+    public function setAIFromOneM()
     {
         $query_string = "ALTER TABLE messages AUTO_INCREMENT = 1;";
+        return $query_string;
+    }
+
+    /**
+     * @return string
+     */
+    public function setAIFromOneR()
+    {
+        $query_string = "ALTER TABLE user_data AUTO_INCREMENT = 1;";
         return $query_string;
     }
 

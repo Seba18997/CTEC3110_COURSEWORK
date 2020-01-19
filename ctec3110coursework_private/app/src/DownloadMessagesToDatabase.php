@@ -147,7 +147,7 @@ class DownloadMessagesToDatabase
 
     public function prepareDatabase(){
 
-        $sql_set_auto_increment = $this->sql_queries->setAIFromOne();
+        $sql_set_auto_increment = $this->sql_queries->setAIFromOneM();
 
         $sql_delete_previous_messages = $this->sql_queries->deleteMessages(($this->message_counter) - 1);
 
