@@ -95,7 +95,7 @@ function changeRole($user_id, $app)
     $user_name = $users_data[$theuserid]['username'];
     $resultx = [];
 
-    if (!empty($user_role) && $user_role == 'user')
+    if ($user_role == 'user')
     {
         $resultx['user_id'] = $user_id;
         $resultx['user_name'] = $user_name;
@@ -103,7 +103,7 @@ function changeRole($user_id, $app)
         $resultx['action'] = 'promote';
         $resultx['desired_role'] = 'admin';
     }
-    else if(!empty($user_role) && $user_role == 'admin')
+    else if($user_role == 'admin')
     {
         $resultx['user_id'] = $user_id;
         $resultx['user_name'] = $user_name;

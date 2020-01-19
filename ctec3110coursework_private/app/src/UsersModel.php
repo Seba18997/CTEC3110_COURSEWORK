@@ -101,19 +101,19 @@ class UsersModel
     }
 */
 
-    public function changeUserRole($role, $userid)
+    public function changeUserRole($desiredrole, $userid)
     {
-        $query_string = $this->sql_queries->updateUserRole();
+        $query_string_change = $this->sql_queries->updateUserRole();
 
         $this->makeConnection();
 
         $query_parameters =
-            array(':role' => $role,
+            array(':role' => $desiredrole,
                 ':id' => $userid);
 
-        if(!empty($userid) && !empty($role))
+        if(!empty($userid) && !empty($desiredrole))
         {
-            $this->database_wrapper->safeQuery($query_string, $query_parameters);
+            $this->database_wrapper->safeQuery($query_string_change, $query_parameters);
             return true;
         }
         else
