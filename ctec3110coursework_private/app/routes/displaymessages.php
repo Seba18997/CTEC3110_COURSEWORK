@@ -12,8 +12,8 @@ $app->post(
         $username = ifSetUsername($app)['username'];
         $sign_out_form_visibility = ifSetUsername($app)['sign_out_form_visibility'];
 
-        $messages_data = retrieveMessages($app)['retrieved_messages'];
         $counter = downloadMessages($app)['counter'];
+        $messages_data = retrieveMessages($app)['retrieved_messages'];
 
         $this->get('logger')->info($username. ": Messages content downloaded from M2M server to database and then presented on a website.");
 

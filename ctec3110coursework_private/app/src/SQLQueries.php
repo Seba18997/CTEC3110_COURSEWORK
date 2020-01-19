@@ -121,7 +121,7 @@ class SQLQueries
 
     public function updateUserRole(){
         $query_string =  "UPDATE user_data " ;
-        $query_string .= "SET role = CASE WHEN :role IS NOT NULL AND LENGTH(:role) > 0 THEN :role ELSE role END " ;
+        $query_string .= "SET role = :role " ;
         $query_string .= "WHERE auto_id = :id;";
         return $query_string;
     }

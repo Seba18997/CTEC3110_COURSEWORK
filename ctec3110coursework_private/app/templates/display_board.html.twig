@@ -1,13 +1,12 @@
 {% extends 'banner.html.twig' %}
 {% block content %}
-  <br/>
   <div class="alert alert-light" role="alert">
     <h4 class="alert-heading">How to change state of particular switch?</h4>
     <p>To change it, send a SMS message with the following content:</p>
     <p>(name of switch):(changed state);id:(group id);</p>
     <p>FOR EXAMPLE: switch1:on;fan:backward;keypad:99;id:<b>19-3110-AZ</b>;</p>
   </div>
-  <div class="table-responsive table-bordered table-hover">
+  <div class="table-responsive-sm table-hover">
   <table class="table">
       <tr><td><b>State of Switch 1:</b> </td><td>{{ switch1 }}</td></tr>
       <tr><td><b>State of Switch 2:</b> </td><td>{{ switch2 }}</td></tr>

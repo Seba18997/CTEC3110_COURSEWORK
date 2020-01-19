@@ -19,7 +19,7 @@ $app->post('/updateuserverification',
         $role = ifSetUsername($app)['role'];
 
         if($outcome == true ) {
-             $this->get('logger')->info("User (".$cleaned_username.") provided invalid credentials during logging in.");
+             $this->get('logger')->info("User provided invalid credentials during logging in.");
              return $this->view->render($response,
                  'user_changed_success.html.twig',
                  [
