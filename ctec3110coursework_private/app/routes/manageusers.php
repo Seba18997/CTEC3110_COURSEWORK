@@ -15,7 +15,7 @@ $app->post(
         $users_data = getUsers($app)['retrieved_users_data'];
         $counter = getUsers($app)['amount_of_users'];
 
-        $this->get('logger')->info("Users content downloaded from M2M server to database and then presented on a website.");
+        $this->get('logger')->info($username.": Users content downloaded from M2M server to database and then presented on a website.");
 
         return $this->view->render($response,
             'manage_users.html.twig',

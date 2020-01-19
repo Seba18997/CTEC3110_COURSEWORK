@@ -61,7 +61,6 @@ class UsersModel
                 $users_data[$x]['email'] = $row['email'];
                 $users_data[$x]['role'] = $row['role'];
                 $users_data[$x]['date'] = strval($row['timestamp']);
-                
 
                 $x++;
             }

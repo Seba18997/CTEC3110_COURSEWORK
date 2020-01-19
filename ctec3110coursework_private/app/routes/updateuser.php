@@ -17,9 +17,8 @@ $app->post('/updateuser',
         if ($result == true && $session_check == true)
         {
             $changes = $request->getParsedBody();
-            var_dump($changes);
-            $role_changes = changeRole($changes['id_db'], $app);
-
+            $user_id = intval($changes['id']);
+            $role_changes = changeRole($user_id, $app);
             $this->get('logger')->info("Admin (".$username.") changes role of ".$role_changes['user_name']." to ".$role_changes['desired_role']);
             return $this->view->render($response,
                 'user_changed.html.twig',
@@ -87,6 +86,7 @@ $app->post('/updateuser',
 
 function changeRole($user_id, $app)
 {
+    $theuserid = $user_id - 1;
     $users_model = $app->getContainer()->get('UsersModel');
     $database_wrapper = $app->getContainer()->get('DatabaseWrapper');
     $sql_queries = $app->getContainer()->get('SQLQueries');
@@ -99,8 +99,8 @@ function changeRole($user_id, $app)
     $users_model->setDatabaseWrapper($database_wrapper);
 
     $users_data = getUsers($app)['retrieved_users_data'];
-    $user_role = $users_data[$user_id]['role'];
-    $user_name = $users_data[$user_id]['username'];
+    $user_role = $users_data[$theuserid]['role'];
+    $user_name = $users_data[$theuserid]['username'];
     $resultx = [];
 
     if (!empty($user_role) && $user_role == 'user')
@@ -120,7 +120,7 @@ function changeRole($user_id, $app)
         $resultx['desired_role'] = 'user';
     }
 
-    $resultx['final_change'] = $users_model->changeUserRole($resultx['desired_role'], $user_id);
+    $resultx['final_change'] = $users_model->changeUserRole($resultx['desired_role'], $theuserid);
 
     return $resultx;
 }
