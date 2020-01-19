@@ -23,7 +23,9 @@ $app->post(
 
         $counter = downloadMessages($app)['counter'];
 
-        $this->get('logger')->info("Messages content downloaded from M2M server to database and then presented on a website.");
+        $this->get('logger')->info
+        ("Messages content downloaded from M2M server to database and then presented on a website.");
+
 
         return $this->view->render($response,
             'display_messages.html.twig',
@@ -47,17 +49,34 @@ $app->post(
     })->setName('displaymessages');
 
 
+/**
+ * @param $app
+ * @return mixed
+ */
 function setDBWrapper($app){
     return $app->getContainer()->get('DatabaseWrapper');
 }
 
+/**
+ * @param $app
+ * @return mixed
+ */
 function setQueries($app){
     return $app->getContainer()->get('SQLQueries');
 }
 
+/**
+ * @param $app
+ * @return mixed
+ */
 function setSettingsFile($app){
     return $app->getContainer()->get('settings');
 }
+
+/**
+ * @param $app
+ * @return mixed
+ */
 
 function downloadMessages($app)
 {

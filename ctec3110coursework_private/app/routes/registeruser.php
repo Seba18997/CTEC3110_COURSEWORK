@@ -5,6 +5,11 @@ use Slim\Http\Response;
 use Doctrine\DBAL\DriverManager;
 
 $app->post(
+/**
+ * @param Request $request
+ * @param Response $response
+ * @return mixed
+ */
     '/registeruser',
     function(Request $request, Response $response) use ($app)
     {
@@ -19,8 +24,7 @@ $app->post(
         $username_error = usernameCheck($app, $tainted_parameters['username']);
         $password_error = passwordCheck($app, $tainted_parameters['password']);
 
-        if($username_count == 0 && $username_error == false && $password_error == false)
-        {
+        if($username_count == 0 && $username_error == false && $password_error == false) {
             $this->get('logger')->info("New user successfully registered: " .$cleaned_parameters['sanitised_username']);
             storeUserDetails($app, $cleaned_parameters, $hashed_password);
             return $this->view->render($response,
@@ -45,9 +49,7 @@ $app->post(
                     'action4' => 'login',
                 ]);
 
-        }
-        else
-        {
+        } else {
             $this->get('logger')->info("Registration process failed because of not meeting minimal requirements of username/password.");
             if($username_count !== 0) {
                 $username_duplicate = 'Your username already exists in our database.';
@@ -104,6 +106,11 @@ function storeUserDetails($app, array $cleaned_parameters, string $hashed_passwo
     return $store_result;
 }
 
+/**
+ * @param $app
+ * @param array $cleaned_parameters
+ * @return mixed
+ */
 function checkDuplicateUsername($app, array $cleaned_parameters)
 {
 
@@ -121,6 +128,11 @@ function checkDuplicateUsername($app, array $cleaned_parameters)
     return $username_count;
 }
 
+/**
+ * @param $app
+ * @param $tainted_parameters
+ * @return array
+ */
 function cleanupParameters($app, $tainted_parameters)
 {
     $cleaned_parameters = [];
@@ -157,36 +169,40 @@ function hash_password($app, $password_to_hash): string
     return $hashed_password;
 }
 
+/**
+ * @param $app
+ * @param $username
+ * @return bool|string
+ */
 function usernameCheck($app, $username)
 {
     $error = false;
 
-    if((strlen($username) <= 4) || (strlen($username) >= 15))
-    {
+    if((strlen($username) <= 4) || (strlen($username) >= 15)) {
         $error = 'Your username must be at least 4 and maximum 15 characters long.';
-    }
-    elseif(ctype_alnum($username)==false)
-    {
+    } elseif(ctype_alnum($username)==false) {
         $error = 'Your username must contain only letters and digits.';
     }
 
     return $error;
 }
 
+/**
+ * @param $app
+ * @param $password
+ * @return bool|string
+ */
 function passwordCheck($app, $password)
 {
     $error = false;
 
     if ((strlen($password)) <= '8') {
         $error = "Your password must contain at least 8 characters.";
-    }
-    elseif(!preg_match("#[0-9]+#",$password)) {
+    } elseif(!preg_match("#[0-9]+#",$password)) {
         $error = "Your password must contain at least 1 number.";
-    }
-    elseif(!preg_match("#[A-Z]+#",$password)) {
+    } elseif(!preg_match("#[A-Z]+#",$password)) {
         $error = "Your password must contain at least 1 capital letter.";
-    }
-    elseif(!preg_match("#[a-z]+#",$password)) {
+    } elseif(!preg_match("#[a-z]+#",$password)) {
         $error = "Your password must contain at least 1 lowercase letter.";
     }
 

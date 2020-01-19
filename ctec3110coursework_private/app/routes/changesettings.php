@@ -64,6 +64,11 @@ $app->post(
 
     })->setName('changesettings');
 
+/**
+ * @param $app
+ * @return mixed
+ */
+
 function changeSettings($app)
 {
 

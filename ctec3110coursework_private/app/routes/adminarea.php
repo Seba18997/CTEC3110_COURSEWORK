@@ -4,7 +4,13 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
 
-$app->get('/adminarea',
+$app->get(/**
+ * @param Request $request
+ * @param Response $response
+ * @return Response
+ */
+
+    '/adminarea',
     function(Request $request, Response $response) use ($app)
     {
         $isloggedin = ifSetUsername($app)['introduction'];
@@ -46,6 +52,10 @@ $app->get('/adminarea',
     })->setName('adminarea');
 
 
+/**
+ * @param $app
+ * @return bool
+ */
 function sessionCheckAdmin($app)
 {
     $session_wrapper = $app->getContainer()->get('SessionWrapper');

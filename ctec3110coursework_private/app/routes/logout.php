@@ -20,6 +20,10 @@ $app->post(
 
     })->setName('logout');
 
+/**
+ * @param $app
+ */
+
 function unsetSession($app)
 {
     $session_wrapper = $app->getContainer()->get('SessionWrapper');

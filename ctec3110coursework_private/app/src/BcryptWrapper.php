@@ -9,6 +9,10 @@ class BcryptWrapper
 
     public function __destruct(){}
 
+    /**
+     * @param $string_to_hash
+     * @return bool|string
+     */
     public function createHashedPassword($string_to_hash)
     {
         $password_to_hash = $string_to_hash;
@@ -21,6 +25,11 @@ class BcryptWrapper
         return $bcrypt_hashed_password;
     }
 
+    /**
+     * @param $string_to_check
+     * @param $stored_user_password_hash
+     * @return bool
+     */
     public function authenticatePassword($string_to_check, $stored_user_password_hash)
     {
         $user_authenticated = false;

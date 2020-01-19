@@ -9,12 +9,10 @@ $app->post(
     {
         $session_check = sessionCheckAdmin($app);
 
-        if($session_check == false)
-        {
+        if($session_check == false) {
             $response = $response->withredirect(LANDING_PAGE);
             return $response;
-        }
-        else {
+        } else {
             $settings = $request->getParsedBody();
             $settingsa = cleanupArray($app, $settings);
 
@@ -48,6 +46,11 @@ $app->post(
         }
     })->setName('updatesettings');
 
+/**
+ * @param $app
+ * @param $final_settings
+ * @return mixed
+ */
 function updateSettings($app, $final_settings)
 {
 
@@ -70,6 +73,11 @@ function updateSettings($app, $final_settings)
 
 }
 
+/**
+ * @param $app
+ * @param $tainted_array
+ * @return mixed
+ */
 function cleanupArray($app, $tainted_array)
 {
 

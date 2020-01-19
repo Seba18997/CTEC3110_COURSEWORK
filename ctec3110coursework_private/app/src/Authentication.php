@@ -18,21 +18,34 @@ class Authentication
     {
     }
 
+    /**
+     * @param $database_wrapper
+     */
     public function setDatabaseWrapper($database_wrapper)
     {
         $this->database_wrapper = $database_wrapper;
     }
 
+    /**
+     * @param $database_connection_settings
+     */
     public function setDatabaseConnectionSettings($database_connection_settings)
     {
         $this->database_connection_settings = $database_connection_settings;
     }
 
+    /**
+     * @param $sql_queries
+     */
     public function setSqlQueries($sql_queries)
     {
         $this->sql_queries = $sql_queries;
     }
 
+    /**
+     * @param $username
+     * @return mixed
+     */
     public function getParamsDb($username)
     {
         $query_string = $this->sql_queries->getUsernamePasswordRole();

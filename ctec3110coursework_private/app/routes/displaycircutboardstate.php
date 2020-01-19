@@ -58,6 +58,11 @@ $app->post(
     })->setName('displaycircuitboard');
 
 
+/**
+ * @param $app
+ * @return mixed
+ */
+
 function checkIfSwitchStatesChangedandDisplay($app)
 {
 
