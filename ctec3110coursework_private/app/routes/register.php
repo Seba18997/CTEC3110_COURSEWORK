@@ -3,12 +3,14 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-$app->post(
 /**
  * @param Request $request
  * @param Response $response
  * @return mixed
- */ '/register',
+ */
+
+$app->post(
+ '/register',
     function(Request $request, Response $response) use ($app)
     {
         $result = sessionChecker($app);

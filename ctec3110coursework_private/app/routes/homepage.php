@@ -3,6 +3,12 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
+/**
+ * @param Request $request
+ * @param Response $response
+ * @return mixed
+ */
+
 $app->get('/', function(Request $request, Response $response) use ($app)
 {
     $isloggedin = ifSetUsername($app)['introduction'];
