@@ -18,11 +18,10 @@ $app->post('/updateuserverification',
         $username = ifSetUsername($app)['username'];
         $sign_out_form_visibility = ifSetUsername($app)['sign_out_form_visibility'];
 
-        if ($outcome == true) {
+        $user_id = intval($tainted_params['changes']);
+        $role_changes = changeRoleDB($user_id, $app);
 
-            $user_id = intval($tainted_params['changes']);
-            $role_changes = changeRoleDB($user_id, $app);
-             $this->get('logger')->info("User provided invalid credentials during logging in.");
+        if ($outcome == true) {
              return $this->view->render($response,
                  'user_changed_success.html.twig',
                  [
@@ -40,7 +39,6 @@ $app->post('/updateuserverification',
                      'back_button_visibility' => 'block',
                  ]);
          } else {
-             $this->get('logger')->info("User (".$username.") provided correct credentials during logging in.");
              return $this->view->render($response,
                  'user_changed_failure.html.twig',
                  [

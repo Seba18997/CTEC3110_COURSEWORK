@@ -1,10 +1,11 @@
 {% extends 'banner_reg.html.twig' %}
 {% block content %}
+    <br/>
     <div class="d-flex justify-content-sm-center">
         <div class="alert alert-success" role="alert">
             <h4 class="alert-heading">Well Done!</h4>
             <p>You created new account <b><u>{{ username }}</u></b></p>
-            <p>Hash of entered password: <b><u>{{ hashed_password }}</u></b></p>
+            <p>Hash of entered password: <b><u>{{ hashed_password }}</u></b> (only for the purpose of the application)</p>
             <p>Entered email: <b><u>{{ email }}</u></b></p>
             <form action="{{ action4 }}" method={{ method }}>
                 <button type="submit" class="btn btn-success" value="messages">Go to Login page to access content

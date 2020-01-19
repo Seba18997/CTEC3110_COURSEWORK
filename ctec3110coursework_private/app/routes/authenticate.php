@@ -26,11 +26,8 @@ $app->post('/authenticate',
         } else {
             if ($posted_data['action'] == 'settings_changed') {
                 $settingsa = cleanupArray($app, $posted_data);
-
                 updateSettings($app, $settingsa);
-
                 $this->get('logger')->info("Admin (" . $username . ") changed settings successfully.");
-
                 return $this->view->render($response,
                     'settings_changed.html.twig',
                     [
@@ -54,8 +51,7 @@ $app->post('/authenticate',
             } else if ($posted_data['action'] == 'users_changed') {
                 $user_id = intval($posted_data['id']);
                 $role_changes = changeRole($user_id, $app);
-                $this->get('logger')->info("Admin (".$username.") changes role of ".$role_changes['user_name']." to ".$role_changes['desired_role']);
-
+                $this->get('logger')->info("Admin (".$username.") successfully changed role of ".$role_changes['user_name']." to ".$role_changes['desired_role'].".");
                 return $this->view->render($response,
                     'user_changed.html.twig',
                     [
