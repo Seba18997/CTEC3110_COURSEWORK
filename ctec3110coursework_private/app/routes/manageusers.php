@@ -28,7 +28,7 @@ $app->post(
                 'username' => $username,
                 'page_heading_2' => ' / Manage Users ',
                 'page_title' => APP_NAME.' | Manage Users',
-                'action' => 'updateuser',
+                'action' => 'authenticate',
                 'action3' => 'logout',
                 'method' => 'post',
                 'users_data' => $users_data,

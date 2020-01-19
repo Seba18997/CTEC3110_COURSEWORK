@@ -50,26 +50,3 @@ $app->post(
         }
     })->setName('updatesettings');
 
-function updateSettings($app, $final_settings)
-{
-    $settings_model = $app->getContainer()->get('SettingsModel');
-    $database_wrapper = $app->getContainer()->get('DatabaseWrapper');
-    $sql_queries = $app->getContainer()->get('SQLQueries');
-    $settings = $app->getContainer()->get('settings');
-    $database_connection_settings = $settings['pdo_settings'];
-
-    $settings_model->setSqlQueries($sql_queries);
-    $settings_model->setDatabaseConnectionSettings($database_connection_settings);
-    $settings_model->setDatabaseWrapper($database_wrapper);
-
-    $settings = $settings_model->updateSettings($final_settings);
-
-    return $settings;
-}
-
-function cleanupArray($app, $tainted_array)
-{
-    $validator = $app->getContainer()->get('Validator');
-    $cleaned_array = $validator->sanitiseArray($tainted_array);
-    return $cleaned_array;
-}

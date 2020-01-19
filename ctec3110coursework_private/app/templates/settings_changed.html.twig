@@ -1,9 +1,15 @@
 {% extends 'banner.html.twig' %}
 {% block content %}
     <div class="d-flex justify-content-sm-center">
-        <div class="alert alert-success" role="alert">
-            <h4 class="alert-heading">Well done!</h4>
-            <p>Settings changed successfully</p>
+        <div class="alert alert-warning" role="alert">
+            <h4 class="alert-heading">Changes detected!</h4>
+            <p>To accept all changes, provide your password again below:</p>
+            <form action="{{ action5 }}" method={{ method }}>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                <input type="hidden" name="changes" id="changes" value="{{ action2 }}" />
+                <button type="submit" class="btn btn-success" value="messages">Submit changes</button>
+            </form>
+            <p>Or just go back:</p>
             <form action="{{ action4 }}" method={{ method }}>
                 <button type="submit" class="btn btn-success" value="messages">Go back to Change Settings page</button>
             </form>

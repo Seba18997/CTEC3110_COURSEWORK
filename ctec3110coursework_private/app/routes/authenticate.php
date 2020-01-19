@@ -25,7 +25,7 @@ $app->post('/authenticate',
         {
             if ($posted_data['action'] == 'settings_changed')
             {
-                $settingsa = cleanupArray($app, $posted_data['settings']);
+                $settingsa = cleanupArray($app, $posted_data);
                 updateSettings($app, $settingsa);
 
                 $this->get('logger')->info("Admin (".$username.") changed settings successfully.");
@@ -41,6 +41,8 @@ $app->post('/authenticate',
                         'page_title' => APP_NAME.' | Settings Changed',
                         'action4' => 'changesettings',
                         'action3' => 'logout',
+                        'action5' => 'updatesettingsverification',
+                        'action6' => 'changesettings',
                         'method' => 'post',
                         'is_logged_in' => $isloggedin,
                         'username' => $username,
@@ -51,8 +53,10 @@ $app->post('/authenticate',
             }
             else if ($posted_data['action'] == 'users_changed')
             {
-                //users_changed_related_functions
+                $user_id = intval($posted_data['id']);
+                $role_changes = changeRole($user_id, $app);
 
+                $this->get('logger')->info("Admin (".$username.") changes role of ".$role_changes['user_name']." to ".$role_changes['desired_role']);
                 return $this->view->render($response,
                     'user_changed.html.twig',
                     [
@@ -62,6 +66,7 @@ $app->post('/authenticate',
                         'page_heading' => APP_NAME,
                         'page_heading_2' => ' / User Changed ',
                         'page_title' => APP_NAME.' | User Changed',
+                        'action2' => $posted_data['id'],
                         'action4' => 'manageusers',
                         'action5' => 'updateuserverification',
                         'action3' => 'logout',
@@ -78,3 +83,56 @@ $app->post('/authenticate',
         }
 
     })->setName('authenticate');
+
+function changeRole($user_id, $app)
+{
+    $theuserid = $user_id - 1;
+
+    $users_data = getUsers($app)['retrieved_users_data'];
+    $user_role = $users_data[$theuserid]['role'];
+    $user_name = $users_data[$theuserid]['username'];
+    $resultx = [];
+
+    if ($user_role == 'user')
+    {
+        $resultx['user_id'] = $user_id;
+        $resultx['user_name'] = $user_name;
+        $resultx['actual_role'] = $user_role;
+        $resultx['action'] = 'promote';
+        $resultx['desired_role'] = 'admin';
+    }
+    else if($user_role == 'admin')
+    {
+        $resultx['user_id'] = $user_id;
+        $resultx['user_name'] = $user_name;
+        $resultx['actual_role'] = $user_role;
+        $resultx['action'] = 'demote';
+        $resultx['desired_role'] = 'user';
+    }
+
+    return $resultx;
+}
+
+function updateSettings($app, $final_settings)
+{
+    $settings_model = $app->getContainer()->get('SettingsModel');
+    $database_wrapper = $app->getContainer()->get('DatabaseWrapper');
+    $sql_queries = $app->getContainer()->get('SQLQueries');
+    $settings = $app->getContainer()->get('settings');
+    $database_connection_settings = $settings['pdo_settings'];
+
+    $settings_model->setSqlQueries($sql_queries);
+    $settings_model->setDatabaseConnectionSettings($database_connection_settings);
+    $settings_model->setDatabaseWrapper($database_wrapper);
+
+    $settings = $settings_model->updateSettings($final_settings);
+
+    return $settings;
+}
+
+function cleanupArray($app, $tainted_array)
+{
+    $validator = $app->getContainer()->get('Validator');
+    $cleaned_array = $validator->sanitiseArray($tainted_array);
+    return $cleaned_array;
+}

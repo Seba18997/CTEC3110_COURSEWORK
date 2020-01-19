@@ -17,6 +17,7 @@
                 <form action="{{ action }}" method={{ method }}>
                 <tr>
                     <input type="hidden" name="id" id="id" value="{{ user_data.id }}" />
+                    <input type="hidden" name="action" id="action" value="users_changed" />
                     <td>{{ user_data.id }}</td>
                     <td>{{ user_data.username }}</td>
                     <td>{{ user_data.email }}</td>

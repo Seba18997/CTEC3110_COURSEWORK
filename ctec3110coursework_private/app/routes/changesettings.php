@@ -32,7 +32,7 @@ $app->post(
                     'page_heading' => APP_NAME,
                     'page_heading_2' => ' / Change Settings ',
                     'page_title' => APP_NAME.' | Change Settings',
-                    'action' => 'updatesettings',
+                    'action' => 'authenticate',
                     'action3' => 'logout',
                     'method' => 'post',
                     'app_name' => $settings['settings']['app_name'],

@@ -7,15 +7,13 @@ $app->post('/updateuserverification',
     function(Request $request, Response $response) use ($app)
     {
         $tainted_params = $request->getParsedBody();
-        var_dump($tainted_params['changes']);
-        var_dump($tainted_params['password']);
+        var_dump($tainted_params);
         $outcome = compare($app, $_SESSION['password'], $tainted_params['password']);
 
 
         $isloggedin = ifSetUsername($app)['introduction'];
         $username = ifSetUsername($app)['username'];
         $sign_out_form_visibility = ifSetUsername($app)['sign_out_form_visibility'];
-        $role = ifSetUsername($app)['role'];
 
         if($outcome == true ) {
 

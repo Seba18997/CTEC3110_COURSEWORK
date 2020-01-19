@@ -12,6 +12,6 @@ require 'routes/changesettings.php';
 require 'routes/updatesettings.php';
 require 'routes/manageusers.php';
 require 'routes/logs.php';
-require 'routes/updateuser.php';
+require 'routes/updatesettingsverification.php';
 require 'routes/updateuserverification.php';
 require 'routes/authenticate.php';
