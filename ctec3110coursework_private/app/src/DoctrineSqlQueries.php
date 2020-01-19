@@ -43,7 +43,12 @@ class DoctrineSqlQueries
         return $store_result;
     }
 
-    public static function querySelectUsername($queryBuilder,  string $cleaned_username)
+    /**
+     * @param $queryBuilder
+     * @param string $cleaned_username
+     * @return mixed
+     */
+    public static function querySelectUsername($queryBuilder, string $cleaned_username)
     {
         $queryBuilder = $queryBuilder->select('user_name')
             ->from('user_data')

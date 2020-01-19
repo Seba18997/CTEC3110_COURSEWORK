@@ -11,6 +11,11 @@ class SessionWrapper
     public function __destruct() {
     }
 
+    /**
+     * @param $session_key
+     * @param $session_value_to_set
+     * @return bool
+     */
     public function setSessionVar($session_key, $session_value_to_set)
     {
         $session_value_set_successfully = false;
@@ -23,6 +28,10 @@ class SessionWrapper
         return $session_value_set_successfully;
     }
 
+    /**
+     * @param $session_key
+     * @return bool
+     */
     public function getSessionVar($session_key)
     {
         $session_value = false;
@@ -33,13 +42,16 @@ class SessionWrapper
         return $session_value;
     }
 
+    /**
+     * @param $session_key
+     * @return bool
+     */
     public function unsetSessionVar($session_key)
     {
         $unset_session = false;
         if (isset($_SESSION[$session_key])) {
             unset($_SESSION[$session_key]);
-        }
-        if (!isset($_SESSION[$session_key])) {
+        } if (!isset($_SESSION[$session_key])) {
             $unset_session = true;
         }
         return $unset_session;

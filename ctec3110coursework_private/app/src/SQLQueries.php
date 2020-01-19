@@ -8,6 +8,9 @@ class SQLQueries
 
     public function __destruct() { }
 
+    /**
+     * @return string
+     */
     public function getUsernamePasswordRole()
     {
         $query_string  = "SELECT user_name, password, role ";
@@ -16,6 +19,9 @@ class SQLQueries
         return $query_string;
     }
 
+    /**
+     * @return string
+     */
     public function getMessages()
     {
         $query_string  = "SELECT id, source, destination, date, type, message ";
@@ -25,6 +31,9 @@ class SQLQueries
         return $query_string;
     }
 
+    /**
+     * @return string
+     */
     public function getNewestMessage()
     {
         $query_string  = "SELECT message ";
@@ -35,6 +44,9 @@ class SQLQueries
         return $query_string;
     }
 
+    /**
+     * @return string
+     */
     public function getSwitchStates()
     {
         $query_string = "SELECT id, switch1, switch2, switch3, switch4, fan, heater, keypad ";
@@ -43,6 +55,10 @@ class SQLQueries
         return $query_string;
     }
 
+    /**
+     * @param $range
+     * @return string
+     */
     public function deleteMessages($range)
     {
         $query_string = "DELETE FROM messages ";
@@ -51,18 +67,27 @@ class SQLQueries
         return $query_string;
     }
 
+    /**
+     * @return string
+     */
     public function setAIFromOne()
     {
         $query_string = "ALTER TABLE messages AUTO_INCREMENT = 1;";
         return $query_string;
     }
 
+    /**
+     * @return string
+     */
     public function storeMessage()
     {
         $query_string  = 'INSERT INTO messages ( id, source, destination, date, type, message ) VALUES ( NULL, :source, :destination, :date, :type, :message );';
         return $query_string;
     }
 
+    /**
+     * @return string
+     */
     public function updateSwitchState()
     {
         $query_string =  "UPDATE switch " ;
@@ -77,6 +102,9 @@ class SQLQueries
         return $query_string;
     }
 
+    /**
+     * @return string
+     */
     public function getSettings(){
         $query_string =  'SELECT app_name, wsdl, wsdl_username, wsdl_password, wsdl_messagecounter, db_host, db_name, db_port, db_user, db_userpassword, db_charset, db_collation, doctrine_driver ';
         $query_string .= 'FROM settings ';
@@ -84,6 +112,9 @@ class SQLQueries
         return $query_string;
     }
 
+    /**
+     * @return string
+     */
     public function updateSettings(){
         $query_string =  "UPDATE settings " ;
         $query_string .= "SET app_name = CASE WHEN :app_name IS NOT NULL AND LENGTH(:app_name) > 0 THEN :app_name ELSE app_name END, " ;

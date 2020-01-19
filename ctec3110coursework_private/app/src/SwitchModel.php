@@ -29,6 +29,9 @@ class SwitchModel
         $this->sql_queries = $sql_queries;
     }
 
+    /**
+     * @return mixed
+     */
     public function getSwitchState()
     {
         $switch_states = [];
@@ -62,6 +65,10 @@ class SwitchModel
         return $final_states;
     }
 
+    /**
+     * @param array $final_state
+     * @return string
+     */
     public function updateSwitchStates($final_state=[]){
 
         $query_string = $this->sql_queries->updateSwitchState();
@@ -85,14 +92,11 @@ class SwitchModel
 
             $final = 'Switch states changed';
 
-        }
-        else if (empty($final_state))
-        {
+        } elseif (empty($final_state)) {
 
             $final =  'Array is empty.';
 
-        }
-        else {
+        } else {
 
             $final =  'Error with changing states.';
 

@@ -12,16 +12,25 @@ class MessagesModel
 
     public function __destruct(){}
 
+    /**
+     * @param $database_wrapper
+     */
     public function setDatabaseWrapper($database_wrapper)
     {
         $this->database_wrapper = $database_wrapper;
     }
 
+    /**
+     * @param $database_connection_settings
+     */
     public function setDatabaseConnectionSettings($database_connection_settings)
     {
         $this->database_connection_settings = $database_connection_settings;
     }
 
+    /**
+     * @param $sql_queries
+     */
     public function setSqlQueries($sql_queries)
     {
         $this->sql_queries = $sql_queries;
@@ -72,6 +81,9 @@ class MessagesModel
         return $messages_to_show;
     }
 
+    /**
+     * @return mixed
+     */
     public function getNewestMessageFromDB(){
 
         $query_string = $this->sql_queries->getNewestMessage();

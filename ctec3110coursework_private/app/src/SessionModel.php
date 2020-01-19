@@ -22,36 +22,57 @@ class SessionModel
 
     public function __destruct() { }
 
+    /**
+     * @return null
+     */
     public function getStorageResult()
     {
         return $this->storage_result;
     }
 
+    /**
+     * @param $username
+     */
     public function setSessionUsername($username)
     {
         $this->username = $username;
     }
 
+    /**
+     * @param $password
+     */
     public function setSessionPassword($password)
     {
         $this->password = $password;
     }
 
+    /**
+     * @param $sid
+     */
     public function setSessionId($sid)
     {
         $this->sid = $sid;
     }
 
+    /**
+     * @param $role
+     */
     public function setSessionRole($role)
     {
         $this->role = $role;
     }
 
+    /**
+     * @param $session_wrapper
+     */
     public function setSessionWrapperFile($session_wrapper)
     {
         $this->session_wrapper_file = $session_wrapper;
     }
 
+    /**
+     * @return bool
+     */
     public function storeData()
     {
         $store_result = false;

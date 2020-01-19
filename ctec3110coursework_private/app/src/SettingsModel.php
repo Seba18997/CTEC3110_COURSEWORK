@@ -39,6 +39,9 @@ class SettingsModel
 
     /* TODO: wsdl/wsdl_username/wsdl_password/wsdl_messagecounter/db_host/db_name/db_port/db_user/db_userpassword/db_charset/db_collation/doctrine_driver/app_name */
 
+    /**
+     * @return mixed
+     */
     public function getSettingsFromDB()
     {
         $settings = [];
@@ -77,6 +80,9 @@ class SettingsModel
 
     }
 
+    /**
+     * @param array $final_settings
+     */
     public function updateSettings($final_settings=[]){
 
         $query_string_update = $this->sql_queries->updateSettings();

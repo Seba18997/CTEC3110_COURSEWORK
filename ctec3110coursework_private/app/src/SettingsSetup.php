@@ -15,6 +15,9 @@ class SettingsSetup
 
     }
 
+    /**
+     * @return array
+     */
     public function databaseConnection(){
         $settings = [
                 'pdo_settings' => [
@@ -30,6 +33,9 @@ class SettingsSetup
         return $settings;
     }
 
+    /**
+     * @return mixed
+     */
     public function getSettingsFromDB(){
         $settings_model = new SettingsModel();
         $settings_model->setDatabaseWrapper(new DatabaseWrapper);

@@ -46,11 +46,19 @@ class Helper
         return substr($string, $ini, $len);
     }
 
+    /**
+     * @param array $array
+     * @return int
+     */
     public function countRowsInArray($array=[]){
         $count = count(array_filter($array, function($x) { return !empty($x); }));
         return $count;
     }
 
+    /**
+     * @param string $message_content
+     * @return mixed
+     */
     public function decodeMessage($message_content=''){
         $final_message['switch1'] = $this->getTheValue($message_content, 'switch1:', ';');
         $final_message['switch2'] = $this->getTheValue($message_content, 'switch2:', ';');
