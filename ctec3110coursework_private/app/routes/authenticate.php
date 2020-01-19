@@ -50,7 +50,6 @@ $app->post(/**
                         'method' => 'post',
                         'is_logged_in' => $isloggedin,
                         'username' => $username,
-                        'role' => $role,
                         'sign_out_form' => $sign_out_form_visibility,
                         'back_button_visibility' => 'block',
                     ]);
@@ -60,8 +59,6 @@ $app->post(/**
             {
                 $user_id = intval($posted_data['id']);
                 $role_changes = changeRole($user_id, $app);
-
-
                 $this->get('logger')->info("Admin (".$username.") changes role of ".$role_changes['user_name']." to ".$role_changes['desired_role']);
                 return $this->view->render($response,
                     'user_changed.html.twig',
@@ -70,8 +67,8 @@ $app->post(/**
                         'landing_page' => LANDING_PAGE,
                         'initial_input_box_value' => null,
                         'page_heading' => APP_NAME,
-                        'page_heading_2' => ' / User Changed ',
-                        'page_title' => APP_NAME.' | User Changed',
+                        'page_heading_2' => ' / Change User Role',
+                        'page_title' => APP_NAME.' | Change User Role',
                         'action2' => $posted_data['id'],
                         'action4' => 'manageusers',
                         'action5' => 'updateuserverification',

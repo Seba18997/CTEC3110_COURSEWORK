@@ -11,9 +11,7 @@ $app->post(/**
     function(Request $request, Response $response) use ($app)
     {
         $tainted_params = $request->getParsedBody();
-        var_dump($tainted_params);
         $outcome = compare($app, $_SESSION['password'], $tainted_params['password']);
-
 
         $isloggedin = ifSetUsername($app)['introduction'];
         $username = ifSetUsername($app)['username'];
@@ -33,12 +31,13 @@ $app->post(/**
                      'page_heading' => APP_NAME,
                      'method' => 'post',
                      'action' => 'manageusers',
-                     'page_title' => APP_NAME.' | Invalid Credentials',
-                     'page_heading_1' => 'Invalid credentials',
+                     'action3' => 'logout',
+                     'page_title' => APP_NAME.' | User Changed',
+                     'page_heading_2' => ' / User Changed',
                      'is_logged_in' => $isloggedin,
                      'username' => $username,
                      'sign_out_form' => $sign_out_form_visibility,
-                     'back_button_visibility' => 'none',
+                     'back_button_visibility' => 'block',
                  ]);
          } else {
              $this->get('logger')->info("User (".$username.") provided correct credentials during logging in.");
@@ -49,13 +48,14 @@ $app->post(/**
                      'landing_page' => LANDING_PAGE,
                      'page_heading' => APP_NAME,
                      'method' => 'post',
+                     'action3' => 'logout',
                      'action' => 'manageusers',
                      'page_title' => APP_NAME.' | Invalid Credentials',
-                     'page_heading_1' => 'Invalid credentials',
+                     'page_heading_2' => ' / Invalid credentials',
                      'is_logged_in' => $isloggedin,
                      'username' => $username,
                      'sign_out_form' => $sign_out_form_visibility,
-                     'back_button_visibility' => 'none',
+                     'back_button_visibility' => 'block',
                  ]);
          }
 
