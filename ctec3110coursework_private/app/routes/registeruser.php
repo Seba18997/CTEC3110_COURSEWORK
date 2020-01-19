@@ -172,7 +172,7 @@ function usernameCheck($username)
     $error = '';
 
     if ((strlen($username) <= 4) || (strlen($username) >= 15)) {
-        $error = 'Your username must be at least 4 and maximum 15 characters long.';
+        $error = 'Your username must be at least 5 and maximum 15 characters long.';
     } elseif (ctype_alnum($username) == false) {
         $error = 'Your username must contain only letters and digits.';
     }
