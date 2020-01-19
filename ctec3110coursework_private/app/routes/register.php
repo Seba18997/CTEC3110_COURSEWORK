@@ -17,7 +17,8 @@ $app->post(
         $isloggedin = ifSetUsername($app)['introduction'];
         $username = ifSetUsername($app)['username'];
 
-        if($result !== false) {
+        if ($result !== false)
+        {
             $this->get('logger')->info("User/Admin already logged in, registration page => home page.");
             return $this->view->render($response,
                 'valid_login.html.twig',

@@ -18,7 +18,8 @@ class SettingsSetup
     /**
      * @return array
      */
-    public function databaseConnection(){
+    public function databaseConnection()
+    {
         $settings = [
                 'pdo_settings' => [
                     'rdbms' => 'mysql',
@@ -36,7 +37,8 @@ class SettingsSetup
     /**
      * @return mixed
      */
-    public function getSettingsFromDB(){
+    public function getSettingsFromDB()
+    {
         $settings_model = new SettingsModel();
         $settings_model->setDatabaseWrapper(new DatabaseWrapper);
         $settings_model->setSqlQueries(new SQLQueries);

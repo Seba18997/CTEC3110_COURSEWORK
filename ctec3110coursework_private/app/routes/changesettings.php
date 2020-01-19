@@ -12,7 +12,8 @@ $app->post(
  */
 
     '/changesettings',
-    function (Request $request, Response $response) use ($app) {
+    function (Request $request, Response $response) use ($app)
+    {
 
         $settings = changeSettings($app);
 

@@ -23,7 +23,7 @@ $app->post(/**
         $sid = session_id();
         $user_role = $db_params['role'];
 
-        if($outcome == true) {
+        if ($outcome == true) {
             $result = doSession($app, $db_params['password'], $cleaned_username, $sid, $user_role);
         }
 
@@ -32,7 +32,7 @@ $app->post(/**
         $sign_out_form_visibility = ifSetUsername($app)['sign_out_form_visibility'];
         $role = ifSetUsername($app)['role'];
 
-        if($outcome == false ) {
+        if ($outcome == false ) {
             $this->get('logger')->info("User provided invalid credentials during logging in.");
             return $this->view->render($response,
                 'invalid_login.html.twig',
@@ -49,7 +49,7 @@ $app->post(/**
                     'sign_out_form' => $sign_out_form_visibility,
                     'back_button_visibility' => 'none',
                 ]);
-        } elseif($user_role == 'user') {
+        } elseif ($user_role == 'user') {
             $this->get('logger')->info("User provided correct credentials during logging in.");
             return $this->view->render($response,
                 'valid_login.html.twig',
@@ -128,7 +128,7 @@ function paramsFromDB($app, $username)
 
 function compare($app, $db_pass, $typed_pass)
 {
-    if($db_pass == 'Invalid_credentials') {
+    if ($db_pass == 'Invalid_credentials') {
         $passwordCheck = false;
     } else {
 
@@ -136,7 +136,7 @@ function compare($app, $db_pass, $typed_pass)
         $passwordCheck = $compare->authenticatePassword($typed_pass, $db_pass);
     }
 
-    if($passwordCheck == true) {
+    if ($passwordCheck == true) {
         $outcome = true;
     } else {
         $outcome = false;

@@ -180,7 +180,7 @@ function usernameCheck($app, $username)
 
     if((strlen($username) <= 4) || (strlen($username) >= 15)) {
         $error = 'Your username must be at least 4 and maximum 15 characters long.';
-    } elseif(ctype_alnum($username)==false) {
+    } elseif (ctype_alnum($username)==false) {
         $error = 'Your username must contain only letters and digits.';
     }
 
@@ -198,11 +198,11 @@ function passwordCheck($app, $password)
 
     if ((strlen($password)) <= '8') {
         $error = "Your password must contain at least 8 characters.";
-    } elseif(!preg_match("#[0-9]+#",$password)) {
+    } elseif (!preg_match("#[0-9]+#",$password)) {
         $error = "Your password must contain at least 1 number.";
-    } elseif(!preg_match("#[A-Z]+#",$password)) {
+    } elseif (!preg_match("#[A-Z]+#",$password)) {
         $error = "Your password must contain at least 1 capital letter.";
-    } elseif(!preg_match("#[a-z]+#",$password)) {
+    } elseif (!preg_match("#[a-z]+#",$password)) {
         $error = "Your password must contain at least 1 lowercase letter.";
     }
 

@@ -20,7 +20,9 @@ class SessionModel
         $this->session_wrapper_file = null;
     }
 
-    public function __destruct() { }
+    public function __destruct()
+    {
+    }
 
     /**
      * @return null

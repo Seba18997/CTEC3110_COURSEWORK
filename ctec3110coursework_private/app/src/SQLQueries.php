@@ -105,7 +105,8 @@ class SQLQueries
     /**
      * @return string
      */
-    public function getSettings(){
+    public function getSettings()
+    {
         $query_string =  'SELECT app_name, wsdl, wsdl_username, wsdl_password, wsdl_messagecounter, db_host, db_name, db_port, db_user, db_userpassword, db_charset, db_collation, doctrine_driver ';
         $query_string .= 'FROM settings ';
         $query_string .= 'WHERE id=1; ';
@@ -115,7 +116,8 @@ class SQLQueries
     /**
      * @return string
      */
-    public function updateSettings(){
+    public function updateSettings()
+    {
         $query_string =  "UPDATE settings " ;
         $query_string .= "SET app_name = CASE WHEN :app_name IS NOT NULL AND LENGTH(:app_name) > 0 THEN :app_name ELSE app_name END, " ;
         $query_string .= "wsdl = CASE WHEN :wsdl IS NOT NULL AND LENGTH(:wsdl) > 0 THEN :wsdl ELSE wsdl END, " ;

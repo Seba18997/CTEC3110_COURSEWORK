@@ -84,7 +84,8 @@ class MessagesModel
     /**
      * @return mixed
      */
-    public function getNewestMessageFromDB(){
+    public function getNewestMessageFromDB()
+    {
 
         $query_string = $this->sql_queries->getNewestMessage();
 

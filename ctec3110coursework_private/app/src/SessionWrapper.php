@@ -6,9 +6,12 @@ namespace M2MAPP;
 
 class SessionWrapper
 {
-    public function __construct() { }
+    public function __construct()
+    {
+    }
 
-    public function __destruct() {
+    public function __destruct()
+    {
     }
 
     /**

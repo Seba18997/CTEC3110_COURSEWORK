@@ -66,7 +66,8 @@ class DownloadMessagesToDatabase
     /**
      * @return mixed
      */
-    public function countMessagesinDB(){
+    public function countMessagesinDB()
+    {
 
         $sql_query_get_all_messages = $this->sql_queries->getMessages();
 
@@ -95,25 +96,15 @@ class DownloadMessagesToDatabase
             $helper = new Helper();
 
             for ($i=0;$i<$this->message_counter;$i++) {
-                $messages_final_result['source'][$i] =
-                    $validator->sanitiseString(
-                        $helper->mapDataFromString($message_result[$i], 'sourcemsisdn'));
+                $messages_final_result['source'][$i] = $validator->sanitiseString($helper->mapDataFromString($message_result[$i], 'sourcemsisdn'));
 
-                $messages_final_result['destination'][$i] =
-                    $validator->sanitiseString(
-                        $helper->mapDataFromString($message_result[$i], 'destinationmsisdn'));
+                $messages_final_result['destination'][$i] = $validator->sanitiseString($helper->mapDataFromString($message_result[$i], 'destinationmsisdn'));
 
-                $messages_final_result['date'][$i] =
-                    $validator->sanitiseString(
-                        $helper->mapDataFromString($message_result[$i], 'receivedtime'));
+                $messages_final_result['date'][$i] = $validator->sanitiseString($helper->mapDataFromString($message_result[$i], 'receivedtime'));
 
-                $messages_final_result['type'][$i] =
-                    $validator->sanitiseString(
-                        $helper->mapDataFromString($message_result[$i], 'bearer'));
+                $messages_final_result['type'][$i] = $validator->sanitiseString($helper->mapDataFromString($message_result[$i], 'bearer'));
 
-                $messages_final_result['message'][$i] =
-                    $validator->sanitiseString(
-                        $helper->mapDataFromString($message_result[$i], 'message'));
+                $messages_final_result['message'][$i] = $validator->sanitiseString($helper->mapDataFromString($message_result[$i], 'message'));
             }
             $this->downloaded_messages_data = $messages_final_result;
             return true;
@@ -121,7 +112,7 @@ class DownloadMessagesToDatabase
 
     public function addPreparedMessages()
     {
-          for($i=0; $i<$this->message_counter; $i++)
+          for ($i=0; $i<$this->message_counter; $i++)
           {
                 $source = $this->downloaded_messages_data['source'][$i];
                 $dest = $this->downloaded_messages_data['destination'][$i];
@@ -143,7 +134,8 @@ class DownloadMessagesToDatabase
 
     }
 
-    public function prepareDatabase(){
+    public function prepareDatabase()
+    {
 
         $sql_set_auto_increment = $this->sql_queries->setAIFromOne();
 
@@ -154,9 +146,10 @@ class DownloadMessagesToDatabase
         $this->database_wrapper->safeQuery($sql_set_auto_increment);
     }
 
-    public function performMainOperation(){
+    public function performMainOperation()
+    {
 
-        if ($this->countMessagesinDB() == 0 || $this->countMessagesinDB() < $this->message_counter){
+        if ($this->countMessagesinDB() == 0 || $this->countMessagesinDB() < $this->message_counter) {
 
             $this->prepareDatabase();
 

@@ -10,9 +10,15 @@ class SwitchModel
     private $database_connection_settings;
     private $sql_queries;
 
-    public function __construct(){}
+    public function __construct()
+    {
 
-    public function __destruct(){}
+    }
+
+    public function __destruct()
+    {
+
+    }
 
     public function setDatabaseWrapper($database_wrapper)
     {
@@ -69,7 +75,8 @@ class SwitchModel
      * @param array $final_state
      * @return string
      */
-    public function updateSwitchStates($final_state=[]){
+    public function updateSwitchStates($final_state=[])
+    {
 
         $query_string = $this->sql_queries->updateSwitchState();
 
@@ -86,7 +93,7 @@ class SwitchModel
                 ':heater'  => $final_state['heater'],
                 ':keypad'  => $final_state['keypad']);
 
-        if ($final_state['groupid'] == '19-3110-AZ' && !empty($final_state)){
+        if ($final_state['groupid'] == '19-3110-AZ' && !empty($final_state)) {
 
             $this->database_wrapper->safeQuery($query_string, $query_parameters);
 

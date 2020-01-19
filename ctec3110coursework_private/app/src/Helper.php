@@ -13,7 +13,8 @@ class Helper
      * @return \SimpleXMLElement
      */
 
-    public function convertSoapArrayToString($data){
+    public function convertSoapArrayToString($data)
+    {
         $final = simplexml_load_string($data);
         return $final;
     }
@@ -24,7 +25,8 @@ class Helper
      * @return \SimpleXMLElement
      */
 
-    public function mapDataFromString($givenstring, $tag=''){
+    public function mapDataFromString($givenstring, $tag='')
+    {
         $input = $this->convertSoapArrayToString($givenstring);
         $result = $input->$tag;
         return $result;
@@ -37,7 +39,8 @@ class Helper
      * @return bool|string
      */
 
-    public function getTheValue($string, $start, $end){
+    public function getTheValue($string, $start, $end)
+    {
         $string = ' ' . $string;
         $ini = strpos($string, $start);
         if ($ini == 0) return '';
@@ -50,7 +53,8 @@ class Helper
      * @param array $array
      * @return int
      */
-    public function countRowsInArray($array=[]){
+    public function countRowsInArray($array=[])
+    {
         $count = count(array_filter($array, function($x) { return !empty($x); }));
         return $count;
     }
@@ -59,7 +63,8 @@ class Helper
      * @param string $message_content
      * @return mixed
      */
-    public function decodeMessage($message_content=''){
+    public function decodeMessage($message_content='')
+    {
         $final_message['switch1'] = $this->getTheValue($message_content, 'switch1:', ';');
         $final_message['switch2'] = $this->getTheValue($message_content, 'switch2:', ';');
         $final_message['switch3'] = $this->getTheValue($message_content, 'switch3:', ';');
