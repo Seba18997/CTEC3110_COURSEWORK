@@ -20,16 +20,25 @@ class UsersModel
 
     }
 
+    /**
+     * @param $database_wrapper
+     */
     public function setDatabaseWrapper($database_wrapper)
     {
         $this->database_wrapper = $database_wrapper;
     }
 
+    /**
+     * @param $database_connection_settings
+     */
     public function setDatabaseConnectionSettings($database_connection_settings)
     {
         $this->database_connection_settings = $database_connection_settings;
     }
 
+    /**
+     * @param $sql_queries
+     */
     public function setSqlQueries($sql_queries)
     {
         $this->sql_queries = $sql_queries;
@@ -42,6 +51,9 @@ class UsersModel
         $this->database_wrapper->makeDatabaseConnection();
     }
 
+    /**
+     * @return mixed
+     */
     public function getUsersData()
     {
         $users_data = [];
@@ -78,31 +90,6 @@ class UsersModel
 
         return $final_user_data;
     }
-
-    /*
-    public function changeUserData($final_changes=[])
-    {
-        $query_string = $this->sql_queries->updateUserData();
-
-        $this->makeConnection();
-
-        $query_parameters =
-            array(':user_name' => $final_changes['username'],
-                ':email' => $final_changes['email'],
-                ':role' => $final_changes['role'],
-                ':id' => $final_changes['id']);
-
-        if(!empty($final_changes['id']))
-        {
-            $this->database_wrapper->safeQuery($query_string, $query_parameters);
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-*/
 
     /**
      * @param $desiredrole
