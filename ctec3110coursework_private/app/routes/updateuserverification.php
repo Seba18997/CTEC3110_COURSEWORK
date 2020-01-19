@@ -3,14 +3,13 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-
 $app->post('/updateuserverification',
     function(Request $request, Response $response) use ($app)
     {
-        $tainted_password = $request->getParsedBody();
-        var_dump($_SESSION['password']);
-        var_dump($tainted_password['password']);
-        $outcome = compare($app, $_SESSION['password'], $tainted_password['password']);
+        $tainted_params = $request->getParsedBody();
+        var_dump($tainted_params['changes']);
+        var_dump($tainted_params['password']);
+        $outcome = compare($app, $_SESSION['password'], $tainted_params['password']);
 
 
         $isloggedin = ifSetUsername($app)['introduction'];
@@ -19,7 +18,11 @@ $app->post('/updateuserverification',
         $role = ifSetUsername($app)['role'];
 
         if($outcome == true ) {
-             $this->get('logger')->info("User (".$cleaned_username.") provided invalid credentials during logging in.");
+
+            $user_id = intval($tainted_params['changes']);
+            $role_changes = changeRoleDB($user_id, $app);
+
+             $this->get('logger')->info("User provided invalid credentials during logging in.");
              return $this->view->render($response,
                  'user_changed_success.html.twig',
                  [
@@ -27,7 +30,7 @@ $app->post('/updateuserverification',
                      'landing_page' => LANDING_PAGE,
                      'page_heading' => APP_NAME,
                      'method' => 'post',
-                     'action' => '',
+                     'action' => 'manageusers',
                      'page_title' => APP_NAME.' | Invalid Credentials',
                      'page_heading_1' => 'Invalid credentials',
                      'is_logged_in' => $isloggedin,
@@ -36,7 +39,7 @@ $app->post('/updateuserverification',
                      'back_button_visibility' => 'none',
                  ]);
          }
-         elseif($user_role == false)
+         else
          {
              $this->get('logger')->info("User (".$username.") provided correct credentials during logging in.");
              return $this->view->render($response,
@@ -55,12 +58,38 @@ $app->post('/updateuserverification',
                      'back_button_visibility' => 'none',
                  ]);
          }
-         else
-         {
-             $this->get('logger')->info("Admin provided correct credentials during logging in.");
-             $response = $response->withredirect(LANDING_PAGE.'/adminarea');
-             return $response;
-         }
 
 
     })->setName('updateuserverification');
+
+function changeRoleDB($user_id, $app)
+{
+    $theuserid = $user_id - 1;
+    $users_model = $app->getContainer()->get('UsersModel');
+    $database_wrapper = $app->getContainer()->get('DatabaseWrapper');
+    $sql_queries = $app->getContainer()->get('SQLQueries');
+    $settings = $app->getContainer()->get('settings');
+
+    $database_connection_settings = $settings['pdo_settings'];
+
+    $users_model->setSqlQueries($sql_queries);
+    $users_model->setDatabaseConnectionSettings($database_connection_settings);
+    $users_model->setDatabaseWrapper($database_wrapper);
+
+    $users_data = getUsers($app)['retrieved_users_data'];
+    $user_role = $users_data[$theuserid]['role'];
+    $resultx = [];
+
+    if ($user_role == 'user')
+    {
+        $resultx['desired_role'] = 'admin';
+    }
+    else if($user_role == 'admin')
+    {
+        $resultx['desired_role'] = 'user';
+    }
+
+    $resultx = $users_model->changeUserRole($resultx['desired_role'], $user_id);
+
+    return $resultx;
+}

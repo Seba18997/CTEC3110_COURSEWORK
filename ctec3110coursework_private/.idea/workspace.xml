@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cd8b0734-3c37-4802-b479-f083ad4a06c5" name="Default Changelist" comment="" />
+    <list default="true" id="cd8b0734-3c37-4802-b479-f083ad4a06c5" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routes/updateuser.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes/updateuser.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routes/updateuserverification.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes/updateuserverification.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/user_changed.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/user_changed.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/user_changed_success.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/user_changed_success.html.twig" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,6 +57,7 @@
       <workItem from="1576754869946" duration="660000" />
       <workItem from="1576959069245" duration="249000" />
       <workItem from="1578066061099" duration="41000" />
+      <workItem from="1579445879521" duration="8218000" />
     </task>
     <servers />
   </component>
