@@ -10,9 +10,15 @@ class UsersModel
     private $database_connection_settings;
     private $sql_queries;
 
-    public function __construct(){}
+    public function __construct()
+    {
 
-    public function __destruct(){}
+    }
+
+    public function __destruct()
+    {
+
+    }
 
     public function setDatabaseWrapper($database_wrapper)
     {
@@ -48,8 +54,7 @@ class UsersModel
 
         $number_of_data_sets = $this->database_wrapper->countRows();
 
-        if ($number_of_data_sets >= 1)
-        {
+        if ($number_of_data_sets >= 1) {
             $x = 0;
 
             while ($x < $number_of_data_sets ) {
@@ -64,9 +69,7 @@ class UsersModel
 
                 $x++;
             }
-        }
-        else
-        {
+        } else {
             $final_user_data[0] = 'Something is wrong';
         }
 
@@ -101,6 +104,11 @@ class UsersModel
     }
 */
 
+    /**
+     * @param $desiredrole
+     * @param $userid
+     * @return bool
+     */
     public function changeUserRole($desiredrole, $userid)
     {
         $query_string_change = $this->sql_queries->updateUserRole();
@@ -111,13 +119,10 @@ class UsersModel
             array(':role' => $desiredrole,
                 ':id' => $userid);
 
-        if(!empty($userid) && !empty($desiredrole))
-        {
+        if (!empty($userid) && !empty($desiredrole)) {
             $this->database_wrapper->safeQuery($query_string_change, $query_parameters);
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
 

@@ -4,7 +4,11 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
 $app->post(
-    '/register',
+/**
+ * @param Request $request
+ * @param Response $response
+ * @return mixed
+ */ '/register',
     function(Request $request, Response $response) use ($app)
     {
         $result = sessionChecker($app);
@@ -30,9 +34,7 @@ $app->post(
                     'sign_out_form' => 'block',
                     'back_button_visibility' => 'none',
                 ]);
-        }
-        else
-        {
+        } else {
             $this->get('logger')->info("Unregistered user entered registration page.");
             return $this->view->render($response,
                 'register.html.twig',
@@ -52,6 +54,10 @@ $app->post(
         }
     })->setName('register');
 
+/**
+ * @param $app
+ * @return mixed
+ */
 function sessionChecker($app)
 {
     $session_wrapper = $app->getContainer()->get('SessionWrapper');

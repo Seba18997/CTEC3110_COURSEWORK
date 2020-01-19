@@ -8,25 +8,43 @@ class MessagesModel
     private $database_connection_settings;
     private $sql_queries;
 
-    public function __construct(){}
+    public function __construct()
+    {
 
-    public function __destruct(){}
+    }
 
+    public function __destruct()
+    {
+
+    }
+
+    /**
+     * @param $database_wrapper
+     */
     public function setDatabaseWrapper($database_wrapper)
     {
         $this->database_wrapper = $database_wrapper;
     }
 
+    /**
+     * @param $database_connection_settings
+     */
     public function setDatabaseConnectionSettings($database_connection_settings)
     {
         $this->database_connection_settings = $database_connection_settings;
     }
 
+    /**
+     * @param $sql_queries
+     */
     public function setSqlQueries($sql_queries)
     {
         $this->sql_queries = $sql_queries;
     }
 
+    /**
+     * @return array
+     */
     public function getMessagesFromDB()
     {
         $messages_to_show = [];
@@ -41,8 +59,7 @@ class MessagesModel
 
         $number_of_data_sets = $this->database_wrapper->countRows();
 
-        if ($number_of_data_sets >= 0)
-        {
+        if ($number_of_data_sets >= 0) {
             $x = 0;
             
             while ($x < $number_of_data_sets ) {
@@ -58,9 +75,7 @@ class MessagesModel
 
                 $x++;
             }
-        }
-        else
-        {
+        } else {
             $messages_to_show[0] = 'No messages found or there are 0 messages in the database.';
         }
 
@@ -70,7 +85,11 @@ class MessagesModel
         return $messages_to_show;
     }
 
-    public function getNewestMessageFromDB(){
+    /**
+     * @return mixed
+     */
+    public function getNewestMessageFromDB()
+    {
 
         $query_string = $this->sql_queries->getNewestMessage();
 

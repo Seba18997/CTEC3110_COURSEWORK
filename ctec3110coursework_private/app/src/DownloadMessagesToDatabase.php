@@ -20,35 +20,55 @@ class DownloadMessagesToDatabase
             $this->soap_response = NULL;
     }
 
-    public function __destruct(){
+    public function __destruct()
+    {
     }
 
+    /**
+     * @param $database_wrapper
+     */
     public function setDatabaseWrapper($database_wrapper)
     {
         $this->database_wrapper = $database_wrapper;
     }
 
+    /**
+     * @param $database_connection_settings
+     */
     public function setDatabaseConnectionSettings($database_connection_settings)
     {
         $this->database_connection_settings = $database_connection_settings;
     }
 
+    /**
+     * @param $sql_queries
+     */
     public function setSqlQueries($sql_queries)
     {
         $this->sql_queries = $sql_queries;
     }
 
+    /**
+     * @param $message_counter
+     */
     public function setMsgCounter($message_counter)
     {
         $this->message_counter = $message_counter;
     }
 
+    /**
+     * @param $soap_response
+     */
     public function setSoapResponse($soap_response)
     {
         $this->soap_response = $soap_response;
     }
 
-    public function countMessagesinDB(){
+    /**
+     * @return mixed
+     */
+    public function countMessagesinDB()
+    {
 
         $sql_query_get_all_messages = $this->sql_queries->getMessages();
 
@@ -63,6 +83,9 @@ class DownloadMessagesToDatabase
         return $number_of_rows;
     }
 
+    /**
+     * @return bool
+     */
     public function prepareMessagesToStore()
     {
             $messages_final_result = [];
@@ -133,31 +156,27 @@ class DownloadMessagesToDatabase
         $this->database_wrapper->safeQuery($sql_set_auto_increment);
     }
 
-    public function performMainOperation(){
+    /**
+     * @return string
+     */
+    public function performMainOperation()
+    {
 
-        if ($this->countMessagesinDB() == 0 || $this->countMessagesinDB() < $this->message_counter)
-        {
+        if ($this->countMessagesinDB() == 0 || $this->countMessagesinDB() < $this->message_counter) {
             $this->prepareDatabase();
 
             $this->prepareMessagesToStore();
 
-            if ($this->prepareMessagesToStore() == true)
-            {
+            if ($this->prepareMessagesToStore() == true) {
                 $this->addPreparedMessages();
 
                 $result = 'Messages are not in DB. Adding now...';
-            }
-            else
-            {
+            } else {
                 $result = 'Error with prepareMessagesToStore()';
             }
-        }
-        else if ($this->countMessagesinDB() == $this->message_counter)
-        {
+        } elseif ($this->countMessagesinDB() == $this->message_counter) {
             $result = 'Messages have been already added';
-        }
-        else
-        {
+        } else {
             $result = 'Problem with addPreparedMessages' ;
         }
         return $result;

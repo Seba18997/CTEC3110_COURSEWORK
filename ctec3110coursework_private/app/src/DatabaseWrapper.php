@@ -22,12 +22,18 @@ class DatabaseWrapper
     {
     }
 
+    /**
+     * @param $database_connection_settings
+     */
     public function setDatabaseConnectionSettings($database_connection_settings)
     {
         $this->database_connection_settings = $database_connection_settings;
     }
 
 
+    /**
+     * @return string
+     */
     public function makeDatabaseConnection()
     {
         $pdo = false;
@@ -53,6 +59,11 @@ class DatabaseWrapper
         return $pdo_error;
     }
 
+    /**
+     * @param $query_string
+     * @param null $params
+     * @return mixed
+     */
     public function safeQuery($query_string, $params = null)
     {
         $this->errors['db_error'] = false;
@@ -73,24 +84,36 @@ class DatabaseWrapper
         return $this->errors['db_error'];
     }
 
+    /**
+     * @return mixed
+     */
     public function countRows()
     {
         $num_rows = $this->prepared_statement->rowCount();
         return $num_rows;
     }
 
+    /**
+     * @return mixed
+     */
     public function safeFetchRow()
     {
         $record_set = $this->prepared_statement->fetch(\PDO::FETCH_NUM);
         return $record_set;
     }
 
+    /**
+     * @return mixed
+     */
     public function safeFetchArray()
     {
         $arr_row = $this->prepared_statement->fetch(\PDO::FETCH_ASSOC);
         return $arr_row;
     }
 
+    /**
+     * @return mixed
+     */
     public function lastInsertedID()
     {
         $sql_query = 'SELECT LAST_INSERT_ID()';

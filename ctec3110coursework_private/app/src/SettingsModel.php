@@ -10,26 +10,45 @@ class SettingsModel
     private $database_connection_settings;
     private $sql_queries;
 
-    public function __construct(){}
+    public function __construct()
+    {
 
-    public function __destruct(){}
+    }
 
+    public function __destruct()
+    {
+
+    }
+
+    /**
+     * @param $database_wrapper
+     */
     public function setDatabaseWrapper($database_wrapper)
     {
         $this->database_wrapper = $database_wrapper;
     }
 
+    /**
+     * @param $database_connection_settings
+     */
     public function setDatabaseConnectionSettings($database_connection_settings)
     {
         $this->database_connection_settings = $database_connection_settings;
     }
 
+    /**
+     * @param $sql_queries
+     */
     public function setSqlQueries($sql_queries)
     {
         $this->sql_queries = $sql_queries;
     }
 
-    public function makeConnection(){
+    /**
+     *
+     */
+    public function makeConnection()
+    {
 
         $this->database_wrapper->setDatabaseConnectionSettings($this->database_connection_settings);
 
@@ -37,6 +56,9 @@ class SettingsModel
 
     }
 
+    /**
+     * @return mixed
+     */
     public function getSettingsFromDB()
     {
         $settings = [];
@@ -49,8 +71,7 @@ class SettingsModel
 
         $number_of_data_sets = $this->database_wrapper->countRows();
 
-        if ($number_of_data_sets === 1)
-        {
+        if ($number_of_data_sets === 1) {
             while ($row = $this->database_wrapper->safeFetchArray()) {
                 $settings['app_name'] = $row['app_name'];
                 $settings['wsdl'] = $row['wsdl'];
@@ -66,9 +87,7 @@ class SettingsModel
                 $settings['db_collation'] = $row['db_collation'];
                 $settings['doctrine_driver'] = $row['doctrine_driver'];
             }
-        }
-        else
-        {
+        } else {
             $final_settings[0] = 'Something is wrong';
         }
 
@@ -77,6 +96,9 @@ class SettingsModel
         return $final_settings;
     }
 
+    /**
+     * @param array $final_settings
+     */
     public function updateSettings($final_settings=[]){
 
         $query_string_update = $this->sql_queries->updateSettings();

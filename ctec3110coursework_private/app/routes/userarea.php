@@ -4,7 +4,11 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
 
-$app->post('/userarea',
+$app->post(/**
+ * @param Request $request
+ * @param Response $response
+ * @return Response
+ */ '/userarea',
     function(Request $request, Response $response) use ($app)
     {
         $tainted_parameters = $request->getParsedBody();
@@ -44,9 +48,7 @@ $app->post('/userarea',
                     'sign_out_form' => $sign_out_form_visibility,
                     'back_button_visibility' => 'none',
                 ]);
-        }
-        elseif($user_role == 'user')
-        {
+        } elseif ($user_role == 'user') {
             $this->get('logger')->info("User (".$username.") provided correct credentials during logging in.");
             return $this->view->render($response,
                 'valid_login.html.twig',
@@ -65,9 +67,7 @@ $app->post('/userarea',
                     'sign_out_form' => $sign_out_form_visibility,
                     'back_button_visibility' => 'none',
                 ]);
-        }
-        else
-        {
+        } else {
             $this->get('logger')->info("Admin provided correct credentials during logging in.");
             $response = $response->withredirect(LANDING_PAGE.'/adminarea');
             return $response;
@@ -144,6 +144,14 @@ function compare($app, $db_pass, $typed_pass)
     return $outcome;
 }
 
+/**
+ * @param $app
+ * @param $password
+ * @param $username
+ * @param $sid
+ * @param $role
+ * @return array
+ */
 function doSession($app, $password, $username, $sid, $role)
 {
     $session_wrapper = $app->getContainer()->get('SessionWrapper');
@@ -164,6 +172,10 @@ function doSession($app, $password, $username, $sid, $role)
     return $store_var;
 }
 
+/**
+ * @param $app
+ * @return mixed
+ */
 function ifSetUsername($app){
 
     $session_wrapper = $app->getContainer()->get('SessionWrapper');

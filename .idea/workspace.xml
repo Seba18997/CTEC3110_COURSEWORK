@@ -1,7 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="621bfc93-da64-4047-88d5-6b52da184b3a" name="Default Changelist" comment="" />
+    <list default="true" id="621bfc93-da64-4047-88d5-6b52da184b3a" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctec3110coursework_private/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ctec3110coursework_private/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctec3110coursework_private/app/routes/adminarea.php" beforeDir="false" afterPath="$PROJECT_DIR$/ctec3110coursework_private/app/routes/adminarea.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctec3110coursework_private/app/routes/authenticate.php" beforeDir="false" afterPath="$PROJECT_DIR$/ctec3110coursework_private/app/routes/authenticate.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctec3110coursework_private/app/routes/changesettings.php" beforeDir="false" afterPath="$PROJECT_DIR$/ctec3110coursework_private/app/routes/changesettings.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctec3110coursework_private/app/routes/displaycircutboardstate.php" beforeDir="false" afterPath="$PROJECT_DIR$/ctec3110coursework_private/app/routes/displaycircutboardstate.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctec3110coursework_private/app/routes/displaymessages.php" beforeDir="false" afterPath="$PROJECT_DIR$/ctec3110coursework_private/app/routes/displaymessages.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctec3110coursework_private/app/routes/homepage.php" beforeDir="false" afterPath="$PROJECT_DIR$/ctec3110coursework_private/app/routes/homepage.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctec3110coursework_private/app/routes/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/ctec3110coursework_private/app/routes/login.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctec3110coursework_private/app/routes/logout.php" beforeDir="false" afterPath="$PROJECT_DIR$/ctec3110coursework_private/app/routes/logout.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctec3110coursework_private/app/routes/logs.php" beforeDir="false" afterPath="$PROJECT_DIR$/ctec3110coursework_private/app/routes/logs.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctec3110coursework_private/app/routes/manageusers.php" beforeDir="false" afterPath="$PROJECT_DIR$/ctec3110coursework_private/app/routes/manageusers.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctec3110coursework_private/app/routes/register.php" beforeDir="false" afterPath="$PROJECT_DIR$/ctec3110coursework_private/app/routes/register.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctec3110coursework_private/app/routes/registeruser.php" beforeDir="false" afterPath="$PROJECT_DIR$/ctec3110coursework_private/app/routes/registeruser.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctec3110coursework_private/app/routes/updatesettings.php" beforeDir="false" afterPath="$PROJECT_DIR$/ctec3110coursework_private/app/routes/updatesettings.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctec3110coursework_private/app/routes/updateuser.php" beforeDir="false" afterPath="$PROJECT_DIR$/ctec3110coursework_private/app/routes/updateuser.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctec3110coursework_private/app/routes/updateuserverification.php" beforeDir="false" afterPath="$PROJECT_DIR$/ctec3110coursework_private/app/routes/updateuserverification.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctec3110coursework_private/app/routes/userarea.php" beforeDir="false" afterPath="$PROJECT_DIR$/ctec3110coursework_private/app/routes/userarea.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctec3110coursework_private/app/src/Authentication.php" beforeDir="false" afterPath="$PROJECT_DIR$/ctec3110coursework_private/app/src/Authentication.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctec3110coursework_private/app/src/BcryptWrapper.php" beforeDir="false" afterPath="$PROJECT_DIR$/ctec3110coursework_private/app/src/BcryptWrapper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctec3110coursework_private/app/src/DatabaseWrapper.php" beforeDir="false" afterPath="$PROJECT_DIR$/ctec3110coursework_private/app/src/DatabaseWrapper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctec3110coursework_private/app/src/DoctrineSqlQueries.php" beforeDir="false" afterPath="$PROJECT_DIR$/ctec3110coursework_private/app/src/DoctrineSqlQueries.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctec3110coursework_private/app/src/DownloadMessagesToDatabase.php" beforeDir="false" afterPath="$PROJECT_DIR$/ctec3110coursework_private/app/src/DownloadMessagesToDatabase.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctec3110coursework_private/app/src/Helper.php" beforeDir="false" afterPath="$PROJECT_DIR$/ctec3110coursework_private/app/src/Helper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctec3110coursework_private/app/src/Logger.php" beforeDir="false" afterPath="$PROJECT_DIR$/ctec3110coursework_private/app/src/Logger.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctec3110coursework_private/app/src/MessagesModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/ctec3110coursework_private/app/src/MessagesModel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctec3110coursework_private/app/src/SQLQueries.php" beforeDir="false" afterPath="$PROJECT_DIR$/ctec3110coursework_private/app/src/SQLQueries.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctec3110coursework_private/app/src/SessionModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/ctec3110coursework_private/app/src/SessionModel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctec3110coursework_private/app/src/SessionWrapper.php" beforeDir="false" afterPath="$PROJECT_DIR$/ctec3110coursework_private/app/src/SessionWrapper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctec3110coursework_private/app/src/SettingsModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/ctec3110coursework_private/app/src/SettingsModel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctec3110coursework_private/app/src/SettingsSetup.php" beforeDir="false" afterPath="$PROJECT_DIR$/ctec3110coursework_private/app/src/SettingsSetup.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctec3110coursework_private/app/src/SoapWrapper.php" beforeDir="false" afterPath="$PROJECT_DIR$/ctec3110coursework_private/app/src/SoapWrapper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctec3110coursework_private/app/src/SwitchModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/ctec3110coursework_private/app/src/SwitchModel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctec3110coursework_private/app/src/UsersModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/ctec3110coursework_private/app/src/UsersModel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctec3110coursework_private/app/src/Validator.php" beforeDir="false" afterPath="$PROJECT_DIR$/ctec3110coursework_private/app/src/Validator.php" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,7 +55,7 @@
   <component name="ProjectId" id="1WaA0GHoXAyBmMttki5JqQunZyZ" />
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/ctec3110coursework_private/app/routes" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -50,6 +86,9 @@
       <updated>1579377928041</updated>
       <workItem from="1579377937251" duration="3213000" />
       <workItem from="1579425583565" duration="9243000" />
+      <workItem from="1579456919837" duration="122000" />
+      <workItem from="1579457065094" duration="45000" />
+      <workItem from="1579457155354" duration="1434000" />
     </task>
     <servers />
   </component>

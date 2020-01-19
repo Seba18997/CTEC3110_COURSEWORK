@@ -4,7 +4,11 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
 
-$app->post('/authenticate',
+$app->post(/**
+ * @param Request $request
+ * @param Response $response
+ * @return Response
+ */ '/authenticate',
     function(Request $request, Response $response) use ($app)
     {
         $posted_data = $request->getParsedBody();
@@ -15,8 +19,7 @@ $app->post('/authenticate',
 
         $session_check = sessionCheckAdmin($app);
 
-        if($session_check == false)
-        {
+        if ($session_check == false) {
             $this->get('logger')->info("Admin is not logged in to authenticate.");
             $response = $response->withredirect(LANDING_PAGE);
             return $response;
@@ -26,6 +29,7 @@ $app->post('/authenticate',
             if ($posted_data['action'] == 'settings_changed')
             {
                 $settingsa = cleanupArray($app, $posted_data);
+
                 updateSettings($app, $settingsa);
 
                 $this->get('logger')->info("Admin (".$username.") changed settings successfully.");
@@ -50,11 +54,13 @@ $app->post('/authenticate',
                         'sign_out_form' => $sign_out_form_visibility,
                         'back_button_visibility' => 'block',
                     ]);
+
             }
             else if ($posted_data['action'] == 'users_changed')
             {
                 $user_id = intval($posted_data['id']);
                 $role_changes = changeRole($user_id, $app);
+
 
                 $this->get('logger')->info("Admin (".$username.") changes role of ".$role_changes['user_name']." to ".$role_changes['desired_role']);
                 return $this->view->render($response,

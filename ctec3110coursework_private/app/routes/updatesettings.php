@@ -4,7 +4,11 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
 $app->post(
-    '/updatesettings',
+/**
+ * @param Request $request
+ * @param Response $response
+ * @return Response
+ */ '/updatesettings',
     function(Request $request, Response $response) use ($app)
     {
         $session_check = sessionCheckAdmin($app);
@@ -14,9 +18,7 @@ $app->post(
             $this->get('logger')->info("Admin is not logged in to make any changes in settings.");
             $response = $response->withredirect(LANDING_PAGE);
             return $response;
-        }
-        else
-        {
+        } else {
             $settings = $request->getParsedBody();
             $settingsa = cleanupArray($app, $settings);
 
@@ -49,4 +51,5 @@ $app->post(
                 ]);
         }
     })->setName('updatesettings');
+
 
