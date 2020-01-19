@@ -16,7 +16,7 @@ $app->post('/updateuserverification',
             echo "same pass";
         }
 
-        $isloggedin = ifSetUsername($app)['introduction'];
+        /*$isloggedin = ifSetUsername($app)['introduction'];
         $username = ifSetUsername($app)['username'];
         $sign_out_form_visibility = ifSetUsername($app)['sign_out_form_visibility'];
         $role = ifSetUsername($app)['role'];
@@ -65,11 +65,7 @@ $app->post('/updateuserverification',
              $this->get('logger')->info("Admin provided correct credentials during logging in.");
              $response = $response->withredirect(LANDING_PAGE.'/adminarea');
              return $response;
-         }
+         }*/
 
 
     })->setName('updateuserverification');
-
-
-
-
