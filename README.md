@@ -23,7 +23,7 @@ vulnerabilities
 - [x] Validated HTML 5 (using simple CSS for web-page layout/presentation)
 - [x] MySQL/MariaDb
 - [x] SOAP & WSDL file
-- [ ] Docblock comments
+- [x] Docblock comments
 - [x] Consistent coding style
 - [x] following the PHP-FIG PSR-1 & PSR-12 coding standards guidelines
 - [x] Use of the Subversion Version Control Server
