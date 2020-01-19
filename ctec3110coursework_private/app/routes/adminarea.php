@@ -20,14 +20,11 @@ $app->get(/**
 
         $session_check = sessionCheckAdmin($app);
 
-        if($session_check == false)
-        {
+        if($session_check == false) {
             $this->get('logger')->info("Admin is not logged in");
             $response = $response->withredirect(LANDING_PAGE);
             return $response;
-        }
-        else
-        {
+        } else {
             $this->get('logger')->info("Admin logged in successfully or already logged in.");
             return $this->view->render($response,
                 'admin_area.html.twig',

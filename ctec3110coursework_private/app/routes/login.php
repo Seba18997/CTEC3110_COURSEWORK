@@ -19,7 +19,7 @@ $app->post('/login',
             $this->get('logger')->info("Admin already logged in, login page => admin page.");
             $response = $response->withredirect(LANDING_PAGE . '/adminarea');
             return $response;
-        } elseif($result == true) {
+        } elseif ($result == true) {
             $this->get('logger')->info("User already logged in, login page => home page.");
             return $this->view->render($response,
                 'valid_login.html.twig',
