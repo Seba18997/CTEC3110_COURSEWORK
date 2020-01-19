@@ -9,7 +9,6 @@ require 'routes/registeruser.php';
 require 'routes/logout.php';
 require 'routes/adminarea.php';
 require 'routes/changesettings.php';
-require 'routes/updatesettings.php';
 require 'routes/manageusers.php';
 require 'routes/logs.php';
 require 'routes/updatesettingsverification.php';

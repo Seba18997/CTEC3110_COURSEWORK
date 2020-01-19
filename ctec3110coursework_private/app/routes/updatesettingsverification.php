@@ -21,7 +21,6 @@ $app->post('/updatesettingsverification',
         $sign_out_form_visibility = ifSetUsername($app)['sign_out_form_visibility'];
 
         if($outcome == true ) {
-            $this->get('logger')->info("User provided invalid credentials during logging in.");
             return $this->view->render($response,
                 'settings_changed_success.html.twig',
                 [
@@ -39,7 +38,6 @@ $app->post('/updatesettingsverification',
                     'back_button_visibility' => 'block',
                 ]);
         } else {
-            $this->get('logger')->info("User (" . $username . ") provided correct credentials during logging in.");
             return $this->view->render($response,
                 'settings_changed_failure.html.twig',
                 [
