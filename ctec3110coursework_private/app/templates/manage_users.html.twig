@@ -18,9 +18,8 @@
             {% for user_data in users_data %}
                 <form action="{{ action }}" method={{ method }}>
                 <tr>
-                    <input type="hidden" name="id_web" id="id_web" value="{{ user_data.id }}" />
-                    <input type="hidden" name="id_db" id="id_db" value="{{ user_data.id_web }}" />
-                    <td>{{ user_data.id_web }} (<i>{{ user_data.id }}</i>)</td>
+                    <input type="hidden" name="id" id="id" value="{{ user_data.id }}" />
+                    <td>{{ user_data.id }}</td>
                     <td>{{ user_data.username }}</td>
                     <td>{{ user_data.email }}</td>
                     <td>{{ user_data.role }}</td>
