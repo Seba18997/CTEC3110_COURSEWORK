@@ -4,14 +4,14 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 use Doctrine\DBAL\DriverManager;
 
-$app->post(
 /**
  * @param Request $request
  * @param Response $response
  * @return mixed
- */ '/registeruser',
-    function(Request $request, Response $response) use ($app)
-    {
+ */
+
+$app->post('/registeruser',
+    function (Request $request, Response $response) use ($app) {
         $tainted_parameters = $request->getParsedBody();
         $cleaned_parameters = cleanupParameters($app, $tainted_parameters);
         $hashed_password = hash_password($app, $cleaned_parameters['password']);
@@ -23,9 +23,8 @@ $app->post(
         $username_error = usernameCheck($tainted_parameters['username']);
         $password_error = passwordCheck($tainted_parameters['password']);
 
-        if($username_count == 0 && $username_error == false && $password_error == false)
-        {
-            $this->get('logger')->info("New user successfully registered: " .$cleaned_parameters['sanitised_username']);
+        if ($username_count == 0 && $username_error == false && $password_error == false) {
+            $this->get('logger')->info("New user successfully registered: " . $cleaned_parameters['sanitised_username']);
             storeUserDetails($app, $cleaned_parameters, $hashed_password);
             return $this->view->render($response,
                 'register_user_result.html.twig',
@@ -33,7 +32,7 @@ $app->post(
                     'landing_page' => $_SERVER["SCRIPT_NAME"],
                     'css_path' => CSS_PATH,
                     'page_heading' => APP_NAME,
-                    'page_title' => APP_NAME.' | Successful New User Registration: ' .$cleaned_parameters['sanitised_username'],
+                    'page_title' => APP_NAME . ' | Successful New User Registration: ' . $cleaned_parameters['sanitised_username'],
                     'page_heading_2' => ' / Successful New User Registration',
                     'username' => $tainted_parameters['username'],
                     'password' => $tainted_parameters['password'],
@@ -172,9 +171,9 @@ function usernameCheck($username)
 {
     $error = '';
 
-    if((strlen($username) <= 4) || (strlen($username) >= 15)) {
+    if ((strlen($username) <= 4) || (strlen($username) >= 15)) {
         $error = 'Your username must be at least 4 and maximum 15 characters long.';
-    } elseif (ctype_alnum($username)==false) {
+    } elseif (ctype_alnum($username) == false) {
         $error = 'Your username must contain only letters and digits.';
     }
 
@@ -191,11 +190,11 @@ function passwordCheck($password)
 
     if ((strlen($password)) <= 8) {
         $error = "Your password must contain at least 8 characters.";
-    } elseif (!preg_match("#[0-9]+#",$password)) {
+    } elseif (!preg_match("#[0-9]+#", $password)) {
         $error = "Your password must contain at least 1 number.";
-    } elseif (!preg_match("#[A-Z]+#",$password)) {
+    } elseif (!preg_match("#[A-Z]+#", $password)) {
         $error = "Your password must contain at least 1 capital letter.";
-    } elseif (!preg_match("#[a-z]+#",$password)) {
+    } elseif (!preg_match("#[a-z]+#", $password)) {
         $error = "Your password must contain at least 1 lowercase letter.";
     }
 

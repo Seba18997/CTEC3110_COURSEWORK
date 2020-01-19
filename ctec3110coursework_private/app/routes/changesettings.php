@@ -3,14 +3,14 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-$app->post(
 /**
  * @param Request $request
  * @param Response $response
  * @return Response
- */ '/changesettings',
-    function (Request $request, Response $response) use ($app)
-    {
+ */
+
+$app->post('/changesettings',
+    function (Request $request, Response $response) use ($app) {
 
         $settings = changeSettings($app);
 
@@ -25,7 +25,7 @@ $app->post(
             $response = $response->withredirect(LANDING_PAGE);
             return $response;
         } else {
-            $this->get('logger')->info("Admin (".$username.") successfully entered /changesettings.");
+            $this->get('logger')->info("Admin (" . $username . ") successfully entered /changesettings.");
             return $this->view->render($response,
                 'change_settings.html.twig',
                 [
@@ -34,7 +34,7 @@ $app->post(
                     'initial_input_box_value' => null,
                     'page_heading' => APP_NAME,
                     'page_heading_2' => ' / Change Settings ',
-                    'page_title' => APP_NAME.' | Change Settings',
+                    'page_title' => APP_NAME . ' | Change Settings',
                     'action' => 'authenticate',
                     'action3' => 'logout',
                     'method' => 'post',
@@ -64,6 +64,7 @@ $app->post(
  * @param $app
  * @return mixed
  */
+
 function changeSettings($app)
 {
 

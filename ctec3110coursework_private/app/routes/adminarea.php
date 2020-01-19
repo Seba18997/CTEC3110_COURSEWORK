@@ -3,14 +3,14 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-
-$app->get(/**
+/**
  * @param Request $request
  * @param Response $response
  * @return Response
- */ '/adminarea',
-    function(Request $request, Response $response) use ($app)
-    {
+ */
+
+$app->get('/adminarea',
+    function (Request $request, Response $response) use ($app) {
         $isloggedin = ifSetUsername($app)['introduction'];
         $username = ifSetUsername($app)['username'];
         $role = ifSetUsername($app)['role'];
@@ -23,7 +23,7 @@ $app->get(/**
             $response = $response->withredirect(LANDING_PAGE);
             return $response;
         } else {
-            $this->get('logger')->info("Admin (".$username.") logged in successfully or already logged in.");
+            $this->get('logger')->info("Admin (" . $username . ") logged in successfully or already logged in.");
             return $this->view->render($response,
                 'admin_area.html.twig',
                 [
@@ -37,7 +37,7 @@ $app->get(/**
                     'action4' => 'changesettings',
                     'action5' => 'manageusers',
                     'action6' => 'logs',
-                    'page_title' => APP_NAME.' | Admin Area',
+                    'page_title' => APP_NAME . ' | Admin Area',
                     'is_logged_in' => $isloggedin,
                     'username' => $username,
                     'role' => $role,
@@ -48,11 +48,11 @@ $app->get(/**
 
     })->setName('adminarea');
 
-
 /**
  * @param $app
  * @return bool
  */
+
 function sessionCheckAdmin($app)
 {
     $session_wrapper = $app->getContainer()->get('SessionWrapper');

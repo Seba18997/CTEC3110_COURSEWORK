@@ -3,14 +3,14 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-$app->post(
 /**
  * @param Request $request
  * @param Response $response
  * @return mixed
- */ '/displaymessages',
-    function(Request $request, Response $response) use ($app)
-    {
+ */
+
+$app->post('/displaymessages',
+    function (Request $request, Response $response) use ($app) {
 
         $isloggedin = ifSetUsername($app)['introduction'];
         $username = ifSetUsername($app)['username'];
@@ -19,7 +19,7 @@ $app->post(
         $counter = downloadMessages($app)['counter'];
         $messages_data = retrieveMessages($app)['retrieved_messages'];
 
-        $this->get('logger')->info($username. ": Messages content downloaded from M2M server to database and then presented on a website.");
+        $this->get('logger')->info($username . ": Messages content downloaded from M2M server to database and then presented on a website.");
 
         return $this->view->render($response,
             'display_messages.html.twig',
@@ -31,11 +31,11 @@ $app->post(
                 'is_logged_in' => $isloggedin,
                 'username' => $username,
                 'page_heading_2' => ' / Messages ',
-                'page_title' => APP_NAME.' | Messages ('.$counter.')',
+                'page_title' => APP_NAME . ' | Messages (' . $counter . ')',
                 'action3' => 'logout',
                 'method' => 'post',
                 'messages_data' => $messages_data,
-                'counter' => '('.$counter.')',
+                'counter' => '(' . $counter . ')',
                 'sign_out_form' => $sign_out_form_visibility,
                 'back_button_visibility' => 'block',
             ]);

@@ -3,13 +3,14 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-
-$app->post(/**
+/**
  * @param Request $request
  * @param Response $response
  * @return Response
- */ '/userarea',
-    function(Request $request, Response $response) use ($app)
+ */
+
+$app->post('/userarea',
+    function (Request $request, Response $response) use ($app)
     {
         $tainted_parameters = $request->getParsedBody();
         $tainted_username = $tainted_parameters['user_name'];
@@ -22,7 +23,7 @@ $app->post(/**
         $sid = session_id();
         $user_role = $db_params['role'];
 
-        if($outcome == true) {
+        if ($outcome == true) {
             $result = doSession($app, $db_params['password'], $cleaned_username, $sid, $user_role);
         }
 
@@ -31,8 +32,8 @@ $app->post(/**
         $sign_out_form_visibility = ifSetUsername($app)['sign_out_form_visibility'];
         $role = ifSetUsername($app)['role'];
 
-        if($outcome == false ) {
-            $this->get('logger')->info("User (".$cleaned_username.") provided invalid credentials during logging in.");
+        if ($outcome == false) {
+            $this->get('logger')->info("User (" . $cleaned_username . ") provided invalid credentials during logging in.");
             return $this->view->render($response,
                 'invalid_login.html.twig',
                 [
@@ -41,7 +42,7 @@ $app->post(/**
                     'page_heading' => APP_NAME,
                     'method' => 'post',
                     'action' => 'login',
-                    'page_title' => APP_NAME.' | Invalid Credentials',
+                    'page_title' => APP_NAME . ' | Invalid Credentials',
                     'page_heading_1' => 'Invalid credentials',
                     'is_logged_in' => $isloggedin,
                     'username' => $username,
@@ -49,7 +50,7 @@ $app->post(/**
                     'back_button_visibility' => 'none',
                 ]);
         } elseif ($user_role == 'user') {
-            $this->get('logger')->info("User (".$username.") provided correct credentials during logging in.");
+            $this->get('logger')->info("User (" . $username . ") provided correct credentials during logging in.");
             return $this->view->render($response,
                 'valid_login.html.twig',
                 [
@@ -60,7 +61,7 @@ $app->post(/**
                     'action3' => 'logout',
                     'action' => 'displaycircutboardstate',
                     'action2' => 'displaymessages',
-                    'page_title' => APP_NAME.' | User Area',
+                    'page_title' => APP_NAME . ' | User Area',
                     'is_logged_in' => $isloggedin,
                     'username' => $username,
                     'role' => $role,
@@ -69,7 +70,7 @@ $app->post(/**
                 ]);
         } else {
             $this->get('logger')->info("Admin provided correct credentials during logging in.");
-            $response = $response->withredirect(LANDING_PAGE.'/adminarea');
+            $response = $response->withredirect(LANDING_PAGE . '/adminarea');
             return $response;
         }
 
@@ -127,7 +128,7 @@ function paramsFromDB($app, $username)
 
 function compare($app, $db_pass, $typed_pass)
 {
-    if($db_pass == 'Invalid_credentials') {
+    if ($db_pass == 'Invalid_credentials') {
         $passwordCheck = false;
     } else {
 
@@ -135,7 +136,7 @@ function compare($app, $db_pass, $typed_pass)
         $passwordCheck = $compare->authenticatePassword($typed_pass, $db_pass);
     }
 
-    if($passwordCheck == true) {
+    if ($passwordCheck == true) {
         $outcome = true;
     } else {
         $outcome = false;
@@ -176,14 +177,15 @@ function doSession($app, $password, $username, $sid, $role)
  * @param $app
  * @return mixed
  */
-function ifSetUsername($app){
+function ifSetUsername($app)
+{
 
     $session_wrapper = $app->getContainer()->get('SessionWrapper');
     $username = $session_wrapper->getSessionVar('username');
     $sid = $session_wrapper->getSessionVar('sid');
     $role = $session_wrapper->getSessionVar('role');
 
-    if (!empty($username) || !empty($sid) || !empty($role)){
+    if (!empty($username) || !empty($sid) || !empty($role)) {
         $result['introduction'] = 'You are logged in as ';
         $result['username'] = $username;
         $result['role'] = $role;

@@ -3,13 +3,14 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-$app->post(/**
+/**
  * @param Request $request
  * @param Response $response
  * @return mixed
- */ '/updateuserverification',
-    function(Request $request, Response $response) use ($app)
-    {
+ */
+
+$app->post('/updateuserverification',
+    function (Request $request, Response $response) use ($app) {
         $tainted_params = $request->getParsedBody();
         $outcome = compare($app, $_SESSION['password'], $tainted_params['password']);
 
@@ -17,11 +18,10 @@ $app->post(/**
         $username = ifSetUsername($app)['username'];
         $sign_out_form_visibility = ifSetUsername($app)['sign_out_form_visibility'];
 
-        if ($outcome == true ) {
+        if ($outcome == true) {
 
             $user_id = intval($tainted_params['changes']);
             $role_changes = changeRoleDB($user_id, $app);
-
              $this->get('logger')->info("User provided invalid credentials during logging in.");
              return $this->view->render($response,
                  'user_changed_success.html.twig',
@@ -58,8 +58,6 @@ $app->post(/**
                      'back_button_visibility' => 'block',
                  ]);
          }
-
-
     })->setName('updateuserverification');
 
 /**

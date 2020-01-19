@@ -3,14 +3,14 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-
-$app->post(/**
+/**
  * @param Request $request
  * @param Response $response
  * @return Response
- */ '/authenticate',
-    function(Request $request, Response $response) use ($app)
-    {
+ */
+
+$app->post('/authenticate',
+    function (Request $request, Response $response) use ($app) {
         $posted_data = $request->getParsedBody();
 
         $isloggedin = ifSetUsername($app)['introduction'];
@@ -23,16 +23,13 @@ $app->post(/**
             $this->get('logger')->info("Admin is not logged in to authenticate.");
             $response = $response->withredirect(LANDING_PAGE);
             return $response;
-        }
-        else
-        {
-            if ($posted_data['action'] == 'settings_changed')
-            {
+        } else {
+            if ($posted_data['action'] == 'settings_changed') {
                 $settingsa = cleanupArray($app, $posted_data);
 
                 updateSettings($app, $settingsa);
 
-                $this->get('logger')->info("Admin (".$username.") changed settings successfully.");
+                $this->get('logger')->info("Admin (" . $username . ") changed settings successfully.");
 
                 return $this->view->render($response,
                     'settings_changed.html.twig',
@@ -42,7 +39,7 @@ $app->post(/**
                         'initial_input_box_value' => null,
                         'page_heading' => APP_NAME,
                         'page_heading_2' => ' / Settings Changed ',
-                        'page_title' => APP_NAME.' | Settings Changed',
+                        'page_title' => APP_NAME . ' | Settings Changed',
                         'action4' => 'changesettings',
                         'action3' => 'logout',
                         'action5' => 'updatesettingsverification',
@@ -54,12 +51,11 @@ $app->post(/**
                         'back_button_visibility' => 'block',
                     ]);
 
-            }
-            else if ($posted_data['action'] == 'users_changed')
-            {
+            } else if ($posted_data['action'] == 'users_changed') {
                 $user_id = intval($posted_data['id']);
                 $role_changes = changeRole($user_id, $app);
                 $this->get('logger')->info("Admin (".$username.") changes role of ".$role_changes['user_name']." to ".$role_changes['desired_role']);
+
                 return $this->view->render($response,
                     'user_changed.html.twig',
                     [
@@ -96,16 +92,13 @@ function changeRole($user_id, $app)
     $user_name = $users_data[$theuserid]['username'];
     $resultx = [];
 
-    if ($user_role == 'user')
-    {
+    if ($user_role == 'user') {
         $resultx['user_id'] = $user_id;
         $resultx['user_name'] = $user_name;
         $resultx['actual_role'] = $user_role;
         $resultx['action'] = 'promote';
         $resultx['desired_role'] = 'admin';
-    }
-    else if($user_role == 'admin')
-    {
+    } else if ($user_role == 'admin') {
         $resultx['user_id'] = $user_id;
         $resultx['user_name'] = $user_name;
         $resultx['actual_role'] = $user_role;

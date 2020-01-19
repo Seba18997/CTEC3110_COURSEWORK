@@ -3,14 +3,14 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-$app->post(
 /**
  * @param Request $request
  * @param Response $response
  * @return mixed
- */ '/displaycircutboardstate',
-    function(Request $request, Response $response) use ($app)
-    {
+ */
+
+$app->post('/displaycircutboardstate',
+    function (Request $request, Response $response) use ($app) {
         $isloggedin = ifSetUsername($app)['introduction'];
         $username = ifSetUsername($app)['username'];
         $sign_out_form_visibility = ifSetUsername($app)['sign_out_form_visibility'];
@@ -25,7 +25,7 @@ $app->post(
         $heater = $switch_state_data['heater'];
         $keypad = $switch_state_data['keypad'];
 
-        $this->get('logger')->info($username. ": Switch states downloaded from M2M server to database and then presented on a website.");
+        $this->get('logger')->info($username . ": Switch states downloaded from M2M server to database and then presented on a website.");
 
         return $this->view->render($response,
             'display_board.html.twig',
@@ -36,7 +36,7 @@ $app->post(
                 'page_heading' => APP_NAME,
                 'is_logged_in' => $isloggedin,
                 'username' => $username,
-                'page_title' => APP_NAME.' | Circuit Board',
+                'page_title' => APP_NAME . ' | Circuit Board',
                 'page_heading_2' => ' / Circuit Board',
                 'action3' => 'logout',
                 'method' => 'post',
@@ -60,6 +60,7 @@ $app->post(
  * @param $app
  * @return mixed
  */
+
 function checkIfSwitchStatesChangedandDisplay($app)
 {
 
