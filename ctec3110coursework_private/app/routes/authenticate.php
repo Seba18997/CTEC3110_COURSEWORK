@@ -26,7 +26,7 @@ $app->post('/authenticate',
         } else {
             if ($posted_data['action'] == 'settings_changed') {
                 $settingsa = cleanupArray($app, $posted_data);
-                updateSettings($app, $settingsa);
+                $encoded_array = json_encode($settingsa);
                 $this->get('logger')->info("Admin (" . $username . ") changed settings successfully.");
                 return $this->view->render($response,
                     'settings_changed.html.twig',
@@ -37,6 +37,7 @@ $app->post('/authenticate',
                         'page_heading' => APP_NAME,
                         'page_heading_2' => ' / Settings Changed ',
                         'page_title' => APP_NAME . ' | Settings Changed',
+                        'encoded_array' => $encoded_array,
                         'action4' => 'changesettings',
                         'action3' => 'logout',
                         'action5' => 'updatesettingsverification',
