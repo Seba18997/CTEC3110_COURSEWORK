@@ -19,9 +19,9 @@ $app->post('/updateuserverification',
         $sign_out_form_visibility = ifSetUsername($app)['sign_out_form_visibility'];
 
         $user_id = intval($tainted_params['changes']);
-        $role_changes = changeRoleDB($user_id, $app);
 
         if ($outcome == true) {
+	$role_changes = changeRoleDB($user_id, $app);
              return $this->view->render($response,
                  'user_changed_success.html.twig',
                  [

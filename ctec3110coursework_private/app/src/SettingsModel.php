@@ -65,7 +65,9 @@ class SettingsModel
 
         $query_string_get = $this->sql_queries->getSettings();
 
-        $this->makeConnection();
+        $this->database_wrapper->setDatabaseConnectionSettings($this->database_connection_settings);
+
+        $this->database_wrapper->makeDatabaseConnection();
 
         $this->database_wrapper->safeQuery($query_string_get);
 

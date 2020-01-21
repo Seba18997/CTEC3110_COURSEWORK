@@ -122,9 +122,7 @@ class SQLQueries
      */
     public function getSettings()
     {
-        $query_string =  'SELECT app_name, wsdl, wsdl_username, wsdl_password, wsdl_messagecounter, db_host, db_name, db_port, db_user, db_userpassword, db_charset, db_collation, doctrine_driver ';
-        $query_string .= 'FROM settings ';
-        $query_string .= 'WHERE id=1; ';
+        $query_string =  'SELECT app_name, wsdl, wsdl_username, wsdl_password, wsdl_messagecounter, db_host, db_name, db_port, db_user, db_userpassword, db_charset, db_collation, doctrine_driver FROM settings WHERE id=1; ';
         return $query_string;
     }
 
