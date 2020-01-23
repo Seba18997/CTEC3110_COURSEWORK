@@ -2,6 +2,8 @@
 
 namespace M2MAPP;
 
+use http\Params;
+
 class Helper
 {
     public function __construct()
@@ -77,6 +79,15 @@ class Helper
         $final_message['keypad']  = $this->getTheValue($message_content, 'keypad:',  ';');
         $final_message['groupid'] = $this->getTheValue($message_content, 'id:',      ';');
         return $final_message;
+    }
+
+    public function matchString($string1, $string2){
+        if ($string1 == $string2){
+            $result = true;
+        } else {
+            $result = false;
+        }
+        return $result;
     }
 
  }

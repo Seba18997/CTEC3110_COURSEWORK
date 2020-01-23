@@ -93,7 +93,18 @@ class SwitchModel
                 ':heater'  => $final_state['heater'],
                 ':keypad'  => $final_state['keypad']);
 
-        if ($final_state['groupid'] == '19-3110-AZ' && !empty($final_state)){
+        $helper = new Helper;
+
+        if ($final_state['groupid'] == '19-3110-AZ' && !empty($final_state)
+            && ($helper->matchString($final_state['switch1'], 'on') == true || $helper->matchString($final_state['switch1'], 'off') == true
+                || $helper->matchString($final_state['switch1'], '0') == true || $helper->matchString($final_state['switch1'], '1') == true)
+            && ($helper->matchString($final_state['switch2'], 'on') == true || $helper->matchString($final_state['switch2'], 'off') == true
+                || $helper->matchString($final_state['switch2'], '0') == true || $helper->matchString($final_state['switch2'], '1') == true)
+            && ($helper->matchString($final_state['switch3'], 'on') == true || $helper->matchString($final_state['switch3'], 'off') == true
+                || $helper->matchString($final_state['switch3'], '0') == true || $helper->matchString($final_state['switch3'], '1') == true)
+            && ($helper->matchString($final_state['switch4'], 'on') == true || $helper->matchString($final_state['switch4'], 'off') == true
+                || $helper->matchString($final_state['switch4'], '0') == true || $helper->matchString($final_state['switch4'], '1') == true)
+            ){
 
             $this->database_wrapper->safeQuery($query_string, $query_parameters);
 
