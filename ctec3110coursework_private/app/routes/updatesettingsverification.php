@@ -21,6 +21,9 @@ $app->post('/updatesettingsverification',
         $sign_out_form_visibility = ifSetUsername($app)['sign_out_form_visibility'];
 
         if($outcome == true ) {
+            $encoded_array_post = $tainted_params['encoded_array'];
+            $decoded_array = json_decode($encoded_array_post, true);
+            updateSettings($app, $decoded_array);
             return $this->view->render($response,
                 'settings_changed_success.html.twig',
                 [

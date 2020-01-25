@@ -15,7 +15,8 @@ $app->post('/displaycircutboardstate',
         $username = ifSetUsername($app)['username'];
         $sign_out_form_visibility = ifSetUsername($app)['sign_out_form_visibility'];
 
-	downloadMessages($app);
+	    downloadMessages($app);
+
         $switch_state_data = checkIfSwitchStatesChangedandDisplay($app)['get'];
 
         $switch1 = $switch_state_data['switch1'];
