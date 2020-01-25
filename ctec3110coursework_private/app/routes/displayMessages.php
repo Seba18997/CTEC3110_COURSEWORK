@@ -3,23 +3,24 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
+$app->post(
+
 /**
  * @param Request $request
  * @param Response $response
  * @return mixed
  */
 
-$app->post('/displaymessages',
-    function (Request $request, Response $response) use ($app) {
+    '/displaymessages',
+    function(Request $request, Response $response) use ($app)
+    {
 
         $isloggedin = ifSetUsername($app)['introduction'];
         $username = ifSetUsername($app)['username'];
         $sign_out_form_visibility = ifSetUsername($app)['sign_out_form_visibility'];
-
-        $counter = downloadMessages($app)['counter'];
         $messages_data = retrieveMessages($app)['retrieved_messages'];
 
-        $this->get('logger')->info($username . ": Messages content downloaded from M2M server to database and then presented on a website.");
+        $counter = downloadMessages($app)['counter'];
 
         return $this->view->render($response,
             'display_messages.html.twig',
@@ -31,11 +32,11 @@ $app->post('/displaymessages',
                 'is_logged_in' => $isloggedin,
                 'username' => $username,
                 'page_heading_2' => ' / Messages ',
-                'page_title' => APP_NAME . ' | Messages (' . $counter . ')',
+                'page_title' => APP_NAME.' | Messages ('.$counter.')',
                 'action3' => 'logout',
                 'method' => 'post',
                 'messages_data' => $messages_data,
-                'counter' => '(' . $counter . ')',
+                'counter' => '('.$counter.')',
                 'sign_out_form' => $sign_out_form_visibility,
                 'back_button_visibility' => 'block',
             ]);
@@ -43,37 +44,18 @@ $app->post('/displaymessages',
     })->setName('displaymessages');
 
 
-/**
- * @param $app
- * @return mixed
- */
-function setDBWrapper($app)
-{
+function setDBWrapper($app){
     return $app->getContainer()->get('DatabaseWrapper');
 }
 
-/**
- * @param $app
- * @return mixed
- */
-function setQueries($app)
-{
+function setQueries($app){
     return $app->getContainer()->get('SQLQueries');
 }
 
-/**
- * @param $app
- * @return mixed
- */
-function setSettingsFile($app)
-{
+function setSettingsFile($app){
     return $app->getContainer()->get('settings');
 }
 
-/**
- * @param $app
- * @return mixed
- */
 function downloadMessages($app)
 {
     $downloaded_messages_model = $app->getContainer()->get('DownloadMessagesToDatabase');
@@ -95,12 +77,17 @@ function downloadMessages($app)
     return $final_download_messages;
 }
 
+
 /**
  * @param $app
+ * @param $database_wrapper
  * @return mixed
  */
+
+
 function retrieveMessages($app)
 {
+
     $messages_model = $app->getContainer()->get('DisplayMessages');
 
     $messages_model->setSqlQueries(setQueries($app));

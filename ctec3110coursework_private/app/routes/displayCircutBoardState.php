@@ -3,19 +3,18 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
+$app->post(
 /**
  * @param Request $request
  * @param Response $response
  * @return mixed
  */
-
-$app->post('/displaycircutboardstate',
-    function (Request $request, Response $response) use ($app) {
+    '/displaycircutboardstate',
+    function(Request $request, Response $response) use ($app)
+    {
         $isloggedin = ifSetUsername($app)['introduction'];
         $username = ifSetUsername($app)['username'];
         $sign_out_form_visibility = ifSetUsername($app)['sign_out_form_visibility'];
-
-	    downloadMessages($app);
 
         $switch_state_data = checkIfSwitchStatesChangedandDisplay($app)['get'];
 
@@ -27,8 +26,6 @@ $app->post('/displaycircutboardstate',
         $heater = $switch_state_data['heater'];
         $keypad = $switch_state_data['keypad'];
 
-        $this->get('logger')->info($username . ": Switch states downloaded from M2M server to database and then presented on a website.");
-
         return $this->view->render($response,
             'display_board.html.twig',
             [
@@ -38,7 +35,7 @@ $app->post('/displaycircutboardstate',
                 'page_heading' => APP_NAME,
                 'is_logged_in' => $isloggedin,
                 'username' => $username,
-                'page_title' => APP_NAME . ' | Circuit Board',
+                'page_title' => APP_NAME.' | Circuit Board',
                 'page_heading_2' => ' / Circuit Board',
                 'action3' => 'logout',
                 'method' => 'post',
@@ -57,11 +54,6 @@ $app->post('/displaycircutboardstate',
 
     })->setName('displaycircuitboard');
 
-
-/**
- * @param $app
- * @return mixed
- */
 
 function checkIfSwitchStatesChangedandDisplay($app)
 {
@@ -84,11 +76,15 @@ function checkIfSwitchStatesChangedandDisplay($app)
     $switch_states_model->setDatabaseWrapper($database_wrapper);
 
     $newest_message = $messages_model->getNewestMessageFromDB();
+
     $decoded_message = $helper->decodeMessage($newest_message);
 
     $final_states['newest'] = $newest_message;
+
     $final_states['decoded'] = $decoded_message;
+
     $final_states['update'] = $switch_states_model->updateSwitchStates($decoded_message);
+
     $final_states['get'] = $switch_states_model->getSwitchState()['retrieved_switch_states'];
 
     return $final_states;

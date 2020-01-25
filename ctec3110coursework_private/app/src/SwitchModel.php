@@ -9,6 +9,7 @@ class SwitchModel
     private $database_wrapper;
     private $database_connection_settings;
     private $sql_queries;
+    private $helper;
 
     public function __construct()
     {
@@ -18,6 +19,11 @@ class SwitchModel
     public function __destruct()
     {
 
+    }
+
+    public function setHelper($helper)
+    {
+        $this->helper = $helper;
     }
 
     public function setDatabaseWrapper($database_wrapper)
@@ -94,18 +100,20 @@ class SwitchModel
                 ':keypad'  => $final_state['keypad']);
 
         $helper = new Helper;
-
         if ($final_state['groupid'] == '19-3110-AZ' && !empty($final_state)
             && ($helper->matchString($final_state['switch1'], 'on') == true || $helper->matchString($final_state['switch1'], 'off') == true
-                || $helper->matchString($final_state['switch1'], '0') == true || $helper->matchString($final_state['switch1'], '1') == true)
+                || $helper->matchString($final_state['switch1'], '0') == true || $helper->matchString($final_state['switch1'], '1') == true || empty($final_state['switch1']))
             && ($helper->matchString($final_state['switch2'], 'on') == true || $helper->matchString($final_state['switch2'], 'off') == true
-                || $helper->matchString($final_state['switch2'], '0') == true || $helper->matchString($final_state['switch2'], '1') == true)
+                || $helper->matchString($final_state['switch2'], '0') == true || $helper->matchString($final_state['switch2'], '1') == true || empty($final_state['switch2']))
             && ($helper->matchString($final_state['switch3'], 'on') == true || $helper->matchString($final_state['switch3'], 'off') == true
-                || $helper->matchString($final_state['switch3'], '0') == true || $helper->matchString($final_state['switch3'], '1') == true)
+                || $helper->matchString($final_state['switch3'], '0') == true || $helper->matchString($final_state['switch3'], '1') == true || empty($final_state['switch3']))
             && ($helper->matchString($final_state['switch4'], 'on') == true || $helper->matchString($final_state['switch4'], 'off') == true
-                || $helper->matchString($final_state['switch4'], '0') == true || $helper->matchString($final_state['switch4'], '1') == true)
-            ){
-
+                || $helper->matchString($final_state['switch4'], '0') == true || $helper->matchString($final_state['switch4'], '1') == true || empty($final_state['switch4']))
+            && ($helper->matchString($final_state['fan'], 'forward') == true || $helper->matchString($final_state['fan'], 'reverse') == true
+                || $helper->matchString($final_state['fan'], 'backward') == true || empty($final_state['fan']))
+            && ((ctype_digit($final_state['heater'])) == true  || empty($final_state['heater']))
+            && ((ctype_digit($final_state['keypad'])) == true  || empty($final_state['keypad']))
+        ){
             $this->database_wrapper->safeQuery($query_string, $query_parameters);
 
             $final = 'Switch states changed';
